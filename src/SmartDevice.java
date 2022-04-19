@@ -1,25 +1,14 @@
- 
-
-/*********************************************************************************/
-/** DISCLAIMER: Este código foi criado e alterado durante as aulas práticas      */
-/** de POO. Representa uma solução em construção, com base na matéria leccionada */ 
-/** até ao momento da sua elaboração, e resulta da discussão e experimentação    */
-/** durante as aulas. Como tal, não deverá ser visto como uma solução canónica,  */
-/** ou mesmo acabada. É disponibilizado para auxiliar o processo de estudo.      */
-/** Os alunos são encorajados a testar adequadamente o código fornecido e a      */
-/** procurar soluções alternativas, à medida que forem adquirindo mais           */
-/** conhecimentos de POO.                                                        */
-/*********************************************************************************/
-
 
 /**
  * A classe SmartDevice é um contactor simples.
- * Permite ligar ou desligar circuitos.
+ * Permite ligar ou desligar circuitos e identificar um SmartDevice pelo seu id.
  */
 public class SmartDevice {
 
+
+
     private String id; // código identificador do SmartDevice
-    private boolean on; // identificador se se encontra desligado ou ligado
+    private boolean mode; // identificador se o device se encontra desligado(false) ou ligado(true)
     /* Para quando precisarmos de verificar o consumo energético de um smartDevice
         public void turnOn(){
         this.mode=true;
@@ -39,27 +28,27 @@ public class SmartDevice {
      */
     public SmartDevice() {
         this.id = "";
-        this.on = false;
+        this.mode = false;
     }
     public SmartDevice(String s){
         this.id = s;
-        this.on = false;
+        this.mode = false;
     }
 
     public SmartDevice(String s, boolean estado) {
         this.id = s;
-        this.on = estado;
+        this.mode = estado;
     }
 
     public SmartDevice(SmartDevice o) {
         this.id = o.getID();
-        this.on = o.getOn();
+        this.mode = o.getMode();
     }
 
 
-    public boolean getOn() {return this.on;}
+    public boolean getMode() {return this.mode;}
     
-    public void setOn(boolean b) { this.on = b;}
+    public void setMode(boolean b) { this.mode = b;}
     
     public String getID() {return this.id;}
 
@@ -70,7 +59,7 @@ public class SmartDevice {
         if(this == o) return true;
         if(o==null || this.getClass() != o.getClass()) return false;
         SmartDevice sd = (SmartDevice) o;
-        return(this.id.equals(sd.getID()) && this.on == sd.getOn());
+        return(this.id.equals(sd.getID()) && this.mode == sd.getMode());
     }
 
     @Override
@@ -78,8 +67,8 @@ public class SmartDevice {
         StringBuilder sb = new StringBuilder();
         sb.append("SmartDeviceId: ")
                 .append(this.id)
-                .append(" | On/Off: ")
-                .append(this.on)
+                .append(" | On: ")
+                .append(this.mode)
                 .append(" ] \n");
         return sb.toString();
     }
@@ -88,11 +77,11 @@ public class SmartDevice {
     }
 
     public void turnOn() {
-        this.on = true;
+        this.mode = true;
     }
 
     public void turnOff() {
-        this.on = false;
+        this.mode = false;
     }
 
 

@@ -37,14 +37,15 @@ public class SmartSpeaker extends SmartDevice {
         this.channel = "";
         this.marca = "";
     }
-    /*
+
     public SmartSpeaker(String canal) {
         // initialise instance variables
-        super();
+        super(canal);
         this.volume = 0;
-        this.channel = canal;
+        this.channel = "";
+        this.marca = "";
     }
-    */
+
 
 
     public SmartSpeaker(String cod, String channel, int i, String marca) {

@@ -38,21 +38,22 @@ public class SmartBulb extends SmartDevice {
     }
 
     public SmartBulb(String id, int tone, double dimensao) {
-        // initialise instance variables
+
         super(id);
         this.tone = tone;
         this.dimensao = dimensao;
     }
-    /*
+
     public SmartBulb(String id) {
-        // initialise instance variables
+
         super(id);
         this.tone = NEUTRAL;
+        this.dimensao = 0.0;
 
     }
-    */
+
     public SmartBulb(SmartBulb b) {
-        // initialise instance variables
+
         super(b);
         this.tone = b.getTone();
         this.dimensao = b.getDimensao();

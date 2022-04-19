@@ -8,7 +8,7 @@ import java.util.HashMap;
  * espaços (as salas) que existem na casa.
  */
 public class CasaInteligente {
-   
+
     private String morada;
     private Map<String, SmartDevice> devices; // String: identificador do SmartDevice
     private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
@@ -24,8 +24,8 @@ public class CasaInteligente {
     }
 
     /*
-    * Construtor Parametrizavel
-    * */
+     * Construtor Parametrizavel
+     * */
 
     public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations) {
         // initialise instance variables
@@ -38,8 +38,8 @@ public class CasaInteligente {
     }
 
     /*
-    * Construtor de cópia
-    * */
+     * Construtor de cópia
+     * */
     public CasaInteligente(CasaInteligente ci){
         this.morada = ci.getMorada();
         this.locations = ci.getLocations();
@@ -47,8 +47,8 @@ public class CasaInteligente {
     }
 
     /*
-    * Construtor adicional
-    * */
+     * Construtor adicional
+     * */
     public CasaInteligente(String s){
         this.morada = s;
         this.locations = new HashMap<>();
@@ -102,82 +102,97 @@ public class CasaInteligente {
 
 
     /*
-    * Método para ligar um certo dispositivo
-    * s- Identificador do SmartDevice
-    * */
+     * Método para ligar um certo dispositivo
+     * s- Identificador do SmartDevice
+     * */
     public void setDeviceOn(String s) {
         this.devices.get(s).turnOn();
     }
 
+
+
     /*
-    * Método para adicionar um novo SmartDevice
-    * */
+     * Método para adicionar um novo SmartDevice
+     * */
     public void addDevice(SmartDevice s) {
         this.devices.put(s.getID(),s.clone());
     }
 
     /*
-    * Método que verifica se um determinado smart device existe
-    *id- Identificador do SmartDevice
-    */
+     * Método que verifica se um determinado smart device existe
+     *id- Identificador do SmartDevice
+     */
     public boolean existsDevice(String id) {return this.devices.containsKey(id);}
 
 
     /*
-    * Método para obter um determinado SmartDevice
-    * Retorna null caso o SmartDevice nao esteja contido na Hash
-    * */
+     * Método para obter um determinado SmartDevice
+     * Retorna null caso o SmartDevice nao esteja contido na Hash
+     * */
     public SmartDevice getDevice(String s) {
         if(!this.devices.containsKey(s)) return null;
         else return this.devices.get(s).clone();
     }
     /*
-    * Método para ligar um certo SmartDevice
-    */
+     * Método para ligar um certo SmartDevice
+     */
     public void setOn(String s) {
         this.devices.get(s).turnOn();
     }
 
     /*
-    *Método que liga todos os SmartDevices
-    */
+     *Método que liga todos os SmartDevices
+     */
     public void setAllOn() {
         for(SmartDevice sd : this.devices.values()){
             sd.turnOn();
         }
     }
 
+
+    public void setMode(String s, boolean mode){
+        this.devices.get(s).setMode(mode);
+    }
+
+    public void setAllMode(boolean mode) {
+        for(SmartDevice sm : this.devices.values()){
+            sm.setMode(mode);
+        }
+    }
+
     /*
-    * Método para acrescentar uma divisao nova a CasaInteligente
+     * Método para acrescentar uma divisao nova a CasaInteligente
      */
-    public void addRoom(String s) {
+    public void addRoom(String room) {
         List<String> list = new ArrayList<>();
-        this.locations.put(s,list);
+        this.locations.put(room,list);
     }
 
     /*
-    * Método para verificar se uma determinada divisao existe
-    * s- Identificador da divisao
-    * */
-    public boolean hasRoom(String s) {
-        return this.locations.containsKey(s);
+     * Método para verificar se uma determinada divisao existe
+     * room- Identificador da divisao
+     * */
+    public boolean existRoom(String room) {
+        return this.locations.containsKey(room);
     }
 
     /*
-    * Método que permite adicionar um SmartDevice a uma divisao
-    * s1- Identificador da divisao
-    * s2- Identificador do SmartDevice
-    * Colocamos na lista de SmartDevices da divisao o smartDevice dado
-    * */
-    public void addToRoom (String s1, String s2) {
-        this.locations.get(s1).add(s2);
+     * Método que permite adicionar um SmartDevice a uma divisao
+     * Colocamos na lista de SmartDevices da divisao o smartDevice dado
+     * */
+    public void addToRoom (String room, String SmartDevice) {
+        if(!existRoom(room)){
+            addRoom(room);
+        }
+        this.locations.get(room).add(SmartDevice);
+        //addDevice(.clone());
     }
 
     /*
-    * Método que verifica se um determinado device encontra-se naquela divisao
-    * */
-    public boolean roomHasDevice (String s1, String s2) {
-        return this.locations.get(s1).contains(s2);
+     * Método que verifica se um determinado device encontra-se naquela divisao
+     * */
+    public boolean roomHasDevice (String room, String SmartDevice) {
+        return this.locations.get(room).contains(SmartDevice);
     }
 
 
