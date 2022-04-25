@@ -9,6 +9,9 @@ public class CasaInteligente {
     private String morada;
     private Map<String, SmartDevice> devices; // String: identificador do SmartDevice
     private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
+    private String proprietario;
+    private int nif;
+    private Fornecedor nome;
     //private List<String> rooms; // lista com todas as divisões da casa
     /**
      * Constructor vazio
@@ -18,13 +21,15 @@ public class CasaInteligente {
         this.morada = "";
         this.devices = new HashMap();
         this.locations = new HashMap();
+        this.proprietario = "";
+        this.nif = 0;
     }
 
     /*
      * Construtor Parametrizavel
      * */
 
-    public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations) {
+    public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, String proprietario, int nif, Fornecedor nome) {
         // initialise instance variables
         this.morada = morada;
         this.devices = new HashMap();
@@ -32,6 +37,10 @@ public class CasaInteligente {
             this.devices.put(sd.getID(), sd.clone());
         }
         this.locations = mylocations;
+        this.proprietario = proprietario;
+        this.nif = nif;
+        this.nome = nome;
+
     }
 
     /*
@@ -41,6 +50,8 @@ public class CasaInteligente {
         this.morada = ci.getMorada();
         this.locations = ci.getLocations();
         this.devices = ci.getDevices();
+        this.proprietario = ci.getProprietario();
+        this.nif = ci.getNif();
     }
 
     /*
@@ -50,6 +61,8 @@ public class CasaInteligente {
         this.morada = s;
         this.locations = new HashMap<>();
         this.devices = new HashMap<>();
+        this.proprietario = "";
+        this.nif = 0;
     }
 
 
@@ -130,6 +143,24 @@ public class CasaInteligente {
         if(!this.devices.containsKey(s)) return null;
         else return this.devices.get(s).clone();
     }
+
+    public String getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(String proprietario) {
+        this.proprietario = proprietario;
+    }
+
+
+    public int getNif() {
+        return nif;
+    }
+
+    public void setNif(int nif) {
+        this.nif = nif;
+    }
+
     /*
      * Método para ligar um certo SmartDevice
      */
@@ -199,7 +230,7 @@ public class CasaInteligente {
     public double getConsumoRoom(String room){
         double res=0;
         for(String s: this.locations.get(room)){
-            if (this.devices.get(s).getMode()==Modo.ON) {
+            if (this.devices.get(s).getMode() == Modo.ON) {
                 res += this.devices.get(s).consumoDispositivo();
             }
         }
@@ -220,5 +251,7 @@ public class CasaInteligente {
         }
         return res;
     }
+
+
 
 }
