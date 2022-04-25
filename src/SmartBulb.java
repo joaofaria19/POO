@@ -20,11 +20,11 @@
  * @version (a version number or a date)
  */
 public class SmartBulb extends SmartDevice {
-    public static final int WARM = 2;
-    public static final int NEUTRAL = 1;
-    public static final int COLD = 0;
+    public static final double WARM = 2.5;
+    public static final double NEUTRAL = 1.5;
+    public static final double COLD = 1;
     
-    private int tone;
+    private double tone;
     private double dimensao;
 
     /**
@@ -37,7 +37,7 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = 0.0;
     }
 
-    public SmartBulb(String id, int tone, double dimensao) {
+    public SmartBulb(String id, double tone, double dimensao) {
 
         super(id);
         this.tone = tone;
@@ -59,13 +59,13 @@ public class SmartBulb extends SmartDevice {
         this.dimensao = b.getDimensao();
     }
 
-    public void setTone(int t) {
+    public void setTone(double t) {
         if (t>WARM) this.tone = WARM;
         else if (t<COLD) this.tone = COLD;
         else this.tone = t;
     }
 
-    public int getTone() {
+    public double getTone() {
         return this.tone;
     }
 
@@ -97,8 +97,12 @@ public class SmartBulb extends SmartDevice {
         return sb.toString();
     }
 
-    public SmartBulb clone(){
+    public SmartDevice clone(){
         return new SmartBulb(this);
+    }
+
+    public double consumoDispositivo() {
+        return (2.4)*this.tone;
     }
 }
 

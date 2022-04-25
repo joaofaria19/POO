@@ -63,8 +63,13 @@ public class SmartCamera extends SmartDevice{
         return sb.toString();
     }
 
-    public SmartCamera clone(){
+    public SmartDevice clone(){
         return new SmartCamera(this);
+    }
+
+    @Override
+    public double consumoDispositivo() {
+        return this.resolution * this.fileSize;
     }
 
 

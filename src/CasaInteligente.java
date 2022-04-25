@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.List;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * A CasaInteligente faz a gestão dos SmartDevices que existem e dos 
@@ -12,7 +9,7 @@ public class CasaInteligente {
     private String morada;
     private Map<String, SmartDevice> devices; // String: identificador do SmartDevice
     private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
-
+    //private List<String> rooms; // lista com todas as divisões da casa
     /**
      * Constructor vazio
      */
@@ -150,11 +147,11 @@ public class CasaInteligente {
     }
 
 
-    public void setMode(String s, boolean mode){
+    public void setMode(String s, Modo mode){
         this.devices.get(s).setMode(mode);
     }
 
-    public void setAllMode(boolean mode) {
+    public void setAllMode(Modo mode) {
         for(SmartDevice sm : this.devices.values()){
             sm.setMode(mode);
         }
@@ -195,6 +192,33 @@ public class CasaInteligente {
         return this.locations.get(room).contains(SmartDevice);
     }
 
-
+    /*
+     * Método para obter o consumo total de uma divisão
+     *
+     * ATENÇAO => Perguntar se o encapsulamento é violado neste caso*/
+    public double getConsumoRoom(String room){
+        double res=0;
+        for(String s: this.locations.get(room)){
+            if (this.devices.get(s).getMode()==Modo.ON) {
+                res += this.devices.get(s).consumoDispositivo();
+            }
+        }
+        return res;
+    }
+    /*
+    * Método para obter o consumo total de uma casa
+    * */
+    public double getConsumo(){
+        double res = 0.0;
+        CasaInteligente casa = new CasaInteligente();
+        Set<String> rooms;
+        rooms = casa.getLocations().keySet();
+        Iterator<String> it = rooms.iterator();
+        while(it.hasNext()){
+            String r = it.next();
+            res+= casa.getConsumoRoom(r);
+        }
+        return res;
+    }
 
 }

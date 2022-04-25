@@ -25,7 +25,8 @@ public class CasaInteligenteTest {
     {
     }
 
-    /**
+    /*
+     *
      * Tears down the test fixture.
      *
      * Called after every test case method.
@@ -40,12 +41,12 @@ public class CasaInteligenteTest {
     @Test
     public void testConstructor() {
         CasaInteligente casa1 = new CasaInteligente();
-        SmartDevice sd = new SmartDevice();
+        SmartBulb sb = new SmartBulb();
         String room = new String();
         Map<String,SmartDevice> mydevices = new HashMap<>();
         Map<String, List<String>> mylocation = new HashMap<>();
-        casa1.addDevice(sd);
-        casa1.addDevice(sd);
+        casa1.addDevice(sb);
+        casa1.addDevice(sb);
         casa1.addRoom(room);
         assertTrue(casa1 != null);
         casa1 = new CasaInteligente("Campus de Gualtar");
@@ -85,8 +86,9 @@ public class CasaInteligenteTest {
         SmartBulb sb1 = new SmartBulb("sb");
         SmartSpeaker sp1 = new SmartSpeaker("sp");
         casa1.addDevice(sb1);
+        casa1.addDevice(sp1);
         assertTrue(casa1.getDevice("sb").equals(sb1));
-        assertFalse(casa1.getDevice("sp").equals(sp1));
+        assertFalse(!casa1.getDevice("sp").equals(sp1));
     }
 
     @Test
@@ -125,5 +127,39 @@ public class CasaInteligenteTest {
         assertTrue(casa1.roomHasDevice("quarto", "sc1"));
         assertFalse(casa1.roomHasDevice("quarto", "sb1"));
 
+    }
+
+    @Test
+    public void testConsumoRoom(){
+        CasaInteligente casa1 = new CasaInteligente();
+        SmartCamera sc1 = new SmartCamera("sc1",5.2,1024);
+        SmartBulb sb1 = new SmartBulb("sb1",2.5,10);
+        SmartSpeaker sp1 = new SmartSpeaker("sp1","TVI",15,Marca.Sonos);
+        SmartSpeaker sp2 = new SmartSpeaker("sp2","SIC",12,Marca.Marshall);
+        SmartCamera sc2 = new SmartCamera("sc2",4.3,1024);
+        casa1.addDevice(sc2);
+        casa1.addDevice(sp2);
+        double sct = sc1.consumoDispositivo();
+        double sbt = sb1.consumoDispositivo();
+        double spt = sp1.consumoDispositivo();
+        double res = sct+spt+sbt;
+        assertFalse(sp1.getMode()==Modo.ON);
+        sp1.turnOn();
+        assertTrue(sp1.getMode() == Modo.ON);
+        sc1.turnOn();
+        sb1.turnOn();
+        casa1.addDevice(sb1);
+        casa1.addDevice(sp1);
+        casa1.addDevice(sc1);
+        casa1.addRoom("sala");
+        casa1.addRoom("quarto");
+        casa1.addToRoom("sala", "sp1");
+        casa1.addToRoom("sala", "sb1");
+        casa1.addToRoom("sala", "sc1");
+        casa1.addToRoom("quarto", "sc2");
+        casa1.addToRoom("quarto", "sp2");
+        System.out.println(res);
+        System.out.println(casa1.getConsumoRoom("sala"));
+        assertTrue(casa1.getConsumoRoom("sala")==(sct+sbt+spt));
     }
 }

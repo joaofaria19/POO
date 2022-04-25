@@ -3,12 +3,11 @@
  * A classe SmartDevice é um contactor simples.
  * Permite ligar ou desligar circuitos e identificar um SmartDevice pelo seu id.
  */
-public class SmartDevice {
-
-
+public abstract class SmartDevice {
 
     private String id; // código identificador do SmartDevice
-    private boolean mode; // identificador se o device se encontra desligado(false) ou ligado(true)
+    private Modo mode; // identificador se o device se encontra desligado(false) ou ligado(true)
+
     /* Para quando precisarmos de verificar o consumo energético de um smartDevice
         public void turnOn(){
         this.mode=true;
@@ -28,14 +27,14 @@ public class SmartDevice {
      */
     public SmartDevice() {
         this.id = "";
-        this.mode = false;
+        this.mode = Modo.OFF;
     }
     public SmartDevice(String s){
         this.id = s;
-        this.mode = false;
+        this.mode = Modo.OFF;
     }
 
-    public SmartDevice(String s, boolean estado) {
+    public SmartDevice(String s, Modo estado) {
         this.id = s;
         this.mode = estado;
     }
@@ -46,9 +45,9 @@ public class SmartDevice {
     }
 
 
-    public boolean getMode() {return this.mode;}
+    public Modo getMode() {return this.mode;}
     
-    public void setMode(boolean b) { this.mode = b;}
+    public void setMode(Modo b) { this.mode = b;}
     
     public String getID() {return this.id;}
 
@@ -72,17 +71,15 @@ public class SmartDevice {
                 .append(" ] \n");
         return sb.toString();
     }
-    public SmartDevice clone(){
-        return new SmartDevice(this);
-    }
+    public abstract SmartDevice clone();
 
     public void turnOn() {
-        this.mode = true;
+        this.mode = Modo.ON;
     }
 
     public void turnOff() {
-        this.mode = false;
+        this.mode = Modo.OFF;
     }
 
-
+    public abstract double consumoDispositivo();
 }

@@ -11,6 +11,9 @@
 /** conhecimentos de POO.                                                        */
 /*********************************************************************************/
 
+
+
+
 /**
  * Um SmartSpeaker é um SmartDevice que além de ligar e desligar permite também
  * reproduzir som.
@@ -25,7 +28,7 @@ public class SmartSpeaker extends SmartDevice {
     
     private int volume;
     private String channel;
-    private String marca;
+    private Marca marca;
 
     /**
      * Constructor for objects of class SmartSpeaker
@@ -35,7 +38,7 @@ public class SmartSpeaker extends SmartDevice {
         super();
         this.volume = 0;
         this.channel = "";
-        this.marca = "";
+        this.marca = Marca.NULL;
     }
 
     public SmartSpeaker(String canal) {
@@ -43,16 +46,14 @@ public class SmartSpeaker extends SmartDevice {
         super(canal);
         this.volume = 0;
         this.channel = "";
-        this.marca = "";
+        this.marca = Marca.NULL;
     }
 
-
-
-    public SmartSpeaker(String cod, String channel, int i, String marca) {
+    public SmartSpeaker(String cod, String channel, int volume, Marca marca) {
         // initialise instance variables
         super(cod);
         // verificar se o volume fornecido é positivo
-        this.volume = Math.max(i, 0);
+        this.volume = Math.max(volume, 0);
         this.channel = channel;
         this.marca = marca;
     }
@@ -80,9 +81,9 @@ public class SmartSpeaker extends SmartDevice {
 
     public void setChannel(String c) {this.channel = c;}
 
-    public String getMarca(){return this.marca;}
+    public Marca getMarca(){return this.marca;}
 
-    public void setMarca(String marca) {this.marca = marca;}
+    public void setMarca(Marca marca) {this.marca = marca;}
 
     public boolean equals(Object o){
         if(o==this)return true;
@@ -106,8 +107,38 @@ public class SmartSpeaker extends SmartDevice {
         return sb.toString();
     }
 
-    public SmartSpeaker clone(){
+    public SmartDevice clone(){
         return new SmartSpeaker(this);
     }
 
+    public double consumoDispositivo() {
+        double custo = 1;
+        switch (this.marca) {
+            case Sony:
+                custo=1.6;
+                break;
+            case JBL:
+                custo=2.3;
+                break;
+            case LG:
+                custo=1.5;
+                break;
+            case Denon:
+                custo=1.8;
+                break;
+            case Sonos:
+                custo=2.5;
+                break;
+            case Yamaha:
+                custo=2.7;
+                break;
+            case Marshall:
+                custo=2.1;
+                break;
+            default:
+                custo =1;
+                break;
+        }
+        return custo*0.1*this.volume;
+    }
 }
