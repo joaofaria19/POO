@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class Fornecedor {
+public class Fornecedor {
     private String id;
     private double valorbase;
     private double imposto;
@@ -17,9 +17,10 @@ public abstract class Fornecedor {
     }
 
     public Fornecedor() {
+        Random rand = new Random();
         this.id = "";
-        this.valorbase = 0;
-        this.imposto = 0;
+        this.valorbase = rand.nextDouble(1.0,5.0);
+        this.imposto = rand.nextDouble(0.1,2.0);
         this.casasAssociadas = new HashMap<>();
 
     }
@@ -33,9 +34,10 @@ public abstract class Fornecedor {
     }
 
     public Fornecedor(String id) {
+        Random rand = new Random();
         this.id = id;
-        this.valorbase = 0;
-        this.imposto = 0;
+        this.valorbase = rand.nextDouble(1.0,5.0);
+        this.imposto = rand.nextDouble(0.1,0.99);
         this.casasAssociadas = new HashMap<>();
 
     }
@@ -85,9 +87,19 @@ public abstract class Fornecedor {
             return this.casasAssociadas.get(casa).getConsumo();
     }
 
+    public void addCasa(CasaInteligente casa){
+        this.casasAssociadas.put(casa.getMorada(),casa.clone());
+    }
+
     public CasaInteligente getCasaByMorada(String morada){
         return this.casasAssociadas.get(morada).clone();
     }
 
-    public abstract double formula(String morada, String id);
+    public double formula(String morada){
+        if(this.casasAssociadas.get(morada).getDevices().size() > 10 ){
+            return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1 + this.imposto)) * 0.9;
+        }
+        else return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto) * 0.75);
+    }
+
 }

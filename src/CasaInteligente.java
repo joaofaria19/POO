@@ -11,7 +11,7 @@ public class CasaInteligente {
     private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
     private String proprietario;
     private int nif;
-    private Fornecedor nome;
+    private String nome;
     //private List<String> rooms; // lista com todas as divisões da casa
     /**
      * Constructor vazio
@@ -23,13 +23,14 @@ public class CasaInteligente {
         this.locations = new HashMap();
         this.proprietario = "";
         this.nif = 0;
+        this.nome = "";
     }
 
     /*
      * Construtor Parametrizavel
      * */
 
-    public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, String proprietario, int nif, Fornecedor nome) {
+    public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, String proprietario, int nif, String nome) {
         // initialise instance variables
         this.morada = morada;
         this.devices = new HashMap();
@@ -40,7 +41,6 @@ public class CasaInteligente {
         this.proprietario = proprietario;
         this.nif = nif;
         this.nome = nome;
-
     }
 
     /*
@@ -52,6 +52,7 @@ public class CasaInteligente {
         this.devices = ci.getDevices();
         this.proprietario = ci.getProprietario();
         this.nif = ci.getNif();
+        this.nome = ci.getNomeF();
     }
 
     /*
@@ -161,6 +162,14 @@ public class CasaInteligente {
         this.nif = nif;
     }
 
+    public String getNomeF(){
+        return this.nome;
+    }
+    
+    public void setNomeF(String nomeF){
+        this.nome=nomeF;
+    }
+
     /*
      * Método para ligar um certo SmartDevice
      */
@@ -242,9 +251,13 @@ public class CasaInteligente {
     public double getConsumo(){
         double res = 0.0;
         CasaInteligente casa = new CasaInteligente();
-        Set<String> rooms;
-        rooms = casa.getLocations().keySet();
-        Iterator<String> it = rooms.iterator();
+        List<String> lista = new ArrayList<>();
+        List<List<String>> rooms = new ArrayList<>();
+        rooms = casa.getLocations().values().stream().toList();
+        for(List<String> l : rooms){
+            lista.addAll(l);
+        }
+        Iterator<String> it = lista.iterator();
         while(it.hasNext()){
             String r = it.next();
             res+= casa.getConsumoRoom(r);
