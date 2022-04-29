@@ -1,6 +1,11 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Scanner;
+
+import static java.time.LocalDate.now;
 
 public class Menu {
     public static int MenuInicial(){
@@ -17,6 +22,7 @@ public class Menu {
         sb.append("# (2) Verificar Fornecedores existentes  #\n");
         sb.append("# (3) Registar um novo Fornecedor        #\n");
         sb.append("# (4) Carregar um estado                 #\n");
+        sb.append("# (5) Iniciar simulação                  #\n");
         sb.append("# (0) Sair                               #\n");
         sb.append("##########################################\n");
         System.out.println(sb.toString());
@@ -31,10 +37,24 @@ public class Menu {
                 break;
             case 1:
                 System.out.println("op 1");
+                //display casas
+                System.out.println("Selecione uma casa\n\n(0)Voltar");
+
+                Scanner scanner = new Scanner(System.in);
+                int next = scanner.nextInt();
+                if(next == 0) Menu.MenuInicial();
                 break;
             case 2:
                 //Menu.parsing();
                 System.out.println("op 2");
+                System.out.println("op 1");
+                //display casas
+
+                System.out.println("Selecione um fornecedor\n\n(0)Voltar");
+
+                //Scanner scanner = new Scanner(System.in);
+                //int next = scanner.nextInt();
+                //if(next == 0) Menu.MenuInicial();
                 break;
             case 3:
                 //Menu.parsing();
@@ -43,10 +63,26 @@ public class Menu {
             case 4:
 
                 System.out.println("O que pretende?\n\n(1) Carregar ficheiro de texto\n(2) Carregar ficheiro binário\n(0)Voltar");
-                Scanner scanner = new Scanner(System.in);
-                int next = scanner.nextInt();
-                if(next == 0) Menu.MenuInicial();
-                else Menu.parsing(next);
+                //Scanner scanner = new Scanner(System.in);
+                //int next = scanner.nextInt();
+                //if(next == 0) Menu.MenuInicial();
+                //else Menu.parsing(next);
+                break;
+            case 5:
+                LocalDate today = now();
+                System.out.println("Data de hoje: ");
+                String formattedDate = today.format(DateTimeFormatter
+                        .ofLocalizedDate(FormatStyle.LONG));
+                System.out.println(formattedDate);
+                System.out.println("\nInsira uma data no formato d/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+                String date= sc.nextLine();
+                LocalDate localDate = LocalDate.parse(date, formatter);
+                //Scanner scanner = new Scanner(System.in);
+                //int next = scanner.nextInt();
+                //if(next == 0) Menu.MenuInicial();
+                //else Menu.parsing(next);
                 break;
             default:
                 System.out.println("Insira uma opção válida");
