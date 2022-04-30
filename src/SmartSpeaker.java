@@ -29,6 +29,7 @@ public class SmartSpeaker extends SmartDevice {
     private int volume;
     private String channel;
     private Marca marca;
+    private double consumoDiario;
 
     /**
      * Constructor for objects of class SmartSpeaker
@@ -39,6 +40,7 @@ public class SmartSpeaker extends SmartDevice {
         this.volume = 0;
         this.channel = "";
         this.marca = Marca.NULL;
+        this.consumoDiario = 0.0;
     }
 
     public SmartSpeaker(String canal) {
@@ -47,15 +49,17 @@ public class SmartSpeaker extends SmartDevice {
         this.volume = 0;
         this.channel = "";
         this.marca = Marca.NULL;
+        this.consumoDiario = 0.0;
     }
 
-    public SmartSpeaker(String cod, String channel, int volume, Marca marca) {
+    public SmartSpeaker(String cod, String channel, int volume, Marca marca,double consumoDiario) {
         // initialise instance variables
         super(cod);
         // verificar se o volume fornecido é positivo
         this.volume = Math.max(volume, 0);
         this.channel = channel;
         this.marca = marca;
+        this.consumoDiario = consumoDiario;
     }
 
     public SmartSpeaker(SmartSpeaker ssp){
@@ -63,6 +67,7 @@ public class SmartSpeaker extends SmartDevice {
         this.volume = ssp.getVolume();
         this.channel = ssp.getChannel();
         this.marca = ssp.getMarca();
+        this.consumoDiario= ssp.getConsumoDiario();
     }
 
     public void volumeUp() {
@@ -85,17 +90,21 @@ public class SmartSpeaker extends SmartDevice {
 
     public void setMarca(Marca marca) {this.marca = marca;}
 
+    public double getConsumoDiario(){return this.consumoDiario;}
+
+    public void setMarca(double consumoDiario) {this.consumoDiario = consumoDiario;}
+
     public boolean equals(Object o){
         if(o==this)return true;
         if(o==null || o.getClass()!= this.getClass()) return false;
         if(!super.equals(o)) return false;
         SmartSpeaker sb = (SmartSpeaker) o;
-        return (this.channel.equals(sb.getChannel()) && this.volume == sb.getVolume() && this.marca.equals(sb.getMarca()));
+        return (this.channel.equals(sb.getChannel()) && this.volume == sb.getVolume() && this.marca.equals(sb.getMarca()) && this.consumoDiario==sb.getConsumoDiario());
     }
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("SmartSpeaker:{ ")
+        sb.append(" » SmartSpeaker:{ ")
                 .append(super.toString())
                 .append(" Volume: ")
                 .append(this.volume)
@@ -103,6 +112,8 @@ public class SmartSpeaker extends SmartDevice {
                 .append(this.channel)
                 .append(" Marca: ")
                 .append(this.marca)
+                .append(" Consumo Diario: ")
+                .append(this.consumoDiario)
                 .append(" }\n");
         return sb.toString();
     }
@@ -111,7 +122,7 @@ public class SmartSpeaker extends SmartDevice {
         return new SmartSpeaker(this);
     }
 
-    public double consumoDispositivo() {
+    public double consumoEnergetico() {
         double custo = 1;
         switch (this.marca) {
             case Sony:
@@ -139,6 +150,6 @@ public class SmartSpeaker extends SmartDevice {
                 custo =1;
                 break;
         }
-        return custo*0.1*this.volume;
+        return custo*0.1*this.volume*this.consumoDiario;
     }
 }

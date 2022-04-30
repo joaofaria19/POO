@@ -6,70 +6,60 @@ import java.util.*;
  */
 public class CasaInteligente {
 
-    private String morada;
+    private String proprietario;
     private Map<String, SmartDevice> devices; // String: identificador do SmartDevice
     private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
-    private String proprietario;
     private int nif;
-    private String nome;
+    private String nomeF;
     //private List<String> rooms; // lista com todas as divisões da casa
     /**
      * Constructor vazio
      */
     public CasaInteligente() {
         // initialise instance variables
-        this.morada = "";
+        this.proprietario = "";
         this.devices = new HashMap();
         this.locations = new HashMap();
-        this.proprietario = "";
         this.nif = 0;
-        this.nome = "";
+        this.nomeF = "";
     }
 
     /*
      * Construtor Parametrizavel
      * */
 
-    public CasaInteligente(String morada, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, String proprietario, int nif, String nome) {
+    public CasaInteligente(String proprietario, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, int nif, String nome) {
         // initialise instance variables
-        this.morada = morada;
+        this.proprietario = proprietario;
         this.devices = new HashMap();
         for(SmartDevice sd : mydevices.values()){
             this.devices.put(sd.getID(), sd.clone());
         }
         this.locations = mylocations;
-        this.proprietario = proprietario;
         this.nif = nif;
-        this.nome = nome;
+        this.nomeF = nome;
     }
 
     /*
      * Construtor de cópia
      * */
     public CasaInteligente(CasaInteligente ci){
-        this.morada = ci.getMorada();
+        this.proprietario = ci.getProprietario();
         this.locations = ci.getLocations();
         this.devices = ci.getDevices();
-        this.proprietario = ci.getProprietario();
         this.nif = ci.getNif();
-        this.nome = ci.getNomeF();
+        this.nomeF = ci.getNomeF();
     }
 
     /*
      * Construtor adicional
      * */
     public CasaInteligente(String s){
-        this.morada = s;
+        this.proprietario = s;
         this.locations = new HashMap<>();
         this.devices = new HashMap<>();
-        this.proprietario = "";
         this.nif = 0;
     }
-
-
-    public String getMorada(){return this.morada;}
-
-    public void setMorada(String morada){this.morada = morada;}
 
     public Map<String,SmartDevice> getDevices(){
         Map<String,SmartDevice> dev = new HashMap<>();
@@ -94,16 +84,19 @@ public class CasaInteligente {
         if(o==this) return true;
         if(o==null || o.getClass()!=this.getClass());
         CasaInteligente ci = (CasaInteligente) o;
-        return (this.morada.equals(ci.getMorada())
+        return (this.proprietario.equals(ci.getProprietario())
                 && this.devices.equals(ci.getDevices())
                 && this.locations.equals(ci.getLocations()));
     }
 
     public String toString(){
-        StringBuilder sb = new StringBuilder("Casa Inteligente\n")
-                .append("Morada: ").append(this.morada).append("\n")
-                .append("Devices: ").append(this.devices).append("\n")
-                .append("Locations: ").append(this.locations).append("\n");
+        StringBuilder sb = new StringBuilder("[Casa Inteligente]\n")
+                .append("   Morada: ").append(this.proprietario).append("\n")
+                .append("   Devices:{ ").append(this.devices).append("}")
+                .append("   Locations:{ ").append(this.locations).append("}\n")
+                .append("   NIF: ").append(this.nif).append("\n")
+                .append("   Fornecedor: ").append(this.nomeF).append("\n");
+
         return sb.toString();
     }
 
@@ -119,7 +112,6 @@ public class CasaInteligente {
     public void setDeviceOn(String s) {
         this.devices.get(s).turnOn();
     }
-
 
 
     /*
@@ -146,7 +138,7 @@ public class CasaInteligente {
     }
 
     public String getProprietario() {
-        return proprietario;
+        return this.proprietario;
     }
 
     public void setProprietario(String proprietario) {
@@ -163,11 +155,11 @@ public class CasaInteligente {
     }
 
     public String getNomeF(){
-        return this.nome;
+        return this.nomeF;
     }
-    
+
     public void setNomeF(String nomeF){
-        this.nome=nomeF;
+        this.nomeF=nomeF;
     }
 
     /*
@@ -240,7 +232,7 @@ public class CasaInteligente {
         double res=0;
         for(String s: this.locations.get(room)){
             if (this.devices.get(s).getMode() == Modo.ON) {
-                res += this.devices.get(s).consumoDispositivo();
+                res += this.devices.get(s).consumoEnergetico();
             }
         }
         return res;

@@ -39,8 +39,8 @@ public class TestFornecedor {
     @Test
     public void testConstructor() {
         CasaInteligente casa1 = new CasaInteligente("Gualtar");
-        SmartBulb sb = new SmartBulb("sb",2.5,40.0);
-        SmartSpeaker ssp = new SmartSpeaker("ssp","SIC",15, Marca.Sonos);
+        SmartBulb sb = new SmartBulb("sb",2.5,40.0,0.15);
+        SmartSpeaker ssp = new SmartSpeaker("ssp","SIC",15, Marca.Sonos,0.25);
         String room = new String();
         Fornecedor forn = new Fornecedor("EDP");
 
@@ -52,8 +52,8 @@ public class TestFornecedor {
         casa1.addDevice(ssp);
         casa1.addRoom(room);
 
-        sb.consumoDispositivo();
-        ssp.consumoDispositivo();
+        sb.consumoEnergetico();
+        ssp.consumoEnergetico();
 
         forn.addCasa(casa1);
 

@@ -132,16 +132,16 @@ public class CasaInteligenteTest {
     @Test
     public void testConsumoRoom(){
         CasaInteligente casa1 = new CasaInteligente();
-        SmartCamera sc1 = new SmartCamera("sc1",5.2,1024);
-        SmartBulb sb1 = new SmartBulb("sb1",2.5,10);
-        SmartSpeaker sp1 = new SmartSpeaker("sp1","TVI",15,Marca.Sonos);
-        SmartSpeaker sp2 = new SmartSpeaker("sp2","SIC",12,Marca.Marshall);
-        SmartCamera sc2 = new SmartCamera("sc2",4.3,1024);
+        SmartCamera sc1 = new SmartCamera("sc1",5.2,1024,0.25);
+        SmartBulb sb1 = new SmartBulb("sb1",2.5,10,0.19);
+        SmartSpeaker sp1 = new SmartSpeaker("sp1","TVI",15,Marca.Sonos,0.35);
+        SmartSpeaker sp2 = new SmartSpeaker("sp2","SIC",12,Marca.Marshall,0.5);
+        SmartCamera sc2 = new SmartCamera("sc2",4.3,1024,0.24);
         casa1.addDevice(sc2);
         casa1.addDevice(sp2);
-        double sct = sc1.consumoDispositivo();
-        double sbt = sb1.consumoDispositivo();
-        double spt = sp1.consumoDispositivo();
+        double sct = sc1.consumoEnergetico();
+        double sbt = sb1.consumoEnergetico();
+        double spt = sp1.consumoEnergetico();
         double res = sct+spt+sbt;
         assertFalse(sp1.getMode()==Modo.ON);
         sp1.turnOn();

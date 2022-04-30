@@ -12,7 +12,7 @@ public class Fornecedor {
         this.imposto = imposto;
         this.casasAssociadas = new HashMap<>();
         for(CasaInteligente sd : casasAssociadas.values()){
-            this.casasAssociadas.put(sd.getMorada(), sd.clone());
+            this.casasAssociadas.put(sd.getProprietario(), sd.clone());
         }
     }
 
@@ -87,12 +87,38 @@ public class Fornecedor {
             return this.casasAssociadas.get(casa).getConsumo();
     }
 
-    public void addCasa(CasaInteligente casa){
-        this.casasAssociadas.put(casa.getMorada(),casa.clone());
+    public boolean equals(Object o){
+        if(o==this) return true;
+        if(o==null || this.getClass()!= o.getClass());
+        Fornecedor f = (Fornecedor) o;
+        return (this.id.equals(f.getId()) && this.valorbase==f.getValorbase() && this.imposto == f.getImposto() && this.casasAssociadas.equals(f.getCasasAssociadas()));
     }
 
-    public CasaInteligente getCasaByMorada(String morada){
-        return this.casasAssociadas.get(morada).clone();
+    public String toString(){
+        StringBuilder sb = new StringBuilder("[Fornecedor]\n")
+                .append(" Fornecedor Id: ")
+                .append(this.id).append("\n")
+                .append(" Valor Base: ")
+                .append(this.valorbase).append("\n")
+                .append(" Imposto: ")
+                .append(this.imposto).append("\n")
+                .append("Casas Associadas: {")
+                .append(this.casasAssociadas)
+                .append("}\n");
+        return sb.toString();
+    }
+
+    public Fornecedor clone(){
+        return new Fornecedor(this);
+    }
+
+
+    public void addCasa(CasaInteligente casa){
+        this.casasAssociadas.put(casa.getProprietario(),casa.clone());
+    }
+
+    public CasaInteligente getCasaByProprietario(String proprietario){
+        return this.casasAssociadas.get(proprietario).clone();
     }
 
     public double formula(String morada){

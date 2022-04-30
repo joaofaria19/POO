@@ -26,6 +26,7 @@ public class SmartBulb extends SmartDevice {
     
     private double tone;
     private double dimensao;
+    private double consumoDiario;
 
     /**
      * Constructor for objects of class SmartBulb
@@ -35,13 +36,15 @@ public class SmartBulb extends SmartDevice {
         super();
         this.tone = NEUTRAL;
         this.dimensao = 0.0;
+        this.consumoDiario = 0.0;
     }
 
-    public SmartBulb(String id, double tone, double dimensao) {
+    public SmartBulb(String id, double tone, double dimensao, double consumoDiario) {
 
         super(id);
         this.tone = tone;
         this.dimensao = dimensao;
+        this.consumoDiario = consumoDiario;
     }
 
     public SmartBulb(String id) {
@@ -49,6 +52,7 @@ public class SmartBulb extends SmartDevice {
         super(id);
         this.tone = NEUTRAL;
         this.dimensao = 0.0;
+        this.consumoDiario = 0.0;
 
     }
 
@@ -57,6 +61,7 @@ public class SmartBulb extends SmartDevice {
         super(b);
         this.tone = b.getTone();
         this.dimensao = b.getDimensao();
+        this.consumoDiario = b.getConsumoDiario();
     }
 
     public void setTone(double t) {
@@ -77,22 +82,32 @@ public class SmartBulb extends SmartDevice {
         return this.dimensao;
     }
 
+    public double getConsumoDiario() {
+        return consumoDiario;
+    }
+
+    public void setConsumoDiario(double consumoDiario) {
+        this.consumoDiario = consumoDiario;
+    }
+
     public boolean equals(Object o){
         if(this == o) return true;
         if(o==null || this.getClass()!=o.getClass()) return false;
         if(!super.equals(o)) return false;
         SmartBulb sb = (SmartBulb) o;
-        return (this.tone == sb.getTone());
+        return (this.tone == sb.getTone() && this.dimensao==sb.getDimensao() && this.consumoDiario==sb.getConsumoDiario());
     }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SmartBulb:{ ")
+        sb.append(" » SmartBulb:{ ")
                 .append(super.toString())
-                .append(" tone: ")
+                .append(" Tom: ")
                 .append(this.tone)
-                .append(" dimensao(cm): ")
+                .append(" Dimensao(cm): ")
                 .append(this.dimensao)
+                .append(" Cosnumo Diario: ")
+                .append(this.consumoDiario)
                 .append(" }\n");
         return sb.toString();
     }
@@ -101,8 +116,8 @@ public class SmartBulb extends SmartDevice {
         return new SmartBulb(this);
     }
 
-    public double consumoDispositivo() {
-        return (2.4)*this.tone;
+    public double consumoEnergetico() {
+        return (2.4)*this.tone*this.consumoDiario;
     }
 }
 

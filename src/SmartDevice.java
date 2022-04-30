@@ -81,5 +81,5 @@ public abstract class SmartDevice {
         this.mode = Modo.OFF;
     }
 
-    public abstract double consumoDispositivo();
+    public abstract double consumoEnergetico();
 }
