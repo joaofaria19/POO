@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        CasaInteligente casa1 = new CasaInteligente();
+        /*CasaInteligente casa1 = new CasaInteligente();
         SmartCamera sc1 = new SmartCamera("sc1",5.2,1024);
         SmartBulb sb1 = new SmartBulb("sb1",2.5,10);
         SmartSpeaker sp1 = new SmartSpeaker("sp1","TVI",15,Marca.Sonos);
@@ -23,6 +23,8 @@ public class Main {
         casa1.addToRoom("sala", "sc1");
         casa1.addToRoom("quarto", "sc2");
         casa1.addToRoom("quarto", "sp2");
+
+         */
         Menu m = new Menu();
         int resultado = Menu.MenuInicial();
         Menu.options(resultado);

@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 import static java.time.LocalDate.now;
@@ -45,16 +46,14 @@ public class Menu {
                 if(next == 0) Menu.MenuInicial();
                 break;
             case 2:
-                //Menu.parsing();
                 System.out.println("op 2");
-                System.out.println("op 1");
-                //display casas
+                //display fornecedores
 
                 System.out.println("Selecione um fornecedor\n\n(0)Voltar");
 
-                //Scanner scanner = new Scanner(System.in);
-                //int next = scanner.nextInt();
-                //if(next == 0) Menu.MenuInicial();
+                Scanner scanner2 = new Scanner(System.in);
+                int next2 = scanner2.nextInt();
+                if(next2 == 0) Menu.MenuInicial();
                 break;
             case 3:
                 //Menu.parsing();
@@ -79,6 +78,9 @@ public class Menu {
                 Scanner sc= new Scanner(System.in); //System.in is a standard input stream
                 String date= sc.nextLine();
                 LocalDate localDate = LocalDate.parse(date, formatter);
+                long elapsedDays = ChronoUnit.DAYS.between(today, localDate);
+                System.out.println("Dias a simular: ");
+                System.out.println(elapsedDays);
                 //Scanner scanner = new Scanner(System.in);
                 //int next = scanner.nextInt();
                 //if(next == 0) Menu.MenuInicial();
