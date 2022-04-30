@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static java.time.LocalDate.now;
 
 public class Menu {
-    public static int MenuInicial(){
+    public static void MenuInicial() throws FileNotFoundException {
         StringBuilder sb = new StringBuilder("##########################################\n");
         //sb.append("#                                        #\n");
         sb.append("# ----------SMART HOME MANAGER---------- #\n");
@@ -28,7 +28,7 @@ public class Menu {
         sb.append("##########################################\n");
         System.out.println(sb.toString());
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        Menu.options(scanner.nextInt());
     }
 
     public static void options(int op) throws FileNotFoundException {
@@ -57,15 +57,18 @@ public class Menu {
                 break;
             case 3:
                 //Menu.parsing();
-                System.out.println("op 3");
+                System.out.println("Escreva o nome do fornecedor\n\n(0)Voltar");
+                Scanner scanner3 = new Scanner(System.in);
+                int next3 = scanner3.nextInt();
+                if(next3 == 0) Menu.MenuInicial();
                 break;
             case 4:
 
                 System.out.println("O que pretende?\n\n(1) Carregar ficheiro de texto\n(2) Carregar ficheiro binário\n(0)Voltar");
-                //Scanner scanner = new Scanner(System.in);
-                //int next = scanner.nextInt();
-                //if(next == 0) Menu.MenuInicial();
-                //else Menu.parsing(next);
+                Scanner scanner4 = new Scanner(System.in);
+                int next4 = scanner4.nextInt();
+                if(next4 == 0) Menu.MenuInicial();
+                else Menu.parsing(next4);
                 break;
             case 5:
                 LocalDate today = now();

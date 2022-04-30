@@ -26,7 +26,7 @@ public class Main {
 
          */
         Menu m = new Menu();
-        int resultado = Menu.MenuInicial();
-        Menu.options(resultado);
+        Menu.MenuInicial();
+        //Menu.options(resultado);
     }
 }
