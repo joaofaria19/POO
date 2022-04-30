@@ -61,6 +61,7 @@ public class Menu {
                 Scanner scanner3 = new Scanner(System.in);
                 int next3 = scanner3.nextInt();
                 if(next3 == 0) Menu.MenuInicial();
+                else;
                 break;
             case 4:
 
@@ -127,19 +128,26 @@ public class Menu {
     public static void parseLine(String type, String args){
         //String[] line = token.split(":");
         //System.out.printf("%s%n %s%n", type, args);
+        String[] argsSplited = args.split(",");
 
         switch(type){
             case "Fornecedor":
                 System.out.println("é fornecedor");
+                //Fornecedor f1 = new Fornecedor(args[0]);
                 break;
             case "Casa":
                 System.out.println("é casa");
+                CasaInteligente casa = new CasaInteligente(argsSplited[0]);
+                casa.setNif(Integer.parseInt(argsSplited[1]));
+                casa.setNomeF(argsSplited[2]);
+                System.out.println(casa.toString());
                 break;
             case "Divisao":
                 System.out.println("é divisao");
                 break;
             case "SmartBulb":
                 System.out.println("é smartbulb");
+                //SmartBulb lampada = new SmartBulb();
                 break;
             case "SmartCamera":
                 System.out.println("é camara");
