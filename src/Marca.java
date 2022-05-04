@@ -3,8 +3,11 @@ public enum Marca {
     Sony,
     JBL,
     LG,
-    Denon,
-    Sonos,
-    Yamaha,
-    Marshall;
+    Marshall,
+    BOSE,
+    Goodis,
+    BangOlufsen,
+    BowersWilkins,
+    Sennheiser,
+    Philips;
 }

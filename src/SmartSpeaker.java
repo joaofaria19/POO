@@ -52,7 +52,7 @@ public class SmartSpeaker extends SmartDevice {
         this.consumoDiario = 0.0;
     }
 
-    public SmartSpeaker(String cod, String channel, int volume, Marca marca,double consumoDiario) {
+    public SmartSpeaker(String cod, int volume, String channel, Marca marca,double consumoDiario) {
         // initialise instance variables
         super(cod);
         // verificar se o volume fornecido é positivo
@@ -134,14 +134,23 @@ public class SmartSpeaker extends SmartDevice {
             case LG:
                 custo=1.5;
                 break;
-            case Denon:
+            case Philips:
+                custo=1.9;
+                break;
+            case Sennheiser:
+                custo=1.3;
+                break;
+            case Goodis:
                 custo=1.8;
                 break;
-            case Sonos:
+            case BOSE:
                 custo=2.5;
                 break;
-            case Yamaha:
+            case BangOlufsen:
                 custo=2.7;
+                break;
+            case BowersWilkins:
+                custo=2.9;
                 break;
             case Marshall:
                 custo=2.1;

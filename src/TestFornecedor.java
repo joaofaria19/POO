@@ -40,7 +40,7 @@ public class TestFornecedor {
     public void testConstructor() {
         CasaInteligente casa1 = new CasaInteligente("Gualtar");
         SmartBulb sb = new SmartBulb("sb",2.5,40.0,0.15);
-        SmartSpeaker ssp = new SmartSpeaker("ssp","SIC",15, Marca.Sonos,0.25);
+        SmartSpeaker ssp = new SmartSpeaker("ssp",15,"SIC", Marca.Sony,0.25);
         String room = new String();
         Fornecedor forn = new Fornecedor("EDP");
 

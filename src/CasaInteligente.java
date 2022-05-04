@@ -91,7 +91,7 @@ public class CasaInteligente {
 
     public String toString(){
         StringBuilder sb = new StringBuilder("[Casa Inteligente]\n")
-                .append("   Morada: ").append(this.proprietario).append("\n")
+                .append("   Proprietario: ").append(this.proprietario).append("\n")
                 .append("   Devices:{ ").append(this.devices).append("}")
                 .append("   Locations:{ ").append(this.locations).append("}\n")
                 .append("   NIF: ").append(this.nif).append("\n")
