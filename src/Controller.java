@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.time.LocalDate.now;
@@ -11,6 +14,7 @@ public class Controller {
 
     public static void run() throws FileNotFoundException {
         int opcao = Menu.MenuInicial();
+        ListFornecedor fornecedores = new ListFornecedor();
         switch(opcao){
             case 0:
                 Menu.MensagemFinal();
@@ -18,12 +22,13 @@ public class Controller {
                 break;
             case 1:
                 //display casas
-                CasaInteligente casa1 = new CasaInteligente("Gualtar");
-                CasaInteligente casa2 = new CasaInteligente("Gualtarir");
-                Fornecedor f = new Fornecedor("EDP");
-                f.addCasa(casa1);
-                f.addCasa(casa2);
-                Menu.MenuShowCasa(f.getCasasAssociadas());
+                List<Fornecedor> listaf = new ArrayList<>();
+                listaf = fornecedores.getListaF().values().stream().toList();
+
+                for(Fornecedor f : listaf){
+                    Menu.MenuShowCasa(f.getCasasAssociadas());
+
+                }
 
 
                 Scanner scanner = new Scanner(System.in);
@@ -54,7 +59,8 @@ public class Controller {
                 Scanner scanner4 = new Scanner(System.in);
                 int next4 = scanner4.nextInt();
                 if(next4 == 0) Menu.MenuInicial();
-                else Parse.parsing(next4);
+                else Parse.parsing(next4, fornecedores);
+                Menu.MenuInicial();
                 break;
             case 5:
                 LocalDate today = now();
