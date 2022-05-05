@@ -36,14 +36,25 @@ public class Menu {
     }
 
     /* recebe uma hashMap de casasInteligentes*/
-    public static void MenuShowCasa(Map<String,CasaInteligente> casas){
-        StringBuilder sb = new StringBuilder("---------CASAS EXISTENTES----------\n");
-        for(CasaInteligente casa : casas.values()){
+    public static void MenuShowCasa(List<CasaInteligente> casas){
+        StringBuilder sb = new StringBuilder("---------CASAS EXISTENTES ----------\n");
+        for(CasaInteligente casa : casas) {
             sb.append(casa.toString());
         }
+
+        sb.append("\n\n(0)Voltar");
         System.out.println(sb);
-        System.out.println("\n\n(0)Voltar");
     }
+
+    public static void MenuShowFornecedor(List<Fornecedor> fornecedores){
+        StringBuilder sb = new StringBuilder("---------FORNECEDORES EXISTENTES ----------\n");
+        for(Fornecedor f : fornecedores) {
+            sb.append(f.toString());
+        }
+        sb.append("\n\n(0)Voltar");
+        System.out.println(sb);
+    }
+
 
     public static void MensagemFinal(){
         System.out.println("feitinho, adeus");

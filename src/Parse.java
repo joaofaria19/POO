@@ -18,7 +18,8 @@ public class Parse {
     public static int inc_id(int id){
         return id++;
     }
-    public static void parsing(int next, ListFornecedor fornecedoresf) throws FileNotFoundException {
+    public static void parsing(int next,Sys s) throws FileNotFoundException {
+        //Map<String,Fornecedor> fornecedores = new HashMap<>();
         if(next ==1) {
             try (Scanner scanner = new Scanner(new File("Logs.txt"));) {
                 scanner.useDelimiter("\n:");
@@ -31,7 +32,7 @@ public class Parse {
                     String casaS = null;
                     CasaInteligente casa = null;
                     SmartDevice sd;
-                    Map<String,Fornecedor> fornecedores = new HashMap<>();
+
                     Map<String,CasaInteligente> casas = new HashMap<>();
 
                     for(int j = 0; j < parts.length; j++) {
@@ -49,7 +50,7 @@ public class Parse {
                             case "Fornecedor":
                                 System.out.println("é fornecedor");
                                 Fornecedor f = new Fornecedor(argsSplited[0]);
-                                fornecedores.put(f.getId(),f.clone());
+                                s.addFornecedor(f.getId(),f.clone());
                                 break;
                             case "Casa":
                                 System.out.println("é casa");
@@ -59,7 +60,8 @@ public class Parse {
                                 casa.setNomeF(argsSplited[2]);
 
                                 //System.out.println(casa.toString());
-                                casas.put(casa.getProprietario(),casa.clone());
+                                s.addCasa(casa.getProprietario(),casa.clone());
+                                s.addCasaToFornecedor(casa,argsSplited[2]);
                                 break;
                             case "Divisao":
                                 System.out.println("é divisao");
@@ -133,14 +135,14 @@ public class Parse {
                         }
                     }
 
-                    fornecedoresf.setListaF(fornecedores);
-
                 }
             }
+
         }
         else{
             //carregar de binário
         }
+        System.out.println(s);
     }
 
 }

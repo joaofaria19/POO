@@ -14,7 +14,7 @@ Fornecedor:SU Electricidade
 Fornecedor:EDA
 Casa:Vicente de Carvalho Castro,365597405,Iberdrola
 Divisao:Sala de Jantar
-SmartBulb:Warm,11,4.57
+SmartBulb:WARM,11,4.57
 SmartBulb:Neutral,12,4.73
 Divisao:Sala de Jantar 1
 SmartBulb:Neutral,7,9.35
