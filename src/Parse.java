@@ -15,10 +15,8 @@ public class Parse {
 
     }
 
-    public static int inc_id(int id){
-        return id++;
-    }
-    public static void parsing(int next,Sys s) throws FileNotFoundException {
+
+    public static void parsing(int next,Sys s) throws FileNotFoundException, ObjectNullException {
         //Map<String,Fornecedor> fornecedores = new HashMap<>();
         if(next ==1) {
             try (Scanner scanner = new Scanner(new File("Logs.txt"));) {
@@ -33,7 +31,7 @@ public class Parse {
                     CasaInteligente casa = null;
                     SmartDevice sd;
 
-                    Map<String,CasaInteligente> casas = new HashMap<>();
+                    //Map<String,CasaInteligente> casas = new HashMap<>();
 
                     for(int j = 0; j < parts.length; j++) {
 
@@ -60,33 +58,39 @@ public class Parse {
                                 casa.setNomeF(argsSplited[2]);
 
                                 //System.out.println(casa.toString());
+
                                 s.addCasa(casa.getProprietario(),casa.clone());
-                                s.addCasaToFornecedor(casa,argsSplited[2]);
+                                //s.addCasaToFornecedor(casa,argsSplited[2]);
+                                s.addCasaToFornecedor(casa.clone(),argsSplited[2]);
                                 break;
                             case "Divisao":
                                 System.out.println("é divisao");
                                 divisao=(argsSplited[0]);
 
-                                if(casas.size() == 0) System.out.println("Erro\n");
-                                else casas.get(casaS).addRoom(divisao);
+                                if(s.getCasas().size() == 0) System.out.println("Erro\n");
+                                else s.getCasas().get(casaS).addRoom(divisao);
                                 break;
                             case "SmartBulb":
                                 System.out.println("é smartbulb");
-                                //SmartBulb lampada = new SmartBulb();
-                                //String idb = String.valueOf(id);
+                                int ID1 = s.getID();
                                 double modo = 0;
                                 double dim= Double.parseDouble(argsSplited[1]);
                                 double custo1= Double.parseDouble(argsSplited[2]);
+
                                 if("Warm".equals(argsSplited[0])) modo = 2.5;
                                 else if ("Neutral".equals(argsSplited[0])) modo = 1.5;
-                                else if("Warm".equals(argsSplited[0])) modo = 1;
-                                sd = new SmartBulb(String.valueOf(id),modo,dim,custo1);
-                                casa.addDevice(sd);
-                                casa.addToRoom(divisao,sd.getID());
-                                inc_id(id);
+                                else if("Cold".equals(argsSplited[0])) modo = 1;
+
+                                sd = new SmartBulb(ID1,modo,dim,custo1);
+
+                                s.addDeviceToCasa(casaS,sd.clone());
+                                s.getCasas().get(casaS).addToRoom(divisao,sd.getID());
+                                //s.idInc(String.valueOf(id));
+                                s.idInc();
                                 break;
                             case "SmartCamera":
                                 System.out.println("é camara");
+                                int ID2 = s.getID();
                                 String[] resolucao = argsSplited[0].split("x");
                                 double comp = Double.parseDouble(resolucao[0].substring(1));
                                 //System.out.println(comp);
@@ -98,14 +102,14 @@ public class Parse {
                                 int filesize= Integer.parseInt(argsSplited[1]);
                                 double custo2= Double.parseDouble(argsSplited[2]);
 
-                                sd = new SmartCamera(String.valueOf(id),resolution,filesize,custo2);
-                                casa.addDevice(sd);
-                                casa.addToRoom(divisao,sd.getID());
-                                inc_id(id);
+                                sd = new SmartCamera(ID2,resolution,filesize,custo2);
+                                s.addDeviceToCasa(casaS,sd.clone());
+                                s.getCasas().get(casaS).addToRoom(divisao,sd.getID());
+                                s.idInc();
                                 break;
                             case "SmartSpeaker":
                                 System.out.println("é speaker");
-
+                                int ID3 = s.getID();
                                 int volume = Integer.parseInt(argsSplited[0]);
                                 double custo3= Double.parseDouble(argsSplited[3]);
 
@@ -121,10 +125,10 @@ public class Parse {
                                 else if("Goodis".equals(argsSplited[3])) marca=Marca.Goodis;
                                 else marca= Marca.NULL;
 
-                                sd = new SmartSpeaker(String.valueOf(id),volume,argsSplited[1],marca,custo3);
-                                casa.addDevice(sd);
-                                casa.addToRoom(divisao,sd.getID());
-                                inc_id(id);
+                                sd = new SmartSpeaker(ID3,volume,argsSplited[1],marca,custo3);
+                                s.addDeviceToCasa(casaS,sd.clone());
+                                s.getCasas().get(casaS).addToRoom(divisao,sd.getID());
+                                s.idInc();
                                 break;
                             default:
                                 System.out.println("default");
@@ -134,15 +138,15 @@ public class Parse {
 
                         }
                     }
-
                 }
+
             }
 
         }
         else{
             //carregar de binário
         }
-        System.out.println(s);
+
     }
 
 }

@@ -11,7 +11,7 @@ public class SmartCamera extends SmartDevice{
     }
 
     // Construtor opcional para apenas construir a SmartCamera com o seu respetivo id;
-    public SmartCamera(String id){
+    public SmartCamera(int id){
         super(id);
         this.fileSize=0;
         this.resolution=0.0;
@@ -19,7 +19,7 @@ public class SmartCamera extends SmartDevice{
 
     }
 
-    public SmartCamera(String id,double resolution,int fileSize,double consumoDiario){
+    public SmartCamera(int id,double resolution,int fileSize,double consumoDiario){
         super(id);
         this.fileSize=fileSize;
         this.resolution=resolution;
@@ -68,15 +68,15 @@ public class SmartCamera extends SmartDevice{
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(" » SmartCamera:{ ")
+        sb.append("\n       » SmartCamera:{ ")
                 .append(super.toString())
-                .append(" File size: ")
+                .append(" | File size: ")
                 .append(this.fileSize)
-                .append(" Resolution: ")
+                .append(" | Resolution: ")
                 .append(this.resolution)
-                .append(" Consumo Diario: ")
+                .append(" | Consumo Diario: ")
                 .append(this.consumoDiario)
-                .append(" }\n");
+                .append(" }");
         return sb.toString();
     }
 

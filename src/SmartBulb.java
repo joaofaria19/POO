@@ -39,7 +39,7 @@ public class SmartBulb extends SmartDevice {
         this.consumoDiario = 0.0;
     }
 
-    public SmartBulb(String id, double tone, double dimensao, double consumoDiario) {
+    public SmartBulb(int id, double tone, double dimensao, double consumoDiario) {
 
         super(id);
         this.tone = tone;
@@ -47,7 +47,7 @@ public class SmartBulb extends SmartDevice {
         this.consumoDiario = consumoDiario;
     }
 
-    public SmartBulb(String id) {
+    public SmartBulb(int id) {
 
         super(id);
         this.tone = NEUTRAL;
@@ -100,20 +100,26 @@ public class SmartBulb extends SmartDevice {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" » SmartBulb:{ ")
+        sb.append("\n       » SmartBulb:{ ")
                 .append(super.toString())
-                .append(" Tom: ")
-                .append(this.tone)
-                .append(" Dimensao(cm): ")
+                .append(" | Tom: ")
+                .append(verificaTom(this.tone))
+                .append(" | Dimensao(cm): ")
                 .append(this.dimensao)
-                .append(" Cosnumo Diario: ")
+                .append(" | Cosnumo Diario: ")
                 .append(this.consumoDiario)
-                .append(" }\n");
+                .append(" }");
         return sb.toString();
     }
 
     public SmartDevice clone(){
         return new SmartBulb(this);
+    }
+
+    public String verificaTom(double tom){
+        if(tom == 1.5) return "Neutral";
+        else if(tom == 2.5) return "Cold";
+        else return "Warm";
     }
 
     public double consumoEnergetico() {

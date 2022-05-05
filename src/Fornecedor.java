@@ -96,15 +96,15 @@ public class Fornecedor {
 
     public String toString(){
         StringBuilder sb = new StringBuilder("[Fornecedor]\n")
-                .append(" Fornecedor Id: ")
+                .append("Nome Fornecedor: ")
                 .append(this.id).append("\n")
                 .append(" Valor Base: ")
                 .append(this.valorbase).append("\n")
                 .append(" Imposto: ")
                 .append(this.imposto).append("\n")
-                .append("Casas Associadas: {")
-                .append(this.casasAssociadas)
-                .append("}\n");
+                //.append("Casas Associadas: {")
+                //.append(this.casasAssociadas)
+                .append("\n\n");
         return sb.toString();
     }
 

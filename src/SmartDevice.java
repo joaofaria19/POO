@@ -5,7 +5,7 @@
  */
 public abstract class SmartDevice {
 
-    private String id; // código identificador do SmartDevice
+    private Integer id; // código identificador do SmartDevice
     private Modo mode; // identificador se o device se encontra desligado(false) ou ligado(true)
 
     /* Para quando precisarmos de verificar o consumo energético de um smartDevice
@@ -26,16 +26,16 @@ public abstract class SmartDevice {
      * Constructor for objects of class SmartDevice
      */
     public SmartDevice() {
-        this.id = "";
+        this.id = 0;
         this.mode = Modo.OFF;
     }
-    public SmartDevice(String s){
-        this.id = s;
+    public SmartDevice(Integer d){
+        this.id = d;
         this.mode = Modo.OFF;
     }
 
-    public SmartDevice(String s, Modo estado) {
-        this.id = s;
+    public SmartDevice(Integer d, Modo estado) {
+        this.id = d;
         this.mode = estado;
     }
 
@@ -49,9 +49,9 @@ public abstract class SmartDevice {
     
     public void setMode(Modo b) { this.mode = b;}
     
-    public String getID() {return this.id;}
+    public Integer getID() {return this.id;}
 
-    public void setID(String b){ this.id = b;}
+    public void setID(Integer b){ this.id = b;}
 
 
     public boolean equals(Object o){
@@ -64,11 +64,11 @@ public abstract class SmartDevice {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SmartDeviceId: ")
+        sb.append("[SmartDeviceId: ")
                 .append(this.id)
-                .append(" | On: ")
+                .append(" | Estado: ")
                 .append(this.mode)
-                .append(" ] \n");
+                .append(" ] ");
         return sb.toString();
     }
     public abstract SmartDevice clone();

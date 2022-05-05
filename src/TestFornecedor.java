@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,8 +41,8 @@ public class TestFornecedor {
     @Test
     public void testConstructor() {
         CasaInteligente casa1 = new CasaInteligente("Gualtar");
-        SmartBulb sb = new SmartBulb("sb",2.5,40.0,0.15);
-        SmartSpeaker ssp = new SmartSpeaker("ssp",15,"SIC", Marca.Sony,0.25);
+        SmartBulb sb = new SmartBulb(1,2.5,40.0,0.15);
+        SmartSpeaker ssp = new SmartSpeaker(2,15,"SIC", Marca.Sony,0.25);
         String room = new String();
         Fornecedor forn = new Fornecedor("EDP");
 
@@ -65,4 +67,17 @@ public class TestFornecedor {
         assertTrue(forn.formula("Gualtar")!=0.0);
 
     }
+
+    @Test
+    public void testeCasas(){
+        CasaInteligente casa1 = new CasaInteligente("aaaaa");
+        CasaInteligente casa2 = new CasaInteligente("bbbbb");
+
+        Fornecedor f  = new Fornecedor("EDP");
+        f.addCasa(casa1);
+        f.addCasa(casa2);
+
+        assertTrue(f.getCasasAssociadas().size()!=0);
+    }
+
 }

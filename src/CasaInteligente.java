@@ -7,8 +7,8 @@ import java.util.*;
 public class CasaInteligente {
 
     private String proprietario;
-    private Map<String, SmartDevice> devices; // String: identificador do SmartDevice
-    private Map<String, List<String>> locations; // String: Divisão | Lista: codigo dos devices
+    private Map<Integer, SmartDevice> devices; // String: identificador do SmartDevice
+    private Map<String, List<Integer>> locations; // String: Divisão | Lista: codigo dos devices
     private int nif;
     private String nomeF;
     //private List<String> rooms; // lista com todas as divisões da casa
@@ -28,7 +28,7 @@ public class CasaInteligente {
      * Construtor Parametrizavel
      * */
 
-    public CasaInteligente(String proprietario, HashMap<String,SmartDevice> mydevices, HashMap<String,List<String>> mylocations, int nif, String nome) {
+    public CasaInteligente(String proprietario, HashMap<String,SmartDevice> mydevices, HashMap<String,List<Integer>> mylocations, int nif, String nome) {
         // initialise instance variables
         this.proprietario = proprietario;
         this.devices = new HashMap();
@@ -61,24 +61,24 @@ public class CasaInteligente {
         this.nif = 0;
     }
 
-    public Map<String,SmartDevice> getDevices(){
-        Map<String,SmartDevice> dev = new HashMap<>();
-        for(Map.Entry<String,SmartDevice> sd : this.devices.entrySet()){
+    public Map<Integer,SmartDevice> getDevices(){
+        Map<Integer,SmartDevice> dev = new HashMap<>();
+        for(Map.Entry<Integer,SmartDevice> sd : this.devices.entrySet()){
             dev.put(sd.getKey(),sd.getValue().clone());
         }
         return dev;
     }
 
-    public void setDevices(Map<String,SmartDevice> dev){
+    public void setDevices(Map<Integer,SmartDevice> dev){
         this.devices = new HashMap<>();
-        for(Map.Entry<String,SmartDevice> sd : dev.entrySet()){
+        for(Map.Entry<Integer,SmartDevice> sd : dev.entrySet()){
             this.devices.put(sd.getKey(),sd.getValue().clone());
         }
     }
 
-    public Map<String,List<String>> getLocations(){return this.locations;}
+    public Map<String,List<Integer>> getLocations(){return this.locations;}
 
-    public void setLocations(Map<String,List<String>> list){this.locations = list;}
+    public void setLocations(Map<String,List<Integer>> list){this.locations = list;}
 
     public boolean equals(Object o){
         if(o==this) return true;
@@ -92,13 +92,15 @@ public class CasaInteligente {
     public String toString(){
         StringBuilder sb = new StringBuilder("[Casa Inteligente]\n")
                 .append("   Proprietario: ").append(this.proprietario).append("\n")
-                .append("   Devices:{ ").append(this.devices).append("}")
+                .append("   Devices:{ ").append(this.devices).append("}\n")
                 .append("   Locations:{ ").append(this.locations).append("}\n")
                 .append("   NIF: ").append(this.nif).append("\n")
-                .append("   Fornecedor: ").append(this.nomeF).append("\n");
+                .append("   Fornecedor: ").append(this.nomeF).append("\n\n");
 
         return sb.toString();
     }
+
+
 
     public CasaInteligente clone(){
         return new CasaInteligente(this);
@@ -109,7 +111,7 @@ public class CasaInteligente {
      * Método para ligar um certo dispositivo
      * s- Identificador do SmartDevice
      * */
-    public void setDeviceOn(String s) {
+    public void setDeviceOn(int s) {
         this.devices.get(s).turnOn();
     }
 
@@ -125,14 +127,14 @@ public class CasaInteligente {
      * Método que verifica se um determinado smart device existe
      *id- Identificador do SmartDevice
      */
-    public boolean existsDevice(String id) {return this.devices.containsKey(id);}
+    public boolean existsDevice(int id) {return this.devices.containsKey(id);}
 
 
     /*
      * Método para obter um determinado SmartDevice
      * Retorna null caso o SmartDevice nao esteja contido na Hash
      * */
-    public SmartDevice getDevice(String s) {
+    public SmartDevice getDevice(int s) {
         if(!this.devices.containsKey(s)) return null;
         else return this.devices.get(s).clone();
     }
@@ -179,7 +181,7 @@ public class CasaInteligente {
     }
 
 
-    public void setMode(String s, Modo mode){
+    public void setMode(int s, Modo mode){
         this.devices.get(s).setMode(mode);
     }
 
@@ -193,7 +195,7 @@ public class CasaInteligente {
      * Método para acrescentar uma divisao nova a CasaInteligente
      */
     public void addRoom(String room) {
-        List<String> list = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         this.locations.put(room,list);
     }
 
@@ -209,7 +211,7 @@ public class CasaInteligente {
      * Método que permite adicionar um SmartDevice a uma divisao
      * Colocamos na lista de SmartDevices da divisao o smartDevice dado
      * */
-    public void addToRoom (String room, String SmartDevice) {
+    public void addToRoom (String room, int SmartDevice) {
         if(!existRoom(room)){
             addRoom(room);
         }
@@ -220,9 +222,14 @@ public class CasaInteligente {
     /*
      * Método que verifica se um determinado device encontra-se naquela divisao
      * */
-    public boolean roomHasDevice (String room, String SmartDevice) {
+    public boolean roomHasDevice (String room, int SmartDevice) {
         return this.locations.get(room).contains(SmartDevice);
     }
+
+    public Set<SmartDevice> getAllDevices(){
+            return new HashSet<>(this.devices.values());
+    }
+
 
     /*
      * Método para obter o consumo total de uma divisão
@@ -230,7 +237,7 @@ public class CasaInteligente {
      * ATENÇAO => Perguntar se o encapsulamento é violado neste caso*/
     public double getConsumoRoom(String room){
         double res=0;
-        for(String s: this.locations.get(room)){
+        for(Integer s: this.locations.get(room)){
             if (this.devices.get(s).getMode() == Modo.ON) {
                 res += this.devices.get(s).consumoEnergetico();
             }
@@ -243,16 +250,16 @@ public class CasaInteligente {
     public double getConsumo(){
         double res = 0.0;
         CasaInteligente casa = new CasaInteligente();
-        List<String> lista = new ArrayList<>();
-        List<List<String>> rooms = new ArrayList<>();
+        List<Integer> lista = new ArrayList<>();
+        List<List<Integer>> rooms = new ArrayList<>();
         rooms = casa.getLocations().values().stream().toList();
-        for(List<String> l : rooms){
+        for(List<Integer> l : rooms){
             lista.addAll(l);
         }
-        Iterator<String> it = lista.iterator();
+        Iterator<Integer> it = lista.iterator();
         while(it.hasNext()){
-            String r = it.next();
-            res+= casa.getConsumoRoom(r);
+            Integer r = it.next();
+            res+= this.devices.get(r).consumoEnergetico();
         }
         return res;
     }

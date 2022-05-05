@@ -43,7 +43,7 @@ public class SmartSpeaker extends SmartDevice {
         this.consumoDiario = 0.0;
     }
 
-    public SmartSpeaker(String canal) {
+    public SmartSpeaker(int canal) {
         // initialise instance variables
         super(canal);
         this.volume = 0;
@@ -52,7 +52,7 @@ public class SmartSpeaker extends SmartDevice {
         this.consumoDiario = 0.0;
     }
 
-    public SmartSpeaker(String cod, int volume, String channel, Marca marca,double consumoDiario) {
+    public SmartSpeaker(int cod, int volume, String channel, Marca marca,double consumoDiario) {
         // initialise instance variables
         super(cod);
         // verificar se o volume fornecido é positivo
@@ -104,17 +104,17 @@ public class SmartSpeaker extends SmartDevice {
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append(" » SmartSpeaker:{ ")
+        sb.append("\n       » SmartSpeaker:{ ")
                 .append(super.toString())
-                .append(" Volume: ")
+                .append(" | Volume: ")
                 .append(this.volume)
-                .append(" Channel: ")
+                .append(" | Channel: ")
                 .append(this.channel)
-                .append(" Marca: ")
+                .append(" | Marca: ")
                 .append(this.marca)
-                .append(" Consumo Diario: ")
+                .append(" | Consumo Diario: ")
                 .append(this.consumoDiario)
-                .append(" }\n");
+                .append(" }");
         return sb.toString();
     }
 

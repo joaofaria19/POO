@@ -1,7 +1,7 @@
 import java.io.FileNotFoundException;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, ObjectNullException {
         Controller.run();
 
         /*CasaInteligente casa1 = new CasaInteligente();

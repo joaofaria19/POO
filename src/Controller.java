@@ -13,7 +13,7 @@ import static java.time.LocalDate.now;
 
 public class Controller {
 
-    public static void run() throws FileNotFoundException {
+    public static void run() throws FileNotFoundException, ObjectNullException {
         //int opcao = Menu.MenuInicial();
         Sys s = new Sys();
         while (true) {
@@ -34,24 +34,17 @@ public class Controller {
                     List<CasaInteligente> casas = new ArrayList<>();
                     //List<Fornecedor> listaf = new ArrayList<>();
                     casas = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
-
-                    //System.out.println(listaF);
-                    /*
-                    for (Fornecedor f : listaf) {
-                        for(CasaInteligente casa : f.getCasasAssociadas().values().stream().map(CasaInteligente::clone).toList()) {
-                            casas.add(casa.clone());
-                        }//System.out.println(f.toString());
-
-                    }*/
+                    //CasaInteligente casa = new CasaInteligente();
+                    //for(CasaInteligente casa : casas) {
+                    //    System.out.println(casa.getDevices());
+                    //}
                     Menu.MenuShowCasa(casas);
 
-                    Scanner scanner = new Scanner(System.in);
-                    int next = scanner.nextInt();
-                    if (next == 0) //Menu.MenuInicial();
+                    Menu.voltarPress();
+                    //Menu.MenuInicial();
                     break;
                 case 2:
-                    //System.out.println("op 2");
-                    //display fornecedores
+
                     List<Fornecedor> l = new ArrayList<>();
                     l = s.getFornecedores().values().stream().map(Fornecedor::clone).collect(Collectors.toList());
 
@@ -62,27 +55,22 @@ public class Controller {
 
                     Menu.MenuShowFornecedor(lf);
 
-                    Scanner scanner2 = new Scanner(System.in);
-                    int next2 = scanner2.nextInt();
-                    if (next2 == 0) //Menu.MenuInicial();
+                    Menu.voltarPress(); //Menu.MenuInicial();
                     break;
                 case 3:
                     //Menu.parsing();
-                    System.out.println("Escreva o nome do fornecedor\n\n(0)Voltar");
-                    Scanner scanner3 = new Scanner(System.in);
-                    int next3 = scanner3.nextInt();
-                    if (next3 == 0) Menu.MenuInicial();
-                    else ;
+
+
+                    String fornecedor = Menu.MenuShowFornecedorCasas();
+                    List<CasaInteligente> casa = s.getCasasAssociadas(fornecedor);
+                    Menu.MenuShowCasasAssociadas(fornecedor,casa);
+                    Menu.voltarPress();
                     break;
                 case 4:
                     Menu.MenuOpcaoCarregamento();
+                    int next4 = 1;
+                    Parse.parsing(next4,s);
 
-                    Scanner scanner4 = new Scanner(System.in);
-                    int next4 = scanner4.nextInt();
-                    if (next4 == 0) Menu.MenuInicial();
-                    else Parse.parsing(next4,s);
-                    //System.out.println(s.toString());
-                    //Menu.MenuInicial();
                     break;
                 case 5:
                     LocalDate today = now();

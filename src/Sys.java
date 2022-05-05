@@ -4,9 +4,9 @@ import java.util.stream.Collectors;
 
 public class Sys {
 
-    Map<String,Fornecedor> fornecedores;
-    Map<String,CasaInteligente> casas;
-    int id;
+    private Map<String,Fornecedor> fornecedores;
+    private Map<String,CasaInteligente> casas;
+    private int id;
 
     public Sys(){
 
@@ -15,10 +15,14 @@ public class Sys {
         this.id = 0;
     }
 
-    public Sys(Map<String,Fornecedor> listaF){
+    public Sys(Map<String,Fornecedor> listaF,Map<String,CasaInteligente> listaC){
         this.fornecedores = new HashMap<>();
         for(Fornecedor f : listaF.values()){
             this.fornecedores.put(f.getId(),f.clone());
+        }
+        this.casas = new HashMap<>();
+        for(CasaInteligente casa: listaC.values()){
+            this.casas.put(casa.getProprietario(),casa.clone());
         }
 
     }
@@ -28,6 +32,7 @@ public class Sys {
 
         this.fornecedores = lf.getFornecedores();
         this.casas = lf.getCasas();
+
     }
 
 
@@ -70,14 +75,26 @@ public class Sys {
         this.casas.put(s,f.clone());
     }
 
-    public void addCasaToFornecedor(CasaInteligente casa , String fs){
-        List<Fornecedor> lf = this.fornecedores.values().stream().map(Fornecedor::clone).toList();
-        for(Fornecedor f : lf){
-            if(fs.equals(f.getId())){
-                f.addCasa(casa);
+    public void addCasaToFornecedor(CasaInteligente casa , String f){
+        List<Fornecedor> sl = new ArrayList<>();
+        sl = this.fornecedores.values().stream().toList();
+        for(Fornecedor forn:sl) {
+            if (f.equals(forn.getId())) {
+                forn.addCasa(casa.clone());
             }
-        }
 
+        }
+    }
+
+
+
+
+    public void addDeviceToCasa(String casa, SmartDevice sd) throws ObjectNullException{
+        if(this.casas.containsKey(casa)) {
+            this.casas.get(casa).addDevice(sd.clone());
+        }else{
+            throw new ObjectNullException("Casa a qual pretende adicionar o device não existe");
+        }
     }
 
     public String toString(){
@@ -87,11 +104,30 @@ public class Sys {
 
     }
 
+
+
+    public List<CasaInteligente> getCasasAssociadas(String f) throws ObjectNullException{
+        if(this.fornecedores.containsKey(f)) {
+            List<CasaInteligente> res = new ArrayList<>();
+
+
+            for (CasaInteligente c : this.casas.values()) {
+                if (f.equals(c.getNomeF())) {
+                    res.add(c.clone());
+                }
+            }
+            return res;
+        }else{
+            throw new ObjectNullException("Fornecedor não existente");
+        }
+
+
+    }
+
     public int getID(){
         return this.id;
     }
-    public int idInc(){
-        return this.id++;
-
+    public void idInc(){
+         this.id++;
     }
 }
