@@ -38,9 +38,16 @@ public class Controller {
                     //for(CasaInteligente casa : casas) {
                     //    System.out.println(casa.getDevices());
                     //}
-                    Menu.MenuShowCasa(casas);
+                    if(casas.isEmpty()) {
+                        System.out.println("Ainda não existem casas\n\n(0)Voltar");
+                        Menu.voltarPress();
+                    }
+                    else {
+                        Menu.MenuShowCasa(casas);
+                        Menu.voltarPress();
+                    }
 
-                    Menu.voltarPress();
+
                     //Menu.MenuInicial();
                     break;
                 case 2:
@@ -52,17 +59,26 @@ public class Controller {
                     for(Fornecedor f:l){
                         lf.add(f.clone());
                     }
+                    if(lf.isEmpty()) {
+                        System.out.println("Ainda não existem Fornecedores\n\n(0)Voltar");
+                        Menu.voltarPress();
+                    }
+                    else {
+                        Menu.MenuShowFornecedor(lf);
+                        Menu.voltarPress();
+                    }
 
-                    Menu.MenuShowFornecedor(lf);
 
-                    Menu.voltarPress(); //Menu.MenuInicial();
+                    //Menu.MenuInicial();
                     break;
                 case 3:
                     //Menu.parsing();
 
 
                     String fornecedor = Menu.MenuShowFornecedorCasas();
+
                     List<CasaInteligente> casa = s.getCasasAssociadas(fornecedor);
+
                     Menu.MenuShowCasasAssociadas(fornecedor,casa);
                     Menu.voltarPress();
                     break;
@@ -73,6 +89,7 @@ public class Controller {
 
                     break;
                 case 5:
+                    Menu.MenuSimulacao();
                     LocalDate today = now();
                     System.out.println("Data de hoje: ");
                     String formattedDate = today.format(DateTimeFormatter

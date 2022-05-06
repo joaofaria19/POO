@@ -118,7 +118,9 @@ public class Sys {
             }
             return res;
         }else{
-            throw new ObjectNullException("Fornecedor não existente");
+            List<CasaInteligente> res = new ArrayList<>();
+            return res;
+            //throw new ObjectNullException("Fornecedor não existente");
         }
 
 

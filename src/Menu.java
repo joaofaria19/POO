@@ -78,12 +78,19 @@ public class Menu {
 
     public static void MenuShowCasasAssociadas(String fornecedor,List<CasaInteligente> casas){
         StringBuilder sb = new StringBuilder("---------CASAS ASSOCIADAS----------");
-        sb.append("[Fornecedor] : ").append(fornecedor);
-        for(CasaInteligente c:casas){
-            sb.append(c.toString());
+        sb.append("\n[Fornecedor] : ").append(fornecedor);
+        if (casas.isEmpty()){
+            System.out.println("Este Fornecedor não existe ou ainda não tem casas associadas\n\n(0)Voltar");
         }
-        sb.append("\n(0)Voltar");
-        System.out.println(sb);
+
+        else{
+            for(CasaInteligente c:casas){
+                sb.append(c.toString());
+                sb.append("\n(0)Voltar");
+                System.out.println(sb);
+            }
+        }
+
 
     }
     public static void voltarPress(){
