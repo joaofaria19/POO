@@ -19,6 +19,7 @@ public class Controller {
         while (true) {
             int opcao = -1;
             while (opcao < 0 || opcao > 7) {
+                Menu.MensagemOpcaoInvalida();
                 opcao = Menu.MenuInicial();
             }
 
@@ -39,7 +40,7 @@ public class Controller {
                     //    System.out.println(casa.getDevices());
                     //}
                     if(casas.isEmpty()) {
-                        System.out.println("Ainda não existem casas\n\n(0)Voltar");
+                        Menu.MensagemNoCasas();
                         Menu.voltarPress();
                     }
                     else {
@@ -60,7 +61,7 @@ public class Controller {
                         lf.add(f.clone());
                     }
                     if(lf.isEmpty()) {
-                        System.out.println("Ainda não existem Fornecedores\n\n(0)Voltar");
+                        Menu.MensagemNoFornecedores();
                         Menu.voltarPress();
                     }
                     else {
@@ -107,6 +108,13 @@ public class Controller {
                     //int next = scanner.nextInt();
                     //if(next == 0) Menu.MenuInicial();
                     //else Menu.parsing(next);
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    String novoFornecedor = Menu.MenuNovoFornecedor();
+                    Fornecedor f = new Fornecedor(novoFornecedor);
+                    s.addFornecedor(f.getId(),f.clone());
                     break;
                 default:
                     System.out.println("Insira uma opção válida\n");

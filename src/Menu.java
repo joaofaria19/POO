@@ -97,6 +97,15 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         int next = scanner.nextInt();
     }
+    public static void MensagemOpcaoInvalida(){
+        System.out.println("Insira uma opção válida\n");
+    }
+    public static void MensagemNoCasas(){
+        System.out.println("Ainda não existem casas\n\n(0)Voltar");
+    }
+    public static void MensagemNoFornecedores(){
+        System.out.println("Ainda não existem Fornecedores\n\n(0)Voltar");
+    }
     public static void MensagemFinal(){
         System.out.println("feitinho, adeus");
     }
@@ -110,6 +119,12 @@ public class Menu {
     public static void MenuSimulacao(){
         StringBuilder sb = new StringBuilder("\n----------------MENU SIMULACAO--------------\n\n");
 
+    }
+    public static String MenuNovoFornecedor(){
+        StringBuilder sb = new StringBuilder("\nInsira o nome do Fornecedor a adiconar\nCaso este nome já exista, o novo Fornecedor vai sobrescrever o antigo");
+        System.out.println(sb.toString());
+        Scanner scanner = new Scanner(System.in);
+        return scanner.next();
     }
 
 }
