@@ -149,4 +149,29 @@ public class Parse {
 
     }
 
+    public static void novoFornecedor(String novoFornecedor, Sys s){
+        Fornecedor f = new Fornecedor(novoFornecedor);
+        s.addFornecedor(f.getId(),f.clone());
+
+
+    }
+
+    public static void novaCasa(String[] novaCasa, Sys s){
+        CasaInteligente casa = new CasaInteligente(novaCasa[0]);
+        String casaS = casa.getProprietario();
+        casa.setNif(Integer.parseInt(novaCasa[1]));
+        casa.setNomeF(novaCasa[2]);
+
+        //System.out.println(casa.toString());
+
+        s.addCasa(casa.getProprietario(),casa.clone());
+        //s.addCasaToFornecedor(casa,argsSplited[2]);
+        s.addCasaToFornecedor(casa.clone(),novaCasa[2]);
+
+
+    }
+
+
+
+
 }

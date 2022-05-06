@@ -124,7 +124,7 @@ public class Menu {
         StringBuilder sb = new StringBuilder("\nInsira o nome do Fornecedor a adiconar\nCaso este nome já exista, o novo Fornecedor vai sobrescrever o antigo");
         System.out.println(sb.toString());
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public static String[] MenuNovaCasa(){
@@ -132,10 +132,10 @@ public class Menu {
         System.out.println(sb.toString());
         String [] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
-        args[0] = scanner.next();
-        System.out.println(args[0]);
+        args[0] = scanner.nextLine();
+        System.out.println("Insira o NIF");
         args[1] = scanner.next();
-        System.out.println(args[1]);
+        System.out.println("Insira o nome de um Fornecedor Existente");
         args[2] = scanner.next();
         System.out.println(args[2]);
         return args;

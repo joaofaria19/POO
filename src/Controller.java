@@ -111,13 +111,15 @@ public class Controller {
                     break;
                 case 6:
                     String[] novaCasa = Menu.MenuNovaCasa();
+                    Parse.novaCasa(novaCasa, s);
                     System.out.println(novaCasa[0]);
 
                     break;
                 case 7:
                     String novoFornecedor = Menu.MenuNovoFornecedor();
-                    Fornecedor f = new Fornecedor(novoFornecedor);
-                    s.addFornecedor(f.getId(),f.clone());
+                    //Fornecedor f = new Fornecedor(novoFornecedor);
+                    //s.addFornecedor(f.getId(),f.clone());
+                    Parse.novoFornecedor(novoFornecedor, s);
                     break;
                 default:
                     System.out.println("Insira uma opção válida\n");
