@@ -127,5 +127,19 @@ public class Menu {
         return scanner.next();
     }
 
+    public static String[] MenuNovaCasa(){
+        StringBuilder sb = new StringBuilder("\nInsira o nome do proprietario da Casa a adiconar\nCaso este nome já exista, a nova Casa vai sobrescrever a antiga");
+        System.out.println(sb.toString());
+        String [] args = new String[]{"", "", ""};
+        Scanner scanner = new Scanner(System.in);
+        args[0] = scanner.next();
+        System.out.println(args[0]);
+        args[1] = scanner.next();
+        System.out.println(args[1]);
+        args[2] = scanner.next();
+        System.out.println(args[2]);
+        return args;
+    }
+
 }
 

@@ -110,6 +110,9 @@ public class Controller {
                     //else Menu.parsing(next);
                     break;
                 case 6:
+                    String[] novaCasa = Menu.MenuNovaCasa();
+                    System.out.println(novaCasa[0]);
+
                     break;
                 case 7:
                     String novoFornecedor = Menu.MenuNovoFornecedor();
