@@ -92,7 +92,7 @@ public class SmartSpeaker extends SmartDevice {
 
     public double getConsumoDiario(){return this.consumoDiario;}
 
-    public void setMarca(double consumoDiario) {this.consumoDiario = consumoDiario;}
+    public void setConsumoDiario(double consumoDiario) {this.consumoDiario = consumoDiario;}
 
     public boolean equals(Object o){
         if(o==this)return true;

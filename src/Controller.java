@@ -18,7 +18,7 @@ public class Controller {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
-            while (opcao < 0 || opcao > 9) {
+            while (opcao < 0 || opcao > 10) {
 
                 opcao = Menu.MenuInicial();
             }
@@ -115,6 +115,17 @@ public class Controller {
                     s.guardaEstado();
                     Menu.Mensagem(3);
                     break;
+                case 10:
+                    String[] cr = Menu.MenuAddDevice();
+                    int next = Menu.MenuVerificarDevice();
+                    switch (next){
+                        case 1:
+                            String[] aux1 = Menu.MenuSmartBulb();
+                            s.addSmartToCasaToRoom(s.addSmartBulb(aux1),cr);
+                            break;
+                        default:
+                            break;
+                    }
                 default:
                     Menu.MenuInicial();
             }

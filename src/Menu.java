@@ -32,7 +32,7 @@ public class Menu {
         sb.append("###################################################\n\n");
 
         sb.append("Selecione uma das opções acima:");
-        System.out.println(sb.toString());
+        System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
@@ -62,19 +62,6 @@ public class Menu {
         return scanner.next();
     }
 
-
-    public static String MenuShowDevicesCasas(){
-        StringBuilder sb = new StringBuilder("\n=> Insira o nome do Proprietario da Casa em que pretende adicionar\n");
-        System.out.println(sb.toString());
-        String [] args = new String[]{"", "", ""};
-        Scanner scanner = new Scanner(System.in);
-        args[0] = scanner.nextLine();
-        System.out.println("=> Insira o valor base do custo do kwh de energia");
-        args[1] = scanner.next();
-        System.out.println("=> Insira o valor do imposto do Fornecedor(%)");
-        args[2] = scanner.next();
-        System.out.println(args[2]);
-        return args;
     public static void MenuShowCasasAssociadas(String fornecedor,List<CasaInteligente> casas){
         StringBuilder sb = new StringBuilder("---------CASAS ASSOCIADAS----------");
         sb.append("\n[Fornecedor] : ").append(fornecedor);
@@ -91,6 +78,8 @@ public class Menu {
 
 
     }
+
+
     public static void voltarPress(){
         System.out.println("\n(0)Voltar\n");
         Scanner scanner = new Scanner(System.in);
@@ -118,8 +107,45 @@ public class Menu {
         StringBuilder sb = new StringBuilder("\n----------------MENU SIMULACAO--------------\n\n");
 
     }
+
+    public static String[] MenuAddDevice(){
+        String[] args = new String[]{"",""};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n=> Indique o nome do Proprietario da casa onde pretende adicionar o Smart Device");
+        args[0] = scanner.next();
+        System.out.println("\n=> Indique a divisao da casa onde pretende adicionar o Smart Device");
+        args[1] = scanner.next();
+        return args;
+    }
+
+    public static int MenuVerificarDevice() {
+        StringBuilder sb = new StringBuilder("\n--------------SMART DEVICE---------------\n");
+        sb.append("\nQue tipo de SmartDevice pretende adicionar?\n")
+                .append("(1) Smart Bulb\n")
+                .append("(2) Smart Camera\n")
+                .append("(3) Smart Speaker\n");
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static String[] MenuSmartBulb(){
+        StringBuilder sb = new StringBuilder("\n\n--------------SMART BULB---------------\n");
+        System.out.println(sb.toString());
+        String [] args = new String[]{"", "", ""};
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n=> Indique o tom da lampada que pretende adicionar\n");
+        args[0] = scanner.next();
+        System.out.println("\n=> Indique a dimensao da lampada que pretende adicionar\n");
+        args[1] = scanner.next();
+        System.out.println("\n=> Indique o consumo da lampada que pretende adicionar\n");
+        args[2] = scanner.next();
+        return args;
+    }
+
+
     public static String[] MenuNovoFornecedor(){
-        StringBuilder sb = new StringBuilder("\n=> Insira o nome do Fornecedor a adiconar\nCaso este nome já exista, o novo Fornecedor vai sobrescrever o antigo");
+        StringBuilder sb = new StringBuilder("\n=> Insira o nome do Fornecedor a adiconar\n(Caso este nome já exista, o novo Fornecedor vai sobrescrever o antigo)");
         System.out.println(sb.toString());
         String [] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
@@ -128,7 +154,7 @@ public class Menu {
         args[1] = scanner.next();
         System.out.println("=> Insira o valor do imposto do Fornecedor(%)");
         args[2] = scanner.next();
-        System.out.println(args[2]);
+
         return args;
     }
 
@@ -142,7 +168,7 @@ public class Menu {
         args[1] = scanner.next();
         System.out.println("=> Insira o nome de um Fornecedor Existente");
         args[2] = scanner.next();
-        System.out.println(args[2]);
+
         return args;
     }
 

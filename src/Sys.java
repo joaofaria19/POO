@@ -127,6 +127,16 @@ public class Sys implements Serializable {
 
     }
 
+    public void addSmartToCasaToRoom(SmartDevice sd ,String[] args){
+        for (CasaInteligente c : this.casas.values()) {
+            if (args[0].equals(c.getNomeF())) {
+                c.addDevice(sd.clone());
+                c.addToRoom(args[1],sd.clone().getID());
+            }
+        }
+
+    }
+
     public int getID(){
         return this.id;
     }
@@ -153,6 +163,67 @@ public class Sys implements Serializable {
         addCasa(casa.getProprietario(),casa.clone());
         addCasaToFornecedor(casa.clone(),novaCasa[2]);
 
+    }
+
+
+    public SmartDevice addDeviceMaster(int x){
+        SmartDevice sd = new SmartBulb();
+        switch (x){
+            case 1:
+                Menu.MenuSmartBulb();
+                sd.setID(this.id);
+                sd.setMode(Modo.OFF);
+                //addSmarBulb();
+                idInc();
+                break;
+                case 2:
+                    break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+        return sd.clone();
+    }
+
+    public SmartBulb addSmartBulb(String[] args){
+        SmartBulb sd = new SmartBulb();
+        sd.setID(this.id);
+        sd.setMode(Modo.OFF);
+        sd.setTone(Double.parseDouble(args[0]));
+        sd.setDimensao(Double.parseDouble(args[1]));
+        sd.setConsumoDiario(Double.parseDouble(args[2]));
+        idInc();
+        return sd;
+    }
+
+    public SmartCamera addSmarCamera(String[] args,SmartCamera sd){
+        sd.setFileSize(Integer.parseInt(args[0]));
+        sd.setResolution(Double.parseDouble(args[1]));
+        sd.setConsumoDiario(Double.parseDouble(args[2]));
+        return sd;
+    }
+
+    public SmartSpeaker addSmarSpeaker(String[] args,SmartSpeaker sd){
+        sd.setVolume(Integer.parseInt(args[0]));
+        sd.setChannel(args[2]);
+
+        Marca marca = null;
+        if("LG".equals(args[3])) marca=Marca.LG;
+        else if("Sony".equals(args[3])) marca=Marca.Sony;
+        else if("Philips".equals(args[3])) marca=Marca.Philips;
+        else if("Marshall".equals(args[3])) marca=Marca.Marshall;
+        else if("BOSE".equals(args[3])) marca=Marca.BOSE;
+        else if("Bang&Olufsen".equals(args[3])) marca=Marca.BangOlufsen;
+        else if("Bowers&Wilkins".equals(args[3])) marca=Marca.BowersWilkins;
+        else if("Sennheiser".equals(args[3])) marca=Marca.Sennheiser;
+        else if("Goodis".equals(args[3])) marca=Marca.Goodis;
+        else marca= Marca.NULL;
+
+        sd.setMarca(marca);
+        sd.setConsumoDiario(Double.parseDouble(args[4]));
+
+        return sd;
     }
 
     public void guardaEstado() throws FileNotFoundException, IOException, FileNotFoundException {
