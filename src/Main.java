@@ -2,7 +2,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, ObjectNullException {
+    public static void main(String[] args) throws IOException, ObjectNullException, ClassNotFoundException {
         Controller.run();
 
         /*CasaInteligente casa1 = new CasaInteligente();

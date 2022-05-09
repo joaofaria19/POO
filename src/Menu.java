@@ -13,7 +13,8 @@ import static java.time.LocalDate.now;
 
 public class Menu {
     public static int MenuInicial() throws FileNotFoundException {
-        StringBuilder sb = new StringBuilder("###################################################\n");
+        StringBuilder sb = new StringBuilder
+                 ("###################################################\n");
         sb.append("#                                                 #\n");
         sb.append("# ---------------SMART HOME MANAGER---------------#\n");
         sb.append("#                                                 #\n");
@@ -63,12 +64,17 @@ public class Menu {
 
 
     public static String MenuShowDevicesCasas(){
-        StringBuilder sb = new StringBuilder("\n=> Indique qual a Casa na qual quer consultar os SmarDevices: ");
+        StringBuilder sb = new StringBuilder("\n=> Insira o nome do Proprietario da Casa em que pretende adicionar\n");
         System.out.println(sb.toString());
+        String [] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
-        return scanner.next();
-    }
-
+        args[0] = scanner.nextLine();
+        System.out.println("=> Insira o valor base do custo do kwh de energia");
+        args[1] = scanner.next();
+        System.out.println("=> Insira o valor do imposto do Fornecedor(%)");
+        args[2] = scanner.next();
+        System.out.println(args[2]);
+        return args;
     public static void MenuShowCasasAssociadas(String fornecedor,List<CasaInteligente> casas){
         StringBuilder sb = new StringBuilder("---------CASAS ASSOCIADAS----------");
         sb.append("\n[Fornecedor] : ").append(fornecedor);
@@ -98,9 +104,6 @@ public class Menu {
     }
     public static void MensagemNoFornecedores(){
         System.out.println("Ainda não existem Fornecedores\n\n");
-    }
-    public static void MensagemFinal(){
-        System.out.println("feitinho, adeus");
     }
 
     public static int MenuOpcaoCarregamento(){
@@ -151,6 +154,22 @@ public class Menu {
             sb.append("\n\nA carregar dados de binário...\n\n");
         }
         System.out.println(sb);
+    }
+
+    public static void Mensagem(int mensagem){
+        switch (mensagem){
+            case 1:
+                System.out.println("\nfeitinho, adeus\n");
+                break;
+            case 2:
+                System.out.println("\nEstado carregado\n");
+                break;
+                case 3:
+                System.out.println("\nEstado salvo!!\n");
+                break;
+            default:
+                break;
+        }
     }
 
 }

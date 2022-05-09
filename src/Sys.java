@@ -155,12 +155,26 @@ public class Sys implements Serializable {
 
     }
 
-    public void guardaEstados(String nomeFicheiro) throws FileNotFoundException, IOException, FileNotFoundException {
-        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+    public void guardaEstado() throws FileNotFoundException, IOException, FileNotFoundException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database"));
         oos.writeObject(this);
         oos.flush();
         oos.close();
+    }
+
+    public void carregaEstado() throws IOException, ClassNotFoundException {
+        Sys sys = carregaEstadoAux();
+        this.casas = sys.getCasas();
+        this.fornecedores = sys.getFornecedores();
+        this.id = sys.getID();
+    }
+
+    public Sys carregaEstadoAux() throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("database"));
+        Sys sys = (Sys) ois.readObject();
+        ois.close();
+        return sys;
+
     }
 
 }

@@ -14,7 +14,7 @@ import static java.time.LocalDate.now;
 
 public class Controller {
 
-    public static void run() throws IOException, ObjectNullException {
+    public static void run() throws IOException, ObjectNullException, ClassNotFoundException {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
@@ -25,7 +25,7 @@ public class Controller {
 
             switch (opcao) {
                 case 0:
-                    Menu.MensagemFinal();
+                    Menu.Mensagem(1);
                     System.exit(0);
                     break;
                 case 1:
@@ -33,6 +33,7 @@ public class Controller {
                     int next4 = Menu.MenuOpcaoCarregamento();
 
                     Menu.Carregamento(next4);
+                    Menu.Mensagem(2);
                     Parse.parsing(next4,s);
 
                     break;
@@ -111,8 +112,8 @@ public class Controller {
                     Menu.voltarPress();
                     break;
                 case 9:
-                    s.guardaEstados("database");
-                    System.out.println("Estado salvo!!");
+                    s.guardaEstado();
+                    Menu.Mensagem(3);
                     break;
                 default:
                     Menu.MenuInicial();
