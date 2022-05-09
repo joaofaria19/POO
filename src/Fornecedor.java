@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Fornecedor {
@@ -95,15 +96,15 @@ public class Fornecedor {
     }
 
     public String toString(){
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
         StringBuilder sb = new StringBuilder("[Fornecedor]\n")
                 .append("Nome Fornecedor: ")
                 .append(this.id).append("\n")
                 .append(" Valor Base: ")
-                .append(this.valorbase).append("\n")
+                .append(df.format(this.valorbase)).append("\n")
                 .append(" Imposto: ")
-                .append(this.imposto).append("\n")
-                //.append("Casas Associadas: {")
-                //.append(this.casasAssociadas)
+                .append(df.format(this.imposto)).append("\n")
                 .append("\n\n");
         return sb.toString();
     }

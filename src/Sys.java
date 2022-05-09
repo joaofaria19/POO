@@ -132,4 +132,26 @@ public class Sys {
     public void idInc(){
          this.id++;
     }
+
+
+
+    public void novoFornecedor(String[] novoFornecedor){
+        Fornecedor f = new Fornecedor(novoFornecedor[0]);
+        f.setValorbase(Double.parseDouble(novoFornecedor[1]));
+        f.setImposto(Double.parseDouble(novoFornecedor[2]));
+        this.fornecedores.put(f.getId(),f.clone());
+
+
+    }
+
+    public void novaCasa(String[] novaCasa){
+        CasaInteligente casa = new CasaInteligente(novaCasa[0]);
+        casa.setNif(Integer.parseInt(novaCasa[1]));
+        casa.setNomeF(novaCasa[2]);
+
+        addCasa(casa.getProprietario(),casa.clone());
+        addCasaToFornecedor(casa.clone(),novaCasa[2]);
+
+    }
+
 }

@@ -14,12 +14,11 @@ import static java.time.LocalDate.now;
 public class Controller {
 
     public static void run() throws FileNotFoundException, ObjectNullException {
-        //int opcao = Menu.MenuInicial();
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
-            while (opcao < 0 || opcao > 7) {
-                Menu.MensagemOpcaoInvalida();
+            while (opcao < 0 || opcao > 8) {
+
                 opcao = Menu.MenuInicial();
             }
 
@@ -29,27 +28,12 @@ public class Controller {
                     System.exit(0);
                     break;
                 case 1:
-                    //display casas
+                    // Carregar dados
+                    int next4 = Menu.MenuOpcaoCarregamento();
 
+                    Menu.Carregamento(next4);
+                    Parse.parsing(next4,s);
 
-                    List<CasaInteligente> casas = new ArrayList<>();
-                    //List<Fornecedor> listaf = new ArrayList<>();
-                    casas = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
-                    //CasaInteligente casa = new CasaInteligente();
-                    //for(CasaInteligente casa : casas) {
-                    //    System.out.println(casa.getDevices());
-                    //}
-                    if(casas.isEmpty()) {
-                        Menu.MensagemNoCasas();
-                        Menu.voltarPress();
-                    }
-                    else {
-                        Menu.MenuShowCasa(casas);
-                        Menu.voltarPress();
-                    }
-
-
-                    //Menu.MenuInicial();
                     break;
                 case 2:
 
@@ -68,28 +52,33 @@ public class Controller {
                         Menu.MenuShowFornecedor(lf);
                         Menu.voltarPress();
                     }
-
-
-                    //Menu.MenuInicial();
                     break;
                 case 3:
-                    //Menu.parsing();
-
-
                     String fornecedor = Menu.MenuShowFornecedorCasas();
 
                     List<CasaInteligente> casa = s.getCasasAssociadas(fornecedor);
 
                     Menu.MenuShowCasasAssociadas(fornecedor,casa);
+
                     Menu.voltarPress();
                     break;
                 case 4:
-                    Menu.MenuOpcaoCarregamento();
-                    int next4 = 1;
-                    Parse.parsing(next4,s);
 
+                    List<CasaInteligente> casas = new ArrayList<>();
+                    casas = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
+                    if(casas.isEmpty()) {
+                        Menu.MensagemNoCasas();
+                        Menu.voltarPress();
+                    }
+                    else {
+                        Menu.MenuShowCasa(casas);
+                        Menu.voltarPress();
+                    }
                     break;
-                case 5:
+                    case 5:
+                        Menu.voltarPress();
+                        break;
+                case 6:
                     Menu.MenuSimulacao();
                     LocalDate today = now();
                     System.out.println("Data de hoje: ");
@@ -109,20 +98,18 @@ public class Controller {
                     //if(next == 0) Menu.MenuInicial();
                     //else Menu.parsing(next);
                     break;
-                case 6:
-                    String[] novaCasa = Menu.MenuNovaCasa();
-                    Parse.novaCasa(novaCasa, s);
-                    System.out.println(novaCasa[0]);
-
-                    break;
                 case 7:
-                    String novoFornecedor = Menu.MenuNovoFornecedor();
-                    //Fornecedor f = new Fornecedor(novoFornecedor);
-                    //s.addFornecedor(f.getId(),f.clone());
-                    Parse.novoFornecedor(novoFornecedor, s);
+                    String[] novaCasa = Menu.MenuNovaCasa();
+                    s.novaCasa(novaCasa);
+                    System.out.println(novaCasa[0]);
+                    Menu.voltarPress();
+                    break;
+                case 8:
+                    String[] novoFornecedor = Menu.MenuNovoFornecedor();
+                    s.novoFornecedor(novoFornecedor);
+                    Menu.voltarPress();
                     break;
                 default:
-                    System.out.println("Insira uma opção válida\n");
                     Menu.MenuInicial();
             }
 
