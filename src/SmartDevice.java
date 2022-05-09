@@ -1,9 +1,11 @@
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * A classe SmartDevice é um contactor simples.
  * Permite ligar ou desligar circuitos e identificar um SmartDevice pelo seu id.
  */
-public abstract class SmartDevice {
+public abstract class SmartDevice implements Serializable {
 
     private Integer id; // código identificador do SmartDevice
     private Modo mode; // identificador se o device se encontra desligado(false) ou ligado(true)

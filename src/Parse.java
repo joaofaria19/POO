@@ -118,6 +118,7 @@ public class Parse {
         }
         else{
             //carregar de binário
+
         }
 
     }

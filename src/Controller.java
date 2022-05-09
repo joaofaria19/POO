@@ -1,4 +1,5 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -13,11 +14,11 @@ import static java.time.LocalDate.now;
 
 public class Controller {
 
-    public static void run() throws FileNotFoundException, ObjectNullException {
+    public static void run() throws IOException, ObjectNullException {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
-            while (opcao < 0 || opcao > 8) {
+            while (opcao < 0 || opcao > 9) {
 
                 opcao = Menu.MenuInicial();
             }
@@ -108,6 +109,10 @@ public class Controller {
                     String[] novoFornecedor = Menu.MenuNovoFornecedor();
                     s.novoFornecedor(novoFornecedor);
                     Menu.voltarPress();
+                    break;
+                case 9:
+                    s.guardaEstados("database");
+                    System.out.println("Estado salvo!!");
                     break;
                 default:
                     Menu.MenuInicial();

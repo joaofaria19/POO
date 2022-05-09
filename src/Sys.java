@@ -1,8 +1,9 @@
+import java.io.*;
 import java.util.*;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
-public class Sys {
+public class Sys implements Serializable {
 
     private Map<String,Fornecedor> fornecedores;
     private Map<String,CasaInteligente> casas;
@@ -152,6 +153,14 @@ public class Sys {
         addCasa(casa.getProprietario(),casa.clone());
         addCasaToFornecedor(casa.clone(),novaCasa[2]);
 
+    }
+
+    public void guardaEstados(String nomeFicheiro) throws FileNotFoundException, IOException, FileNotFoundException {
+        FileOutputStream fos = new FileOutputStream(nomeFicheiro);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(this);
+        oos.flush();
+        oos.close();
     }
 
 }

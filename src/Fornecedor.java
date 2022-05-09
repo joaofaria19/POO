@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.*;
 
-public class Fornecedor {
+public class Fornecedor implements Serializable {
     private String id;
     private double valorbase;
     private double imposto;

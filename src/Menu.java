@@ -17,7 +17,7 @@ public class Menu {
         sb.append("#                                                 #\n");
         sb.append("# ---------------SMART HOME MANAGER---------------#\n");
         sb.append("#                                                 #\n");
-        sb.append("# (1) Carregar um estado                          #\n");
+        sb.append("# (1) Carregar um Estado                          #\n");
         sb.append("# (2) Verificar Fornecedores existentes           #\n");
         sb.append("# (3) Verificar Casas Associadas a um Fornecedor  #\n");
         sb.append("# (4) Verificar Casas existentes                  #\n");
@@ -25,9 +25,10 @@ public class Menu {
         sb.append("# (6) Iniciar simulação                           #\n");
         sb.append("# (7) Registar uma nova Casa                      #\n");
         sb.append("# (8) Registar um novo Fornecedor                 #\n");
+        sb.append("# (9) Salvar Estado atual                         #\n");
         sb.append("# (0) Sair                                        #\n");
         sb.append("#                                                 #\n");
-        sb.append("###################################################\n");
+        sb.append("###################################################\n\n");
 
         sb.append("Selecione uma das opções acima:");
         System.out.println(sb.toString());

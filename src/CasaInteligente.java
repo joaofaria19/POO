@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * A CasaInteligente faz a gestão dos SmartDevices que existem e dos 
  * espaços (as salas) que existem na casa.
  */
-public class CasaInteligente {
+public class CasaInteligente implements Serializable {
 
     private String proprietario;
     private Map<Integer, SmartDevice> devices; // String: identificador do SmartDevice
