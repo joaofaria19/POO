@@ -168,9 +168,18 @@ public class CasaInteligente implements Serializable {
     /*
      * Método para ligar um certo SmartDevice
      */
-    public void setOn(String s) {
+    public void setOn(int s) {
         this.devices.get(s).turnOn();
     }
+
+    /*
+     * Método para desligar um certo SmartDevice
+     */
+    public void setOff(int s) {
+        this.devices.get(s).turnOff();
+    }
+
+
 
     /*
      *Método que liga todos os SmartDevices
@@ -181,6 +190,11 @@ public class CasaInteligente implements Serializable {
         }
     }
 
+    public void setAllOff() {
+        for(SmartDevice sd : this.devices.values()){
+            sd.turnOff();
+        }
+    }
 
     public void setMode(int s, Modo mode){
         this.devices.get(s).setMode(mode);

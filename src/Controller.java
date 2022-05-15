@@ -78,6 +78,30 @@ public class Controller {
                     }
                     break;
                     case 5:
+                        int next1 = Menu.MenuEstadoDevices();
+                        int estado = Menu.MenuEstado();
+                        switch(next1){
+                            case 1:
+                                String string = Menu.MenuEstadoCasa();
+                                System.out.println(string);
+                                s.alteraEstadoCasa(string,estado);
+                                break;
+                                case 2:
+                                    String string1 = Menu.MenuEstadoCasa();
+                                    String string2 = Menu.MenuEstadoRoom();
+                                    s.alteraEstadoRoom(string1,string2,estado);
+                                    break;
+                                    case 3:
+                                        String string3 = Menu.MenuEstadoCasa();
+                                        int id = Menu.MenuEstadoID();
+                                        s.alteraEstadoDevice(string3,id,estado);
+                                        break;
+                            default:
+                                break;
+
+                        }
+
+
                         Menu.voltarPress();
                         break;
                 case 6:

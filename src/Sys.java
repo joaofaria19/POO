@@ -301,4 +301,26 @@ public class Sys implements Serializable {
         return false;
     }
 
+    public void alteraEstadoCasa(String casa, int estado){
+        if(estado==1) this.casas.get(casa).setAllOn();
+        else this.casas.get(casa).setAllOff();
+    }
+
+    public void alteraEstadoRoom(String casa,String room, int estado){
+        CasaInteligente c = this.casas.get(casa);
+        List<Integer> divisao = c.getLocations().get(room);
+        if(estado==1) {
+            for (int id : divisao) {c.setOn(id);}
+        }
+        else {
+            for (int id : divisao) {c.setOff(id);}
+        }
+    }
+
+    public void alteraEstadoDevice(String casa, int id, int estado){
+        //SmartDevice sd = c.getDevice(id);
+        if(estado==1) this.casas.get(casa).setOn(id);
+        else this.casas.get(casa).setOff(id);
+    }
+
 }

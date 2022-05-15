@@ -22,7 +22,7 @@ public class Menu {
         sb.append("# (2)  Verificar Fornecedores existentes                #\n");
         sb.append("# (3)  Verificar Casas Associadas a um Fornecedor       #\n");
         sb.append("# (4)  Verificar Casas existentes                       #\n");
-        sb.append("# (5)  Verificar dispositivos de uma casa               #\n");
+        sb.append("# (5)  Ligar ou Desligar dispositivos de uma casa       #\n");
         sb.append("# (6)  Iniciar simulação                                #\n");
         sb.append("# (7)  Registar uma nova Casa                           #\n");
         sb.append("# (8)  Registar um novo Fornecedor                      #\n");
@@ -259,6 +259,45 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=> Pretende adicionar mais divisoes?(S/N)");
         return scanner.next();
+    }
+
+    public static int MenuEstadoDevices(){
+        StringBuilder sb = new StringBuilder("Escolha uma das opçõs seguintes:\n");
+        sb.append("(1)Ligar/Desligar todos os dispositivos de uma casa\n");
+        sb.append("(2)Ligar/Desligar todos os dispositivos de uma divisao de uma casa\n");
+        sb.append("(3)Ligar/Desligar um determinado dispositivo\n");
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+
+    }
+
+    public static String MenuEstadoCasa(){
+        System.out.println("\n=> Indique o nome do proprietario da casa\nonde pretende alterar o estado dos respetivos devices");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static String MenuEstadoRoom(){
+        System.out.println("\n=> Indique o nome da divisao da casa\nonde pretende alterar o estado dos respetivos devices");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+
+    public static int MenuEstadoID(){
+        System.out.println("\n=> Indique o id do SmartDevice que quer alterar o estado");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
+    }
+
+    public static int MenuEstado(){
+        StringBuilder sb = new StringBuilder("O que petende fazer com os smart devices?\n");
+        sb.append("(1) Ligar os Devices\n");
+        sb.append("(2) Desligar os Devices\n");
+        System.out.println(sb);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextInt();
     }
 
 }
