@@ -127,11 +127,11 @@ public class Sys implements Serializable {
 
     }
 
-    public void addSmartToCasaToRoom(SmartDevice sd ,String[] args){
+    public void addSmartToCasaToRoom(SmartDevice sd ,String arg1,String arg2){
         for (CasaInteligente c : this.casas.values()) {
-            if (args[0].equals(c.getNomeF())) {
+            if (arg1.equals(c.getProprietario())) {
                 c.addDevice(sd.clone());
-                c.addToRoom(args[1],sd.clone().getID());
+                c.addToRoom(arg2,sd.clone().getID());
             }
         }
 
@@ -156,9 +156,19 @@ public class Sys implements Serializable {
     }
 
     public void novaCasa(String[] novaCasa){
+        String s;
+        int aux =1;
         CasaInteligente casa = new CasaInteligente(novaCasa[0]);
         casa.setNif(Integer.parseInt(novaCasa[1]));
         casa.setNomeF(novaCasa[2]);
+        if((novaCasa[3].toUpperCase(Locale.ROOT)).equals("S")){
+            while(aux ==1){
+                s = Menu.newRoom();
+                casa.addRoom(s);
+                String s2 = Menu.MenuROOM();
+                if (s2.equals("N")) aux = 0;
+            }
+        }
 
         addCasa(casa.getProprietario(),casa.clone());
         addCasaToFornecedor(casa.clone(),novaCasa[2]);
@@ -166,36 +176,67 @@ public class Sys implements Serializable {
     }
 
 
-    public SmartDevice addDeviceMaster(int x){
-        SmartDevice sd = new SmartBulb();
-        switch (x){
-            case 1:
-                Menu.MenuSmartBulb();
-                sd.setID(this.id);
-                sd.setMode(Modo.OFF);
-                //addSmarBulb();
-                idInc();
-                break;
-                case 2:
-                    break;
-            case 3:
-                break;
-            default:
-                break;
-        }
-        return sd.clone();
-    }
-
-    public SmartBulb addSmartBulb(String[] args){
+    public SmartBulb createSmartBulb(String[] args) {
         SmartBulb sd = new SmartBulb();
         sd.setID(this.id);
         sd.setMode(Modo.OFF);
-        sd.setTone(Double.parseDouble(args[0]));
+        if ((args[0].toUpperCase(Locale.ROOT)).equals("WARM"))
+            sd.setTone(2.5);
+        else if ((args[0].toUpperCase(Locale.ROOT)).equals("NEUTRAL"))
+        {
+            sd.setTone(1.5);
+        }else{
+            sd.setTone(1);
+        }
         sd.setDimensao(Double.parseDouble(args[1]));
         sd.setConsumoDiario(Double.parseDouble(args[2]));
         idInc();
         return sd;
     }
+
+
+    public SmartCamera createSmartCamera(String[] args) {
+        SmartCamera sd = new SmartCamera();
+        sd.setID(this.id);
+        sd.setMode(Modo.OFF);
+        sd.setFileSize(Integer.parseInt(args[0]));
+        String[] resolucao = args[1].split("x");
+        double comp = Double.parseDouble(resolucao[0].substring(1));
+        double alt = Double.parseDouble(resolucao[1].substring(0,resolucao[1].length()-1));
+        double resolution = (comp * alt)/100;
+
+        sd.setResolution(resolution);
+        sd.setConsumoDiario(Double.parseDouble(args[2]));
+        idInc();
+        return sd;
+    }
+
+
+
+    public SmartSpeaker createSmartSpeaker(String[] args) {
+        SmartSpeaker sd = new SmartSpeaker();
+        sd.setID(this.id);
+        sd.setMode(Modo.OFF);
+        sd.setVolume(Integer.parseInt(args[0]));
+        sd.setChannel(args[1]);
+
+        if("LG".equals(args[2])) sd.setMarca(Marca.LG);
+        else if("Sony".equals(args[2])) sd.setMarca(Marca.Sony);
+        else if("Philips".equals(args[2])) sd.setMarca(Marca.Philips);
+        else if("Marshall".equals(args[2])) sd.setMarca(Marca.Marshall);
+        else if("BOSE".equals(args[2])) sd.setMarca(Marca.BOSE);
+        else if("Bang&Olufsen".equals(args[2])) sd.setMarca(Marca.BangOlufsen);
+        else if("Bowers&Wilkins".equals(args[2])) sd.setMarca(Marca.BowersWilkins);
+        else if("Sennheiser".equals(args[2])) sd.setMarca(Marca.Sennheiser);
+        else if("Goodis".equals(args[2])) sd.setMarca(Marca.Goodis);
+        else sd.setMarca(Marca.NULL);
+
+        sd.setConsumoDiario(Double.parseDouble(args[2]));
+        idInc();
+        return sd;
+    }
+
+
 
     public SmartCamera addSmarCamera(String[] args,SmartCamera sd){
         sd.setFileSize(Integer.parseInt(args[0]));
@@ -246,6 +287,18 @@ public class Sys implements Serializable {
         ois.close();
         return sys;
 
+    }
+
+    public boolean existsProprietario(String proprietario){
+        if(this.casas.containsKey(proprietario)) return true;
+        else return false;
+    }
+
+    public boolean existsRoom(String proprietario,String Room){
+        for (CasaInteligente c : this.casas.values()) {
+            if(c.existRoom(Room)) return true;
+        }
+        return false;
     }
 
 }

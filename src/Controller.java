@@ -58,22 +58,22 @@ public class Controller {
                 case 3:
                     String fornecedor = Menu.MenuShowFornecedorCasas();
 
-                    List<CasaInteligente> casa = s.getCasasAssociadas(fornecedor);
+                    List<CasaInteligente> casas1 = s.getCasasAssociadas(fornecedor);
 
-                    Menu.MenuShowCasasAssociadas(fornecedor,casa);
+                    Menu.MenuShowCasasAssociadas(fornecedor,casas1);
 
                     Menu.voltarPress();
                     break;
                 case 4:
 
-                    List<CasaInteligente> casas = new ArrayList<>();
-                    casas = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
-                    if(casas.isEmpty()) {
+                    List<CasaInteligente> casas2 = new ArrayList<>();
+                    casas2 = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
+                    if(casas2.isEmpty()) {
                         Menu.MensagemNoCasas();
                         Menu.voltarPress();
                     }
                     else {
-                        Menu.MenuShowCasa(casas);
+                        Menu.MenuShowCasa(casas2);
                         Menu.voltarPress();
                     }
                     break;
@@ -104,28 +104,50 @@ public class Controller {
                     String[] novaCasa = Menu.MenuNovaCasa();
                     s.novaCasa(novaCasa);
                     System.out.println(novaCasa[0]);
-                    Menu.voltarPress();
+                    Menu.Mensagem(6);
                     break;
                 case 8:
                     String[] novoFornecedor = Menu.MenuNovoFornecedor();
                     s.novoFornecedor(novoFornecedor);
-                    Menu.voltarPress();
+                    Menu.Mensagem(7);
                     break;
                 case 9:
                     s.guardaEstado();
                     Menu.Mensagem(3);
                     break;
                 case 10:
-                    String[] cr = Menu.MenuAddDevice();
+                    CasaInteligente casa = new CasaInteligente();
+                    String cr1 = Menu.MenuAddDeviceC();
+                    if (!s.existsProprietario(cr1))
+                    {
+                        Menu.Mensagem(4);
+                        break;
+                    }
+                    String cr2 = Menu.MenuAddDeviceR();
+                    if(!s.existsRoom(cr1,cr2)){
+                        Menu.Mensagem(5);
+                        break;
+                    }
+
                     int next = Menu.MenuVerificarDevice();
                     switch (next){
                         case 1:
                             String[] aux1 = Menu.MenuSmartBulb();
-                            s.addSmartToCasaToRoom(s.addSmartBulb(aux1),cr);
+                            s.addSmartToCasaToRoom(s.createSmartBulb(aux1),cr1,cr2);
                             break;
-                        default:
+                        case 2:
+                            String[] aux2 = Menu.MenuSmartCamera();
+                            s.addSmartToCasaToRoom(s.createSmartCamera(aux2),cr1,cr2);
+                            break;
+                        case 3:
+                            String[] aux3 = Menu.MenuSmartSpeaker();
+                            s.addSmartToCasaToRoom(s.createSmartSpeaker(aux3),cr1,cr2);
+
+                            break;
+                            default:
                             break;
                     }
+                    break;
                 default:
                     Menu.MenuInicial();
             }
