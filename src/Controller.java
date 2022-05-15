@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import static java.time.LocalDate.now;
 
 public class Controller {
 
-    public static void run() throws IOException, ObjectNullException, ClassNotFoundException {
+    public static void run() throws IOException, ObjectNullException, ClassNotFoundException, ObjectEmpty {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
@@ -34,76 +35,75 @@ public class Controller {
 
                     Menu.Carregamento(next4);
                     Menu.Mensagem(2);
-                    Parse.parsing(next4,s);
+
+                    try {
+                        Parse.parsing(next4, s);
+                    } catch (FileNotFoundException e) {
+                        Menu.errors(1);
+                    }
 
                     break;
                 case 2:
-
-                    List<Fornecedor> l = new ArrayList<>();
-                    l = s.getFornecedores().values().stream().map(Fornecedor::clone).collect(Collectors.toList());
-
-                    List<Fornecedor> lf = new ArrayList<>();
-                    for(Fornecedor f:l){
-                        lf.add(f.clone());
-                    }
-                    if(lf.isEmpty()) {
-                        Menu.MensagemNoFornecedores();
+                    try {
+                        List<Fornecedor> l = new ArrayList<>();
+                        l = s.getListFornecedor();
+                        Menu.MenuShowFornecedor(l);
                         Menu.voltarPress();
-                    }
-                    else {
-                        Menu.MenuShowFornecedor(lf);
-                        Menu.voltarPress();
+                    } catch (ObjectEmpty oe1) {
+                        Menu.errors(5);
                     }
                     break;
                 case 3:
-                    String fornecedor = Menu.MenuShowFornecedorCasas();
 
-                    List<CasaInteligente> casas1 = s.getCasasAssociadas(fornecedor);
+                    try {
+                        String fornecedor = Menu.MenuShowFornecedorCasas();
+                        List<CasaInteligente> casas1 = s.getCasasAssociadas(fornecedor);
+                        Menu.MenuShowCasasAssociadas(fornecedor, casas1);
+                        Menu.voltarPress();
+                    } catch (ObjectNullException e1) {
+                        Menu.errors(2);
+                    }
 
-                    Menu.MenuShowCasasAssociadas(fornecedor,casas1);
 
-                    Menu.voltarPress();
                     break;
                 case 4:
 
-                    List<CasaInteligente> casas2 = new ArrayList<>();
-                    casas2 = s.getCasas().values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
-                    if(casas2.isEmpty()) {
-                        Menu.MensagemNoCasas();
+                    try {
+                        List<CasaInteligente> casas5 = new ArrayList<>();
+                        casas5 = s.getListCasas();
+                        Menu.MenuShowCasa(casas5);
                         Menu.voltarPress();
-                    }
-                    else {
-                        Menu.MenuShowCasa(casas2);
-                        Menu.voltarPress();
+                    } catch (ObjectEmpty oe2) {
+                        Menu.errors(4);
                     }
                     break;
-                    case 5:
-                        int next1 = Menu.MenuEstadoDevices();
-                        int estado = Menu.MenuEstado();
-                        switch(next1){
-                            case 1:
-                                String string = Menu.MenuEstadoCasa();
-                                System.out.println(string);
-                                s.alteraEstadoCasa(string,estado);
-                                break;
-                                case 2:
-                                    String string1 = Menu.MenuEstadoCasa();
-                                    String string2 = Menu.MenuEstadoRoom();
-                                    s.alteraEstadoRoom(string1,string2,estado);
-                                    break;
-                                    case 3:
-                                        String string3 = Menu.MenuEstadoCasa();
-                                        int id = Menu.MenuEstadoID();
-                                        s.alteraEstadoDevice(string3,id,estado);
-                                        break;
-                            default:
-                                break;
+                case 5:
+                    int next1 = Menu.MenuEstadoDevices();
+                    int estado = Menu.MenuEstado();
+                    switch (next1) {
+                        case 1:
+                            String string = Menu.MenuEstadoCasa();
+                            System.out.println(string);
+                            s.alteraEstadoCasa(string, estado);
+                            break;
+                        case 2:
+                            String string1 = Menu.MenuEstadoCasa();
+                            String string2 = Menu.MenuEstadoRoom();
+                            s.alteraEstadoRoom(string1, string2, estado);
+                            break;
+                        case 3:
+                            String string3 = Menu.MenuEstadoCasa();
+                            int id = Menu.MenuEstadoID();
+                            s.alteraEstadoDevice(string3, id, estado);
+                            break;
+                        default:
+                            break;
 
-                        }
+                    }
 
 
-                        Menu.voltarPress();
-                        break;
+                    Menu.voltarPress();
+                    break;
                 case 6:
                     Menu.MenuSimulacao();
                     LocalDate today = now();
@@ -125,52 +125,58 @@ public class Controller {
                     //else Menu.parsing(next);
                     break;
                 case 7:
+
                     String[] novaCasa = Menu.MenuNovaCasa();
                     s.novaCasa(novaCasa);
                     System.out.println(novaCasa[0]);
-                    Menu.Mensagem(6);
+                    Menu.Mensagem(4);
                     break;
+
                 case 8:
+
                     String[] novoFornecedor = Menu.MenuNovoFornecedor();
                     s.novoFornecedor(novoFornecedor);
-                    Menu.Mensagem(7);
+                    Menu.Mensagem(5);
                     break;
+
                 case 9:
-                    s.guardaEstado();
-                    Menu.Mensagem(3);
+
+                    try {
+                        s.guardaEstado();
+                        Menu.Mensagem(3);
+                    } catch (FileNotFoundException e) {
+                        Menu.errors(1);
+                    }
                     break;
+
                 case 10:
-                    CasaInteligente casa = new CasaInteligente();
-                    String cr1 = Menu.MenuAddDeviceC();
-                    if (!s.existsProprietario(cr1))
-                    {
-                        Menu.Mensagem(4);
-                        break;
-                    }
-                    String cr2 = Menu.MenuAddDeviceR();
-                    if(!s.existsRoom(cr1,cr2)){
-                        Menu.Mensagem(5);
-                        break;
-                    }
+                    try {
+                        CasaInteligente casa = new CasaInteligente();
+                        String cr1 = Menu.MenuAddDeviceC();
+                        s.existsProprietario(cr1);
+                        String cr2 = Menu.MenuAddDeviceR();
+                        s.existsRoom(cr1, cr2);
 
-                    int next = Menu.MenuVerificarDevice();
-                    switch (next){
-                        case 1:
-                            String[] aux1 = Menu.MenuSmartBulb();
-                            s.addSmartToCasaToRoom(s.createSmartBulb(aux1),cr1,cr2);
-                            break;
-                        case 2:
-                            String[] aux2 = Menu.MenuSmartCamera();
-                            s.addSmartToCasaToRoom(s.createSmartCamera(aux2),cr1,cr2);
-                            break;
-                        case 3:
-                            String[] aux3 = Menu.MenuSmartSpeaker();
-                            s.addSmartToCasaToRoom(s.createSmartSpeaker(aux3),cr1,cr2);
-
-                            break;
-                            default:
-                            break;
+                        int next = Menu.MenuVerificarDevice();
+                        switch (next) {
+                            case 1:
+                                String[] aux1 = Menu.MenuSmartBulb();
+                                s.addSmartToCasaToRoom(s.createSmartBulb(aux1), cr1, cr2);
+                                break;
+                            case 2:
+                                String[] aux2 = Menu.MenuSmartCamera();
+                                s.addSmartToCasaToRoom(s.createSmartCamera(aux2), cr1, cr2);
+                                break;
+                            case 3:
+                                String[] aux3 = Menu.MenuSmartSpeaker();
+                                s.addSmartToCasaToRoom(s.createSmartSpeaker(aux3), cr1, cr2);
+                                break;
+                                default:
+                                    break;
+                        }
                     }
+                    catch(ObjectEmpty oe3){Menu.errors(6);}
+                    catch(ObjectNullException one3){Menu.errors(7);}
                     break;
                 default:
                     Menu.MenuInicial();

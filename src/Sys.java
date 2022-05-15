@@ -76,15 +76,20 @@ public class Sys implements Serializable {
         this.casas.put(s,f.clone());
     }
 
-    public void addCasaToFornecedor(CasaInteligente casa , String f){
-        List<Fornecedor> sl = new ArrayList<>();
-        sl = this.fornecedores.values().stream().toList();
-        for(Fornecedor forn:sl) {
-            if (f.equals(forn.getId())) {
-                forn.addCasa(casa.clone());
-            }
+    public void addCasaToFornecedor(CasaInteligente casa , String f) throws ObjectNullException {
+       if(this.fornecedores.containsKey(f)) {
+           List<Fornecedor> sl = new ArrayList<>();
+           sl = this.fornecedores.values().stream().toList();
+           for (Fornecedor forn : sl) {
+               if (f.equals(forn.getId())) {
+                   forn.addCasa(casa.clone());
+               }
 
-        }
+           }
+       }
+       else {
+           throw new ObjectNullException("O fornecedor que pretende associar não existe");
+       }
     }
 
 
@@ -105,6 +110,21 @@ public class Sys implements Serializable {
 
     }
 
+    public List<CasaInteligente> getListCasas() throws ObjectEmpty {
+        List<CasaInteligente> casas2 = this.casas.values().stream().map(CasaInteligente::clone).collect(Collectors.toList());
+        if(casas2.isEmpty()){
+            throw new ObjectEmpty("Não existem casas");
+        }else return casas2;
+
+    }
+
+    public List<Fornecedor> getListFornecedor() throws ObjectEmpty{
+        List<Fornecedor> fornecedores = this.fornecedores.values().stream().map(Fornecedor::clone).toList();
+        if(fornecedores.isEmpty()){
+            throw new ObjectEmpty("Não existem fornecedores");
+        }else return fornecedores;
+
+    }
 
 
     public List<CasaInteligente> getCasasAssociadas(String f) throws ObjectNullException{
@@ -119,9 +139,7 @@ public class Sys implements Serializable {
             }
             return res;
         }else{
-            List<CasaInteligente> res = new ArrayList<>();
-            return res;
-            //throw new ObjectNullException("Fornecedor não existente");
+            throw new ObjectNullException("Fornecedor não existente");
         }
 
 
@@ -171,7 +189,8 @@ public class Sys implements Serializable {
         }
 
         addCasa(casa.getProprietario(),casa.clone());
-        addCasaToFornecedor(casa.clone(),novaCasa[2]);
+        try{addCasaToFornecedor(casa.clone(),novaCasa[2]);}
+        catch(ObjectNullException e){Menu.errors(2);}
 
     }
 
@@ -289,16 +308,17 @@ public class Sys implements Serializable {
 
     }
 
-    public boolean existsProprietario(String proprietario){
-        if(this.casas.containsKey(proprietario)) return true;
-        else return false;
+    public void existsProprietario(String proprietario) throws ObjectEmpty {
+        if(this.casas.containsKey(proprietario)) {
+        }
+        else throw new ObjectEmpty("O proprietario não existe");
     }
 
-    public boolean existsRoom(String proprietario,String Room){
+    public void existsRoom(String proprietario, String Room) throws ObjectNullException {
         for (CasaInteligente c : this.casas.values()) {
-            if(c.existRoom(Room)) return true;
+            if(c.existRoom(Room)) return;
         }
-        return false;
+        throw new ObjectNullException("A divisao que pretende aceder não existe");
     }
 
     public void alteraEstadoCasa(String casa, int estado){

@@ -41,7 +41,10 @@ public class Parse {
                                 casa.setNomeF(argsSplited[2]);
 
                                 s.addCasa(casaName,casa.clone());
-                                s.addCasaToFornecedor(casa.clone(),argsSplited[2]);
+                                try{
+                                s.addCasaToFornecedor(casa.clone(),argsSplited[2]);}
+                                catch(ObjectNullException e){Menu.errors(2);}
+
                                 break;
                             case "Divisao":
 
@@ -63,7 +66,11 @@ public class Parse {
 
                                 sd = new SmartBulb(ID1,modo,dim,custo1);
 
-                                s.addDeviceToCasa(casaName,sd.clone());
+                                try {
+                                    s.addDeviceToCasa(casaName, sd.clone());
+                                }
+                                catch(ObjectNullException e){Menu.errors(3);}
+
                                 s.getCasas().get(casaName).addToRoom(divisao,sd.getID());
                                 s.idInc();
                                 break;
@@ -80,7 +87,12 @@ public class Parse {
                                 double custo2= Double.parseDouble(argsSplited[2]);
 
                                 sd = new SmartCamera(ID2,resolution,filesize,custo2);
-                                s.addDeviceToCasa(casaName,sd.clone());
+
+                                try {
+                                    s.addDeviceToCasa(casaName, sd.clone());
+                                }
+                                catch(ObjectNullException e){Menu.errors(3);}
+
                                 s.getCasas().get(casaName).addToRoom(divisao,sd.getID());
                                 s.idInc();
                                 break;
@@ -103,7 +115,12 @@ public class Parse {
                                 else marca= Marca.NULL;
 
                                 sd = new SmartSpeaker(ID3,volume,argsSplited[1],marca,custo3);
-                                s.addDeviceToCasa(casaName,sd.clone());
+
+                                try {
+                                    s.addDeviceToCasa(casaName, sd.clone());
+                                }
+                                catch(ObjectNullException e){Menu.errors(3);}
+
                                 s.getCasas().get(casaName).addToRoom(divisao,sd.getID());
                                 s.idInc();
                                 break;

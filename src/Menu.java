@@ -232,23 +232,46 @@ public class Menu {
                 System.out.println("\nEstado salvo!!\n");
                 break;
             case 4:
-                System.out.println("\nCasa nao existe\n");
-                break;
-            case 5:
-                System.out.println("\nA divisao a quel pretende aceder nao existe\n");
-                break;
-            case 6:
                 System.out.println("\nCasa adicionada com sucesso\n");
                 break;
-            case 7:
+            case 5:
                 System.out.println("\nFornecedor adicionado com sucesso\n");
                 break;
+
 
             default:
                 break;
         }
     }
 
+
+    public static void errors(int mensagem) {
+        switch(mensagem){
+            case 1:
+                System.out.println("\n[ERRO] Ficheiro não encontrado\n");
+                break;
+            case 2:
+                System.out.println("\n[ERRO] Fornecedor não encontrado\n");
+                break;
+            case 3:
+                System.out.println("\n[ERRO] Casa não encontrada\n");
+                break;
+            case 4:
+                System.out.println("\n[ERRO] Lista de casas vazia\n");
+                break;
+            case 5:
+                System.out.println("\n[ERRO] Lista de fornecedores vazia\n");
+                break;
+            case 6:
+                System.out.println("\n[ERRO] O proprietario referido nao existe\n");
+                break;
+            case 7:
+                System.out.println("\n[ERRO] A divisao referida nao existe\n");
+                break;
+
+        }
+
+    }
     public static String newRoom() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=> Indique o nome da divisao que pretende adicionar");
