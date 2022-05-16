@@ -19,7 +19,7 @@ public class Controller {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
-            while (opcao < 0 || opcao > 10) {
+            while (opcao < 0 || opcao > 11) {
 
                 opcao = Menu.MenuInicial();
             }
@@ -181,7 +181,12 @@ public class Controller {
                     //int next = scanner.nextInt();
                     //if(next == 0) Menu.MenuInicial();
                     //else Menu.parsing(next);
+                    s.makeAllFaturas(elapsedDays);
                     break;
+                case 11:
+                    String fatura = Menu.MenuFatura();
+                    Menu.showFatura(s.showFaturaCasa(fatura));
+                    Menu.voltarPress();
                 default:
                     Menu.MenuInicial();
             }

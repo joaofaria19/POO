@@ -7,16 +7,19 @@ public class Sys implements Serializable {
 
     private Map<String,Fornecedor> fornecedores;
     private Map<String,CasaInteligente> casas;
+    private Set<Fatura> faturas;
     private int id;
 
     public Sys(){
 
         this.fornecedores = new HashMap<>();
         this.casas = new HashMap<>();
+
+        this.faturas = new TreeSet<>( new Comparador());
         this.id = 0;
     }
 
-    public Sys(Map<String,Fornecedor> listaF,Map<String,CasaInteligente> listaC){
+    public Sys(Map<String,Fornecedor> listaF,Map<String,CasaInteligente> listaC, Set<Fatura> faturas){
         this.fornecedores = new HashMap<>();
         for(Fornecedor f : listaF.values()){
             this.fornecedores.put(f.getId(),f.clone());
@@ -25,7 +28,10 @@ public class Sys implements Serializable {
         for(CasaInteligente casa: listaC.values()){
             this.casas.put(casa.getProprietario(),casa.clone());
         }
-
+        this.faturas=new TreeSet<>( new Comparador() );
+        for(Fatura f: faturas){
+            this.faturas.add(f.clone());
+        }
     }
 
 
@@ -67,6 +73,32 @@ public class Sys implements Serializable {
             this.fornecedores.put(sd.getKey(),sd.getValue().clone());
         }
     }
+
+    public Set<Fatura> getFaturas(){
+        Set<Fatura> res = new TreeSet<>(new Comparador());
+        for(Fatura lf : this.faturas){
+            res.add(lf.clone());
+        }
+        return res;
+    }
+
+    public void setFaturas(Set<Fatura> res){
+        this.faturas = new TreeSet<>(new Comparador());
+        for(Fatura f : res){
+            this.faturas.add(f.clone());
+        }
+    }
+
+    public boolean equals(Object o){
+        if(o==this) return true;
+        if(o==null || o.getClass()!=this.getClass());
+        Sys ci = (Sys) o;
+        return (this.casas.equals(ci.getCasas())
+                && this.faturas.equals(ci.getFaturas())
+                && this.fornecedores.equals(ci.getFornecedores())
+                && this.id==ci.getID());
+    }
+
 
     public void addFornecedor(String s,Fornecedor f){
         this.fornecedores.put(s,f.clone());
@@ -257,35 +289,6 @@ public class Sys implements Serializable {
 
 
 
-    public SmartCamera addSmarCamera(String[] args,SmartCamera sd){
-        sd.setFileSize(Integer.parseInt(args[0]));
-        sd.setResolution(Double.parseDouble(args[1]));
-        sd.setConsumoDiario(Double.parseDouble(args[2]));
-        return sd;
-    }
-
-    public SmartSpeaker addSmarSpeaker(String[] args,SmartSpeaker sd){
-        sd.setVolume(Integer.parseInt(args[0]));
-        sd.setChannel(args[2]);
-
-        Marca marca = null;
-        if("LG".equals(args[3])) marca=Marca.LG;
-        else if("Sony".equals(args[3])) marca=Marca.Sony;
-        else if("Philips".equals(args[3])) marca=Marca.Philips;
-        else if("Marshall".equals(args[3])) marca=Marca.Marshall;
-        else if("BOSE".equals(args[3])) marca=Marca.BOSE;
-        else if("Bang&Olufsen".equals(args[3])) marca=Marca.BangOlufsen;
-        else if("Bowers&Wilkins".equals(args[3])) marca=Marca.BowersWilkins;
-        else if("Sennheiser".equals(args[3])) marca=Marca.Sennheiser;
-        else if("Goodis".equals(args[3])) marca=Marca.Goodis;
-        else marca= Marca.NULL;
-
-        sd.setMarca(marca);
-        sd.setConsumoDiario(Double.parseDouble(args[4]));
-
-        return sd;
-    }
-
     public void guardaEstado() throws FileNotFoundException, IOException, FileNotFoundException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database"));
         oos.writeObject(this);
@@ -343,4 +346,30 @@ public class Sys implements Serializable {
         else this.casas.get(casa).setOff(id);
     }
 
+
+    public Fatura makeFatura(CasaInteligente casa, long dias){
+        Fatura f = new Fatura();
+        f.setNomeProprietario(casa.getProprietario());
+        f.setNomeFornecedor(casa.getNomeF());
+        f.setNIF(casa.getNif());
+        f.setPrecoTotal(dias*casa.getConsumo());
+        return f;
+    }
+
+    public void makeAllFaturas(long dias){
+        for(CasaInteligente c : this.casas.values()) {
+            Fatura f = makeFatura(c, dias);
+            this.faturas.add(f.clone());
+        }
+    }
+
+    public Fatura showFaturaCasa(String casa) {
+        Fatura f = new Fatura();
+        for(Fatura fatu : this.faturas){
+            if((fatu.getNomeProprietario()).equals(casa)){
+                f=fatu.clone();
+            }
+        }
+        return f;
+    }
 }

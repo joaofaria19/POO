@@ -28,6 +28,7 @@ public class Menu {
         sb.append("# (8)  Adicionar um Samart Device a uma Casa existente  #\n");
         sb.append("# (9)  Ligar ou Desligar dispositivos de uma casa       #\n");
         sb.append("# (10) Iniciar simulação                                #\n");
+        sb.append("# (11) Mostrar a Fatura de uma determinada Casa         #\n");
         sb.append("# (0)  Sair                                             #\n");
         sb.append("#                                                       #\n");
         sb.append("#########################################################\n\n");
@@ -321,6 +322,16 @@ public class Menu {
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
+    }
+
+    public static String MenuFatura(){
+        System.out.println("=> Indique o prorpietario da casa onde pretende consultar a Fatura");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void showFatura(Fatura f){
+        System.out.println(f.toString());
     }
 
 }
