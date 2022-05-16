@@ -262,23 +262,13 @@ public class CasaInteligente implements Serializable {
     /*
     * Método para obter o consumo total de uma casa
     * */
+   
     public double getConsumo(){
         double res = 0.0;
-        CasaInteligente casa = new CasaInteligente();
-        List<Integer> lista = new ArrayList<>();
-        List<List<Integer>> rooms = new ArrayList<>();
-        rooms = casa.getLocations().values().stream().toList();
-        for(List<Integer> l : rooms){
-            lista.addAll(l);
-        }
-        Iterator<Integer> it = lista.iterator();
-        while(it.hasNext()){
-            Integer r = it.next();
-            res+= this.devices.get(r).consumoEnergetico();
+        for(SmartDevice sd : this.devices.values()){
+            res+=sd.consumoEnergetico();
         }
         return res;
     }
-
-
 
 }
