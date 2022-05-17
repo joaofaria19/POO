@@ -1,4 +1,5 @@
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -324,35 +325,50 @@ public class Sys implements Serializable {
         throw new ObjectNullException("A divisao que pretende aceder não existe");
     }
 
-    public void alteraEstadoCasa(String casa, int estado){
-        if(estado==1) this.casas.get(casa).setAllOn();
-        else this.casas.get(casa).setAllOff();
+    public void alteraEstadoCasa(String casa, int estado) throws ObjectNullException {
+        if(this.casas.containsKey(casa)) {
+            if (estado == 1) this.casas.get(casa).setAllOn();
+            else this.casas.get(casa).setAllOff();
+        }else throw new ObjectNullException("O proprietario "+casa+" não existe");
     }
 
-    public void alteraEstadoRoom(String casa,String room, int estado){
-        CasaInteligente c = this.casas.get(casa);
-        List<Integer> divisao = c.getLocations().get(room);
-        if(estado==1) {
-            for (int id : divisao) {c.setOn(id);}
-        }
-        else {
-            for (int id : divisao) {c.setOff(id);}
+    public void alteraEstadoRoom(String casa,String room, int estado) throws ObjectNullException {
+
+        if(this.casas.containsKey(casa) && this.casas.get(casa).getLocations().containsKey(room)) {
+            CasaInteligente c = this.casas.get(casa);
+            List<Integer> divisao = c.getLocations().get(room);
+            if (estado == 1) {
+                for (int id : divisao) {
+                    c.setOn(id);
+                }
+            } else {
+                for (int id : divisao) {
+                    c.setOff(id);
+                }
+            }
+        }else{
+            throw new ObjectNullException("O proprietario"+casa+" ou a divisao "+room+" não existem");
         }
     }
 
-    public void alteraEstadoDevice(String casa, int id, int estado){
+    public void alteraEstadoDevice(String casa, int id, int estado) throws ObjectNullException {
         //SmartDevice sd = c.getDevice(id);
-        if(estado==1) this.casas.get(casa).setOn(id);
-        else this.casas.get(casa).setOff(id);
+        if((this.casas.containsKey(casa) )&& (this.casas.get(casa).getDevice(id))!=null) {
+            if (estado == 1) this.casas.get(casa).setOn(id);
+            else this.casas.get(casa).setOff(id);
+        }else throw new ObjectNullException("O proprietario "+casa+" ou o id:"+id+" não existem");
     }
 
 
     public Fatura makeFatura(CasaInteligente casa, long dias){
         Fatura f = new Fatura();
+        DecimalFormat frmt = new DecimalFormat();
+        frmt.setMaximumFractionDigits(2);
+
         f.setNomeProprietario(casa.getProprietario());
         f.setNomeFornecedor(casa.getNomeF());
         f.setNIF(casa.getNif());
-        f.setPrecoTotal(dias*casa.getConsumo());
+        f.setPrecoTotal(Double.parseDouble(frmt.format(((dias*casa.getConsumo()))/1000)));
         return f;
     }
 
@@ -363,13 +379,16 @@ public class Sys implements Serializable {
         }
     }
 
-    public Fatura showFaturaCasa(String casa) {
+    public Fatura showFaturaCasa(String casa) throws ObjectNullException {
         Fatura f = new Fatura();
-        for(Fatura fatu : this.faturas){
-            if((fatu.getNomeProprietario()).equals(casa)){
-                f=fatu.clone();
+
+        if(this.casas.containsKey(casa)){
+            for(Fatura fatu : this.faturas){
+                if((fatu.getNomeProprietario()).equals(casa)){
+                    f=fatu.clone();
+                }
             }
-        }
+        }else throw new ObjectNullException("O proprietario " + casa + "não existe");
         return f;
     }
 }

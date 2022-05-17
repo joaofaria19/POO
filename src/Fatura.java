@@ -70,11 +70,13 @@ public class Fatura {
 
 
     public String toString(){
-        StringBuilder sb = new StringBuilder("\n-------------FATURA--------------\n\n");
+        StringBuilder sb = new StringBuilder
+                 ("\n-------------------FATURA----------------------\n\n");
         sb.append("-> Proprietario:").append(this.nomeProprietario).append("\n");
         sb.append("-> Fornecedor:").append(this.nomeFornecedor).append("\n");
         sb.append("-> NIF:").append(this.NIF).append("\n");
         sb.append("-> Preço Total:").append(this.precoTotal).append("$\n");
+        sb.append("\n-----------------------------------------------\n");
         return sb.toString();
     }
 

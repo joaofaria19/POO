@@ -262,11 +262,13 @@ public class CasaInteligente implements Serializable {
     /*
     * Método para obter o consumo total de uma casa
     * */
-   
+
     public double getConsumo(){
         double res = 0.0;
-        for(SmartDevice sd : this.devices.values()){
-            res+=sd.consumoEnergetico();
+        for(SmartDevice sd : this.devices.values()) {
+            if ((sd.getMode()).equals(Modo.ON)){
+                res += sd.consumoEnergetico();
+            }
         }
         return res;
     }

@@ -14,7 +14,7 @@ import static java.time.LocalDate.now;
 public class Menu {
     public static int MenuInicial() throws FileNotFoundException {
         StringBuilder sb = new StringBuilder
-                 ("#########################################################\n");
+                ("#########################################################\n");
         sb.append("#                                                       #\n");
         sb.append("# ------------------SMART HOME MANAGER------------------#\n");
         sb.append("#                                                       #\n");
@@ -40,39 +40,38 @@ public class Menu {
     }
 
     /* recebe uma Lista de casasInteligentes*/
-    public static void MenuShowCasa(List<CasaInteligente> casas){
+    public static void MenuShowCasa(List<CasaInteligente> casas) {
         StringBuilder sb = new StringBuilder("---------CASAS EXISTENTES ----------\n");
-        for(CasaInteligente casa : casas) {
+        for (CasaInteligente casa : casas) {
             sb.append(casa.toString());
         }
 
         System.out.println(sb);
     }
+
     /* recebe uma lista de fornecedores*/
-    public static void MenuShowFornecedor(List<Fornecedor> fornecedores){
+    public static void MenuShowFornecedor(List<Fornecedor> fornecedores) {
         StringBuilder sb = new StringBuilder("---------FORNECEDORES EXISTENTES ----------\n");
-        for(Fornecedor f : fornecedores) {
+        for (Fornecedor f : fornecedores) {
             sb.append(f.toString());
         }
         System.out.println(sb);
     }
 
-    public static String MenuShowFornecedorCasas(){
+    public static String MenuShowFornecedorCasas() {
         StringBuilder sb = new StringBuilder("\n=> Indique qual o fornecedor: ");
         System.out.println(sb.toString());
         Scanner scanner = new Scanner(System.in);
         return scanner.next();
     }
 
-    public static void MenuShowCasasAssociadas(String fornecedor,List<CasaInteligente> casas){
+    public static void MenuShowCasasAssociadas(String fornecedor, List<CasaInteligente> casas) {
         StringBuilder sb = new StringBuilder("---------CASAS ASSOCIADAS----------");
         sb.append("\n[Fornecedor] : ").append(fornecedor);
-        if (casas.isEmpty()){
+        if (casas.isEmpty()) {
             System.out.println("Este Fornecedor não existe ou ainda não tem casas associadas\n\n(0)Voltar");
-        }
-
-        else{
-            for(CasaInteligente c:casas){
+        } else {
+            for (CasaInteligente c : casas) {
                 sb.append(c.toString());
                 System.out.println(sb);
             }
@@ -82,23 +81,25 @@ public class Menu {
     }
 
 
-    public static void voltarPress(){
+    public static void voltarPress() {
         System.out.println("\n(0)Voltar\n");
         Scanner scanner = new Scanner(System.in);
         int next = scanner.nextInt();
     }
 
-    public static void MensagemOpcaoInvalida(){
+    public static void MensagemOpcaoInvalida() {
         System.out.println("Insira uma opção válida\n");
     }
-    public static void MensagemNoCasas(){
+
+    public static void MensagemNoCasas() {
         System.out.println("Ainda não existem casas\n\n");
     }
-    public static void MensagemNoFornecedores(){
+
+    public static void MensagemNoFornecedores() {
         System.out.println("Ainda não existem Fornecedores\n\n");
     }
 
-    public static int MenuOpcaoCarregamento(){
+    public static int MenuOpcaoCarregamento() {
         StringBuilder sb = new StringBuilder("O que pretende?\n\n(1) Carregar ficheiro de texto\n(2) Carregar ficheiro binário\n(0)Voltar");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
@@ -106,24 +107,23 @@ public class Menu {
 
     }
 
-    public static void MenuSimulacao(){
+    public static void MenuSimulacao() {
         StringBuilder sb = new StringBuilder("\n----------------MENU SIMULACAO--------------\n\n");
 
     }
 
-    public static String MenuAddDeviceC(){
+    public static String MenuAddDeviceC() {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o nome do Proprietario da casa onde pretende adicionar o Smart Device");
         return scanner.next();
     }
 
-    public static String MenuAddDeviceR(){
+    public static String MenuAddDeviceR() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique a divisao da casa onde pretende adicionar o Smart Device");
         return scanner.next();
     }
-
 
 
     public static int MenuVerificarDevice() {
@@ -137,10 +137,10 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static String[] MenuSmartBulb(){
+    public static String[] MenuSmartBulb() {
         StringBuilder sb = new StringBuilder("--------------SMART BULB---------------\n");
         System.out.println(sb.toString());
-        String [] args = new String[]{"", "", ""};
+        String[] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o tom da lampada que pretende adicionar");
         args[0] = scanner.next();
@@ -151,10 +151,10 @@ public class Menu {
         return args;
     }
 
-    public static String[] MenuSmartCamera(){
+    public static String[] MenuSmartCamera() {
         StringBuilder sb = new StringBuilder("--------------SMART CAMERA---------------\n");
         System.out.println(sb.toString());
-        String [] args = new String[]{"", "", ""};
+        String[] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o tamanho do ficheiro em bytes");
         args[0] = scanner.next();
@@ -165,10 +165,10 @@ public class Menu {
         return args;
     }
 
-    public static String[] MenuSmartSpeaker(){
+    public static String[] MenuSmartSpeaker() {
         StringBuilder sb = new StringBuilder("--------------SMART SPEAKER---------------\n");
         System.out.println(sb.toString());
-        String [] args = new String[]{"", "", "", ""};
+        String[] args = new String[]{"", "", "", ""};
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o volume do smart speaker");
         args[0] = scanner.next();
@@ -182,10 +182,10 @@ public class Menu {
     }
 
 
-    public static String[] MenuNovoFornecedor(){
+    public static String[] MenuNovoFornecedor() {
         StringBuilder sb = new StringBuilder("\n=> Insira o nome do Fornecedor a adiconar\n(Caso este nome já exista, o novo Fornecedor vai sobrescrever o antigo)");
         System.out.println(sb.toString());
-        String [] args = new String[]{"", "", ""};
+        String[] args = new String[]{"", "", ""};
         Scanner scanner = new Scanner(System.in);
         args[0] = scanner.nextLine();
         System.out.println("=> Insira o valor base do custo do kwh de energia");
@@ -196,10 +196,10 @@ public class Menu {
         return args;
     }
 
-    public static String[] MenuNovaCasa(){
+    public static String[] MenuNovaCasa() {
         StringBuilder sb = new StringBuilder("\n=> Insira o nome do proprietario da Casa a adiconar\n(Caso este nome já exista, a nova Casa vai sobrescrever a antiga)");
         System.out.println(sb.toString());
-        String [] args = new String[]{"", "", "",""};
+        String[] args = new String[]{"", "", "", ""};
         Scanner scanner = new Scanner(System.in);
         args[0] = scanner.nextLine();
         System.out.println("=> Insira o NIF");
@@ -211,25 +211,25 @@ public class Menu {
         return args;
     }
 
-    public static void Carregamento(int next){
+    public static void Carregamento(int next) {
         StringBuilder sb = new StringBuilder();
-        if(next==1) {
+        if (next == 1) {
             sb.append("\n\nA carregar dados de ficheiro...\n\n");
-        }else{
+        } else {
             sb.append("\n\nA carregar dados de binário...\n\n");
         }
         System.out.println(sb);
     }
 
-    public static void Mensagem(int mensagem){
-        switch (mensagem){
+    public static void Mensagem(int mensagem) {
+        switch (mensagem) {
             case 1:
                 System.out.println("\nfeitinho, adeus\n");
                 break;
             case 2:
                 System.out.println("\nEstado carregado\n");
                 break;
-                case 3:
+            case 3:
                 System.out.println("\nEstado salvo!!\n");
                 break;
             case 4:
@@ -247,7 +247,7 @@ public class Menu {
 
 
     public static void errors(int mensagem) {
-        switch(mensagem){
+        switch (mensagem) {
             case 1:
                 System.out.println("\n[ERRO] Ficheiro não encontrado\n");
                 break;
@@ -269,23 +269,30 @@ public class Menu {
             case 7:
                 System.out.println("\n[ERRO] A divisao referida nao existe\n");
                 break;
+            case 8:
+                System.out.println("\n[ERRO] O proprietario referido ou a divisao nao existe\n");
+                break;
+            case 9:
+                System.out.println("\n[ERRO] O proprietario referido ou o id nao existe\n");
+                break;
 
         }
 
     }
+
     public static String newRoom() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=> Indique o nome da divisao que pretende adicionar");
         return scanner.next();
     }
 
-    public static String MenuROOM(){
+    public static String MenuROOM() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("=> Pretende adicionar mais divisoes?(S/N)");
         return scanner.next();
     }
 
-    public static int MenuEstadoDevices(){
+    public static int MenuEstadoDevices() {
         StringBuilder sb = new StringBuilder("Escolha uma das opçõs seguintes:\n");
         sb.append("(1)Ligar/Desligar todos os dispositivos de uma casa\n");
         sb.append("(2)Ligar/Desligar todos os dispositivos de uma divisao de uma casa\n");
@@ -296,26 +303,26 @@ public class Menu {
 
     }
 
-    public static String MenuEstadoCasa(){
+    public static String MenuEstadoCasa() {
         System.out.println("\n=> Indique o nome do proprietario da casa\nonde pretende alterar o estado dos respetivos devices");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    public static String MenuEstadoRoom(){
+    public static String MenuEstadoRoom() {
         System.out.println("\n=> Indique o nome da divisao da casa\nonde pretende alterar o estado dos respetivos devices");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
 
-    public static int MenuEstadoID(){
+    public static int MenuEstadoID() {
         System.out.println("\n=> Indique o id do SmartDevice que quer alterar o estado");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
     }
 
-    public static int MenuEstado(){
+    public static int MenuEstado() {
         StringBuilder sb = new StringBuilder("O que petende fazer com os smart devices?\n");
         sb.append("(1) Ligar os Devices\n");
         sb.append("(2) Desligar os Devices\n");
@@ -324,14 +331,30 @@ public class Menu {
         return scanner.nextInt();
     }
 
-    public static String MenuFatura(){
+    public static String MenuFatura() {
         System.out.println("=> Indique o prorpietario da casa onde pretende consultar a Fatura");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    public static void showFatura(Fatura f){
+    public static void showFatura(Fatura f) {
         System.out.println(f.toString());
+    }
+
+    public static long Simulacao(){
+        LocalDate today = now();
+        System.out.print("Data de hoje: ");
+        String formattedDate = today.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG));
+        System.out.println(formattedDate);
+        System.out.print("\nInsira uma data no formato d/MM/yyyy: ");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        Scanner sc = new Scanner(System.in); //System.in is a standard input stream
+        String date = sc.nextLine();
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        long elapsedDays = ChronoUnit.DAYS.between(today, localDate);
+        System.out.print("Dias a simular: ");
+        System.out.println(elapsedDays);
+        return elapsedDays;
     }
 
 }

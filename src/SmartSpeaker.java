@@ -126,7 +126,7 @@ public class SmartSpeaker extends SmartDevice {
         double custo = 1;
         switch (this.marca) {
             case Sony:
-                custo=1.6;
+                custo=2.6;
                 break;
             case JBL:
                 custo=2.3;
@@ -135,7 +135,7 @@ public class SmartSpeaker extends SmartDevice {
                 custo=1.5;
                 break;
             case Philips:
-                custo=1.9;
+                custo=2.9;
                 break;
             case Sennheiser:
                 custo=1.3;
@@ -147,13 +147,13 @@ public class SmartSpeaker extends SmartDevice {
                 custo=2.5;
                 break;
             case BangOlufsen:
-                custo=2.7;
+                custo=1.7;
                 break;
             case BowersWilkins:
                 custo=2.9;
                 break;
             case Marshall:
-                custo=2.1;
+                custo=1.1;
                 break;
             default:
                 custo =1;

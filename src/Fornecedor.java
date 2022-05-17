@@ -21,8 +21,8 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
         Random rand = new Random();
         this.id = "";
-        this.valorbase = rand.nextDouble(1.0,5.0);
-        this.imposto = rand.nextDouble(0.1,2.0);
+        this.valorbase = rand.nextDouble(1.0,3.0);
+        this.imposto = rand.nextDouble(0.1,0.99);
         this.casasAssociadas = new HashMap<>();
 
     }
@@ -38,7 +38,7 @@ public class Fornecedor implements Serializable {
     public Fornecedor(String id) {
         Random rand = new Random();
         this.id = id;
-        this.valorbase = rand.nextDouble(1.0,5.0);
+        this.valorbase = rand.nextDouble(1.0,3.0);
         this.imposto = rand.nextDouble(0.1,0.99);
         this.casasAssociadas = new HashMap<>();
 
@@ -124,10 +124,14 @@ public class Fornecedor implements Serializable {
     }
 
     public double formula(String morada){
-        if(this.casasAssociadas.get(morada).getDevices().size() > 10 ){
-            return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1 + this.imposto)) * 0.9;
+        Random rand = new Random();
+        if(this.casasAssociadas.get(morada).getDevices().size() > rand.nextInt(20,30)){
+            return ((this.valorbase)/2 * this.casasAssociadas.get(morada).getConsumo() * (1.5+ this.imposto)) * 0.9;
         }
-        else return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto) * 0.75);
+        else if(this.casasAssociadas.get(morada).getDevices().size() > rand.nextInt(10,20)){
+            return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto)) * 0.75;
+        }
+        else return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto) * 0.5);
     }
 
 }

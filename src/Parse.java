@@ -81,7 +81,7 @@ public class Parse {
                                 String[] resolucao = argsSplited[0].split("x");
                                 double comp = Double.parseDouble(resolucao[0].substring(1));
                                 double alt = Double.parseDouble(resolucao[1].substring(0,resolucao[1].length()-1));
-                                double resolution = (comp * alt)/100;
+                                double resolution = (comp * alt)/1000;
 
                                 int filesize= Integer.parseInt(argsSplited[1]);
                                 double custo2= Double.parseDouble(argsSplited[2]);

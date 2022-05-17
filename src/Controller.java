@@ -140,53 +140,42 @@ public class Controller {
                     int estado = Menu.MenuEstado();
                     switch (next1) {
                         case 1:
-                            String string = Menu.MenuEstadoCasa();
-                            System.out.println(string);
-                            s.alteraEstadoCasa(string, estado);
+                            try {
+                                String string = Menu.MenuEstadoCasa();
+                                System.out.println(string);
+                                s.alteraEstadoCasa(string, estado);
+                            } catch (ObjectNullException one6){Menu.errors(6);}
                             break;
                         case 2:
-                            String string1 = Menu.MenuEstadoCasa();
-                            String string2 = Menu.MenuEstadoRoom();
-                            s.alteraEstadoRoom(string1, string2, estado);
+                            try {
+                                String string1 = Menu.MenuEstadoCasa();
+                                String string2 = Menu.MenuEstadoRoom();
+                                s.alteraEstadoRoom(string1, string2, estado);
+                            } catch (ObjectNullException one7){Menu.errors(8);}
                             break;
                         case 3:
-                            String string3 = Menu.MenuEstadoCasa();
-                            int id = Menu.MenuEstadoID();
-                            s.alteraEstadoDevice(string3, id, estado);
+                            try {
+                                String string3 = Menu.MenuEstadoCasa();
+                                int id = Menu.MenuEstadoID();
+                                s.alteraEstadoDevice(string3, id, estado);
+                            } catch (ObjectNullException one5){Menu.errors(9);}
                             break;
                         default:
                             break;
 
                     }
-
-
-                    Menu.voltarPress();
                     break;
                 case 10:
                     Menu.MenuSimulacao();
-                    LocalDate today = now();
-                    System.out.println("Data de hoje: ");
-                    String formattedDate = today.format(DateTimeFormatter
-                            .ofLocalizedDate(FormatStyle.LONG));
-                    System.out.println(formattedDate);
-                    System.out.println("\nInsira uma data no formato d/MM/yyyy");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                    Scanner sc = new Scanner(System.in); //System.in is a standard input stream
-                    String date = sc.nextLine();
-                    LocalDate localDate = LocalDate.parse(date, formatter);
-                    long elapsedDays = ChronoUnit.DAYS.between(today, localDate);
-                    System.out.println("Dias a simular: ");
-                    System.out.println(elapsedDays);
-                    //Scanner scanner = new Scanner(System.in);
-                    //int next = scanner.nextInt();
-                    //if(next == 0) Menu.MenuInicial();
-                    //else Menu.parsing(next);
-                    s.makeAllFaturas(elapsedDays);
+                    long days = Menu.Simulacao();
+                    s.makeAllFaturas(days);
                     break;
                 case 11:
-                    String fatura = Menu.MenuFatura();
-                    Menu.showFatura(s.showFaturaCasa(fatura));
-                    Menu.voltarPress();
+                    try{
+                        String fatura = Menu.MenuFatura();
+                        Menu.showFatura(s.showFaturaCasa(fatura));
+                        Menu.voltarPress();
+                    }catch(ObjectNullException one4){Menu.errors(6);}
                 default:
                     Menu.MenuInicial();
             }

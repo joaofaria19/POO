@@ -118,12 +118,12 @@ public class SmartBulb extends SmartDevice {
 
     public String verificaTom(double tom){
         if(tom == 1.5) return "Neutral";
-        else if(tom == 2.5) return "Cold";
-        else return "Warm";
+        else if(tom == 2.5) return "Warm";
+        else return "Cold";
     }
 
     public double consumoEnergetico() {
-        return (2.4)*this.tone*this.consumoDiario;
+        return (3.5)*this.tone*this.consumoDiario;
     }
 }
 
