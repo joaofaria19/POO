@@ -35,7 +35,7 @@ Divisao:Jardim
 SmartCamera:(1024x768),115,0.24
 SmartCamera:(1366x768),56,5.91
 SmartCamera:(1024x768),92,5.00
-Casa:Vasco Manuel Araujo Andrade Oliveira,677908495,YIce
+Casa:Tiago Luis Pereira Ferreira,677908495,YIce
 Divisao:Garagem
 SmartCamera:(1366x768),67,0.14
 SmartCamera:(1920x1080),18,0.28

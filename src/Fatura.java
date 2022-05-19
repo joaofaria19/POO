@@ -1,4 +1,6 @@
-public class Fatura {
+import java.io.Serializable;
+
+public class Fatura implements Serializable {
     private String nomeProprietario;
     private String nomeFornecedor;
     private int NIF;
@@ -83,5 +85,6 @@ public class Fatura {
     public Fatura clone(){
         return new Fatura(this);
     }
+
 
 }

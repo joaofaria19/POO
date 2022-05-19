@@ -8,7 +8,7 @@ public class Sys implements Serializable {
 
     private Map<String,Fornecedor> fornecedores;
     private Map<String,CasaInteligente> casas;
-    private Set<Fatura> faturas;
+    private List<Fatura> faturas;
     private int id;
 
     public Sys(){
@@ -16,7 +16,7 @@ public class Sys implements Serializable {
         this.fornecedores = new HashMap<>();
         this.casas = new HashMap<>();
 
-        this.faturas = new TreeSet<>( new Comparador());
+        this.faturas = new ArrayList<>();
         this.id = 0;
     }
 
@@ -29,7 +29,7 @@ public class Sys implements Serializable {
         for(CasaInteligente casa: listaC.values()){
             this.casas.put(casa.getProprietario(),casa.clone());
         }
-        this.faturas=new TreeSet<>( new Comparador() );
+        this.faturas=new ArrayList<>();
         for(Fatura f: faturas){
             this.faturas.add(f.clone());
         }
@@ -40,7 +40,7 @@ public class Sys implements Serializable {
 
         this.fornecedores = lf.getFornecedores();
         this.casas = lf.getCasas();
-
+        this.faturas = lf.getFaturas();
     }
 
 
@@ -75,16 +75,16 @@ public class Sys implements Serializable {
         }
     }
 
-    public Set<Fatura> getFaturas(){
-        Set<Fatura> res = new TreeSet<>(new Comparador());
+    public List<Fatura> getFaturas(){
+        List<Fatura> res = new ArrayList<>();
         for(Fatura lf : this.faturas){
             res.add(lf.clone());
         }
         return res;
     }
 
-    public void setFaturas(Set<Fatura> res){
-        this.faturas = new TreeSet<>(new Comparador());
+    public void setFaturas(List<Fatura> res){
+        this.faturas = new ArrayList<>();
         for(Fatura f : res){
             this.faturas.add(f.clone());
         }
@@ -320,7 +320,10 @@ public class Sys implements Serializable {
 
     public void existsRoom(String proprietario, String Room) throws ObjectNullException {
         for (CasaInteligente c : this.casas.values()) {
-            if(c.existRoom(Room)) return;
+            if ((c.getProprietario()).equals(proprietario))
+            {
+                if (c.existRoom(Room)) return;
+            }
         }
         throw new ObjectNullException("A divisao que pretende aceder não existe");
     }
@@ -362,13 +365,15 @@ public class Sys implements Serializable {
 
     public Fatura makeFatura(CasaInteligente casa, long dias){
         Fatura f = new Fatura();
-        DecimalFormat frmt = new DecimalFormat();
-        frmt.setMaximumFractionDigits(2);
+        DecimalFormat frmt = new DecimalFormat("0.00");
+
 
         f.setNomeProprietario(casa.getProprietario());
         f.setNomeFornecedor(casa.getNomeF());
         f.setNIF(casa.getNif());
-        f.setPrecoTotal(Double.parseDouble(frmt.format(((dias*casa.getConsumo()))/1000)));
+
+        f.setPrecoTotal(Double.parseDouble(frmt.format(dias* ((this.fornecedores.get(casa.getNomeF())).formula(casa))/100)));
+
         return f;
     }
 
@@ -391,4 +396,55 @@ public class Sys implements Serializable {
         }else throw new ObjectNullException("O proprietario " + casa + "não existe");
         return f;
     }
+
+    public void mudaFornecedor(String[] args) throws ObjectNullException, ObjectEmpty {
+        if(this.casas.containsKey(args[0]) ){
+            if (this.fornecedores.containsKey(args[1])) {
+                CasaInteligente c = this.casas.get(args[0]).clone();
+                Fornecedor f = this.fornecedores.get(args[1]).clone();
+                String sf = c.getNomeF();
+                this.fornecedores.get(sf).removeCasa(c);
+                this.casas.remove(c.getProprietario());
+
+                c.setNomeF(f.getId());
+
+                f.addCasa(c);
+                this.casas.put(c.getProprietario(),c.clone());
+            }else {
+                throw new ObjectNullException("O proprietario " + args[1] + " nao existe");
+            }
+        }
+        else{
+            throw new ObjectEmpty("O proprietario " +args[0]+ " nao existe");
+        }
+    }
+
+    public void ordenaFaturas(List<Fatura> faturas){
+        faturas.sort(Comparator.comparingDouble(Fatura::getPrecoTotal).reversed());
+    }
+
+
+    public void alteraDadosFornecedor(String[] args) throws ObjectNullException {
+        if(this.fornecedores.containsKey(args[0])) {
+            Fornecedor f = this.fornecedores.get(args[0]);
+            this.fornecedores.remove(args[0]);
+            f.setValorbase(Double.parseDouble(args[1]));
+            f.setImposto(Double.parseDouble(args[2]));
+            this.fornecedores.put(args[0], f.clone());
+        }
+        else throw new ObjectNullException("O Fornecedor "+args[0]+" não existe");
+    }
+
+    public List<Fatura> faturasFornecedor(String fornecedor) throws ObjectNullException {
+        if(this.fornecedores.containsKey(fornecedor)) {
+            List<Fatura> res = new ArrayList<>();
+            for (Fatura f : this.faturas) {
+                if ((f.getNomeFornecedor()).equals(fornecedor))
+                    res.add(f.clone());
+            }
+            return res;
+        }
+        else throw new ObjectNullException("O fornecedor "+fornecedor+" não existe");
+    }
+
 }

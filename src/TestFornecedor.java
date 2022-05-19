@@ -61,10 +61,10 @@ public class TestFornecedor {
 
         //forn.setImposto(0.5);
         //forn.setValorbase(1.5);
-        forn.formula("Gualtar");
+        forn.formula(casa1);
 
         //assertTrue(forn != null);
-        assertTrue(forn.formula("Gualtar")!=0.0);
+        assertTrue(forn.formula(casa1)!=0.0);
 
     }
 

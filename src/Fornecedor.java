@@ -85,9 +85,6 @@ public class Fornecedor implements Serializable {
         this.imposto = imposto;
     }
 
-    public double getConsumoCasa(String casa){
-            return this.casasAssociadas.get(casa).getConsumo();
-    }
 
     public boolean equals(Object o){
         if(o==this) return true;
@@ -106,7 +103,7 @@ public class Fornecedor implements Serializable {
                 .append(df.format(this.valorbase)).append("\n")
                 .append(" Imposto: ")
                 .append(df.format(this.imposto)).append("\n")
-                .append("\n\n");
+                .append("\n");
         return sb.toString();
     }
 
@@ -119,19 +116,20 @@ public class Fornecedor implements Serializable {
         this.casasAssociadas.put(casa.getProprietario(),casa.clone());
     }
 
-    public CasaInteligente getCasaByProprietario(String proprietario){
-        return this.casasAssociadas.get(proprietario).clone();
+    public void removeCasa(CasaInteligente casa){
+        this.casasAssociadas.remove(casa.getProprietario());
     }
 
-    public double formula(String morada){
+
+    public double formula(CasaInteligente casa){
         Random rand = new Random();
-        if(this.casasAssociadas.get(morada).getDevices().size() > rand.nextInt(20,30)){
-            return ((this.valorbase)/2 * this.casasAssociadas.get(morada).getConsumo() * (1.5+ this.imposto)) * 0.9;
+        if(casa.getDevices().size() > rand.nextInt(20,30)){
+            return ((this.valorbase)/2 *( casa.getConsumo() )* (1.5+ this.imposto)) * 0.9;
         }
-        else if(this.casasAssociadas.get(morada).getDevices().size() > rand.nextInt(10,20)){
-            return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto)) * 0.75;
+        else if(casa.getDevices().size() > rand.nextInt(10,20)){
+            return (this.valorbase * casa.getConsumo() * (1+this.imposto)) * 0.75;
         }
-        else return (this.valorbase * this.casasAssociadas.get(morada).getConsumo() * (1+this.imposto) * 0.5);
+        else return (this.valorbase * casa.getConsumo() * (1+this.imposto) * 0.5);
     }
 
 }

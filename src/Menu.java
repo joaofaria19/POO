@@ -29,6 +29,10 @@ public class Menu {
         sb.append("# (9)  Ligar ou Desligar dispositivos de uma casa       #\n");
         sb.append("# (10) Iniciar simulação                                #\n");
         sb.append("# (11) Mostrar a Fatura de uma determinada Casa         #\n");
+        sb.append("# (12) Mudar o Fornecedor de uma determinada Casa       #\n");
+        sb.append("# (13) Mostrar a Casa com maior gasto                   #\n");
+        sb.append("# (14) Alterar dados de um Fornecedor                   #\n");
+        sb.append("# (15) Verificar a Faturação de um Fornecedor           #\n");
         sb.append("# (0)  Sair                                             #\n");
         sb.append("#                                                       #\n");
         sb.append("#########################################################\n\n");
@@ -41,7 +45,7 @@ public class Menu {
 
     /* recebe uma Lista de casasInteligentes*/
     public static void MenuShowCasa(List<CasaInteligente> casas) {
-        StringBuilder sb = new StringBuilder("---------CASAS EXISTENTES ----------\n");
+        StringBuilder sb = new StringBuilder("------------------------------------------------- CASAS EXISTENTES ---------------------------------------------------------------------\n");
         for (CasaInteligente casa : casas) {
             sb.append(casa.toString());
         }
@@ -51,7 +55,7 @@ public class Menu {
 
     /* recebe uma lista de fornecedores*/
     public static void MenuShowFornecedor(List<Fornecedor> fornecedores) {
-        StringBuilder sb = new StringBuilder("---------FORNECEDORES EXISTENTES ----------\n");
+        StringBuilder sb = new StringBuilder("------------ FORNECEDORES EXISTENTES --------- ------\n");
         for (Fornecedor f : fornecedores) {
             sb.append(f.toString());
         }
@@ -66,7 +70,7 @@ public class Menu {
     }
 
     public static void MenuShowCasasAssociadas(String fornecedor, List<CasaInteligente> casas) {
-        StringBuilder sb = new StringBuilder("---------CASAS ASSOCIADAS----------");
+        StringBuilder sb = new StringBuilder("---------------------------------------------- CASAS ASSOCIADAS --------------------------------------------------\n");
         sb.append("\n[Fornecedor] : ").append(fornecedor);
         if (casas.isEmpty()) {
             System.out.println("Este Fornecedor não existe ou ainda não tem casas associadas\n\n(0)Voltar");
@@ -80,27 +84,14 @@ public class Menu {
 
     }
 
-
     public static void voltarPress() {
         System.out.println("\n(0)Voltar\n");
         Scanner scanner = new Scanner(System.in);
         int next = scanner.nextInt();
     }
 
-    public static void MensagemOpcaoInvalida() {
-        System.out.println("Insira uma opção válida\n");
-    }
-
-    public static void MensagemNoCasas() {
-        System.out.println("Ainda não existem casas\n\n");
-    }
-
-    public static void MensagemNoFornecedores() {
-        System.out.println("Ainda não existem Fornecedores\n\n");
-    }
-
     public static int MenuOpcaoCarregamento() {
-        StringBuilder sb = new StringBuilder("O que pretende?\n\n(1) Carregar ficheiro de texto\n(2) Carregar ficheiro binário\n(0)Voltar");
+        StringBuilder sb = new StringBuilder("O que pretende?\n\n(1) Carregar ficheiro de texto\n(2) Carregar ficheiro binário\n");
         System.out.println(sb);
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
@@ -108,7 +99,7 @@ public class Menu {
     }
 
     public static void MenuSimulacao() {
-        StringBuilder sb = new StringBuilder("\n----------------MENU SIMULACAO--------------\n\n");
+        StringBuilder sb = new StringBuilder("\n---------------------- MENU SIMULACAO ---------------------\n\n");
 
     }
 
@@ -215,31 +206,45 @@ public class Menu {
         StringBuilder sb = new StringBuilder();
         if (next == 1) {
             sb.append("\n\nA carregar dados de ficheiro...\n\n");
-        } else {
+        } else if(next == 2){
             sb.append("\n\nA carregar dados de binário...\n\n");
-        }
+        }else return;
         System.out.println(sb);
     }
 
     public static void Mensagem(int mensagem) {
         switch (mensagem) {
             case 1:
-                System.out.println("\nfeitinho, adeus\n");
+                System.out.println("\n### Feitinho, adeus ###\n");
                 break;
             case 2:
-                System.out.println("\nEstado carregado\n");
+                System.out.println("\n### Estado carregado ###\n");
                 break;
             case 3:
-                System.out.println("\nEstado salvo!!\n");
+                System.out.println("\n### Estado salvo!! ###\n");
                 break;
             case 4:
-                System.out.println("\nCasa adicionada com sucesso\n");
+                System.out.println("\n### Casa adicionada com sucesso ###\n");
                 break;
             case 5:
-                System.out.println("\nFornecedor adicionado com sucesso\n");
+                System.out.println("\n### Fornecedor adicionado com sucesso ###\n");
+                break;
+            case 6:
+                System.out.println("\n### Devices Ligados ###\n");
+                break;
+            case 7:
+                System.out.println("\n### Devices Desligados ###\n");
                 break;
 
-
+            case 8:
+                System.out.println("\n### Simulação concluida ###\n");
+                break;
+            case 9:
+                System.out.println("\n### Fornecedor mudado ###\n");
+                break;
+            case 10:
+                System.out.println("\n### Dados Atualizados ###\n");
+                break;
             default:
                 break;
         }
@@ -303,6 +308,31 @@ public class Menu {
 
     }
 
+    public static String[] MenuFornecedorCasa() {
+        String[] s = new String[] {"",""};
+        System.out.println("\n=> Indique o nome do proprietario da casa\nonde pretende alterar o fornecedor dos respetivos devices");
+        Scanner scanner = new Scanner(System.in);
+        s[0] = scanner.nextLine();
+        System.out.println("=> Insira o novo Fornecedor");
+        s[1] = scanner.nextLine();
+        return s;
+    }
+
+    public static String[] MenuAlteraDadosFornecedor() {
+        String[] s = new String[] {"","",""};
+        System.out.println("\n=> Indique o fornecedor que pretende alterar os dados");
+        Scanner scanner = new Scanner(System.in);
+        s[0] = scanner.nextLine();
+        System.out.println("=> Insira o novo Valor Base(kWh)");
+        s[1] = scanner.nextLine();
+        System.out.println("=> Insira o novo Valor de Imposto(%)");
+        s[2] = scanner.nextLine();
+
+        return s;
+    }
+
+
+
     public static String MenuEstadoCasa() {
         System.out.println("\n=> Indique o nome do proprietario da casa\nonde pretende alterar o estado dos respetivos devices");
         Scanner scanner = new Scanner(System.in);
@@ -356,6 +386,28 @@ public class Menu {
         System.out.println(elapsedDays);
         return elapsedDays;
     }
+
+    public static void CasaMaisCara(Fatura f){
+        StringBuilder sb = new StringBuilder("\nA casa que mais gastou pertencente ao proprietário: ");
+        sb.append(f.getNomeProprietario());
+        System.out.println(sb);
+        System.out.println(f);
+    }
+
+    public static String FaturasFornecedor(){
+        System.out.println("=> Indique o fornecedor do qual pretende obter as faturas:");
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static void printFaturasList(List<Fatura> lf){
+        StringBuilder sb = new StringBuilder("------------------- LISTA DE FATURAS ----------------\n\n");
+        for(Fatura f:lf){
+            sb.append(f);
+        }
+        System.out.println(sb);
+    }
+
 
 }
 

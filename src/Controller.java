@@ -19,7 +19,7 @@ public class Controller {
         Sys s = new Sys();
         while (true) {
             int opcao = -1;
-            while (opcao < 0 || opcao > 11) {
+            while (opcao < 0 || opcao > 15) {
 
                 opcao = Menu.MenuInicial();
             }
@@ -164,11 +164,14 @@ public class Controller {
                             break;
 
                     }
+                    if(estado==1) Menu.Mensagem(6);
+                    else Menu.Mensagem(7);
                     break;
                 case 10:
                     Menu.MenuSimulacao();
                     long days = Menu.Simulacao();
                     s.makeAllFaturas(days);
+                    Menu.Mensagem(8);
                     break;
                 case 11:
                     try{
@@ -176,8 +179,39 @@ public class Controller {
                         Menu.showFatura(s.showFaturaCasa(fatura));
                         Menu.voltarPress();
                     }catch(ObjectNullException one4){Menu.errors(6);}
-                default:
+                case 12:
+                    try{
+                        String[] args = Menu.MenuFornecedorCasa();
+                        s.mudaFornecedor(args);
+                        Menu.Mensagem(9);
+                    }
+                    catch(ObjectNullException one6){Menu.errors(6);}
+                    catch(ObjectEmpty oe6){Menu.errors(2); }
+                    break;
+                case 13:
+                    List<Fatura> fl = s.getFaturas();
+                    s.ordenaFaturas(fl);
+                    Menu.CasaMaisCara(fl.get(0));
+                    Menu.voltarPress();
+                    break;
+                case 14:
+                    try {
+                        String[] args = Menu.MenuAlteraDadosFornecedor();
+                        s.alteraDadosFornecedor(args);
+                        Menu.Mensagem(10);
+                    }catch(ObjectNullException one7) {Menu.errors(2);}
+                    break;
+                case 15:
+                    try{
+                        String ff = Menu.FaturasFornecedor();
+                        List<Fatura> lf2= s.faturasFornecedor(ff);
+                        Menu.printFaturasList(lf2);
+                        Menu.voltarPress();
+                    }catch(ObjectNullException one8) {Menu.errors(2);}
+                    break;
+                    default:
                     Menu.MenuInicial();
+
             }
 
         }
