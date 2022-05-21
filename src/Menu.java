@@ -25,7 +25,7 @@ public class Menu {
         sb.append("# (5)  Verificar Casas Associadas a um Fornecedor       #\n");
         sb.append("# (6)  Registar um novo Fornecedor                      #\n");
         sb.append("# (7)  Registar uma nova Casa                           #\n");
-        sb.append("# (8)  Adicionar um Samart Device a uma Casa existente  #\n");
+        sb.append("# (8)  Adicionar um Smart Device a uma Casa existente  #\n");
         sb.append("# (9)  Ligar ou Desligar dispositivos de uma casa       #\n");
         sb.append("# (10) Iniciar simulação                                #\n");
         sb.append("# (11) Mostrar a Fatura de uma determinada Casa         #\n");
@@ -108,13 +108,13 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o nome do Proprietario da casa onde pretende adicionar o Smart Device");
-        return scanner.nextLine();
+        return scanner.next();
     }
 
     public static String MenuAddDeviceR() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique a divisao da casa onde pretende adicionar o Smart Device");
-        return scanner.nextLine();
+        return scanner.next();
     }
 
 

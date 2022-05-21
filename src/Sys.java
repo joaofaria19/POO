@@ -372,7 +372,9 @@ public class Sys implements Serializable {
         f.setNomeFornecedor(casa.getNomeF());
         f.setNIF(casa.getNif());
 
-        f.setPrecoTotal(Double.parseDouble(frmt.format(dias* ((this.fornecedores.get(casa.getNomeF())).formula(casa))/100)));
+        double precofinal = (dias*((this.fornecedores.get(casa.getNomeF())).formula(casa))/100);
+        double precofinalr = Math.round(precofinal*100.0)/100.0;
+        f.setPrecoTotal(precofinalr);
 
         return f;
     }
