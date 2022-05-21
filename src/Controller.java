@@ -137,8 +137,9 @@ public class Controller {
 
                 case 9:
                     // Ligar/Desligar SmartDevices
-                    int next1 = Menu.MenuEstadoDevices();
                     int estado = Menu.MenuEstado();
+                    int next1 = Menu.MenuEstadoDevices();
+
                     switch (next1) {
                         case 1:
                             try {
@@ -182,6 +183,7 @@ public class Controller {
                         Menu.showFatura(s.showFaturaCasa(fatura));
                         Menu.voltarPress();
                     }catch(ObjectNullException one4){Menu.errors(6);}
+                    break;
                 case 12:
                     // Mudar o Fornecedor de uma casa
                     try{
