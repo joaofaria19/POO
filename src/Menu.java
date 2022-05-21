@@ -108,13 +108,13 @@ public class Menu {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique o nome do Proprietario da casa onde pretende adicionar o Smart Device");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public static String MenuAddDeviceR() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n=> Indique a divisao da casa onde pretende adicionar o Smart Device");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
 

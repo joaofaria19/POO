@@ -313,7 +313,7 @@ public class Sys implements Serializable {
     }
 
     public void existsProprietario(String proprietario) throws ObjectEmpty {
-        if(this.casas.containsKey(proprietario)) {
+        if(this.casas.containsKey(proprietario)) { return;
         }
         else throw new ObjectEmpty("O proprietario não existe");
     }

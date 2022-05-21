@@ -131,7 +131,7 @@ public class Controller {
                                 break;
                         }
                     }
-                    catch(ObjectEmpty oe3){Menu.errors(6);}
+                    //catch(ObjectEmpty oe3){Menu.errors(6);}
                     catch(ObjectNullException one3){Menu.errors(7);}
                     break;
 
