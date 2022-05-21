@@ -3,6 +3,9 @@ public class SmartCamera extends SmartDevice{
     private int fileSize;
     private double consumoDiario;
 
+    /*
+     * Construtor vazio;
+     */
     public SmartCamera(){
         super();
         this.fileSize=0;
@@ -10,7 +13,9 @@ public class SmartCamera extends SmartDevice{
         this.consumoDiario=0.0;
     }
 
-    // Construtor opcional para apenas construir a SmartCamera com o seu respetivo id;
+    /*
+    * Construtor adicional;
+    */
     public SmartCamera(int id){
         super(id);
         this.fileSize=0;
@@ -18,14 +23,18 @@ public class SmartCamera extends SmartDevice{
         this.consumoDiario=0.0;
 
     }
-
+    /*
+     * Construtor parametrizavel;
+     */
     public SmartCamera(int id,double resolution,int fileSize,double consumoDiario){
         super(id);
         this.fileSize=fileSize;
         this.resolution=resolution;
         this.consumoDiario=consumoDiario;
     }
-
+    /*
+     * Construtor de cópia;
+     */
     public SmartCamera(SmartCamera sc){
         super(sc);
         this.fileSize=sc.getFileSize();

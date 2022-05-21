@@ -12,12 +12,11 @@ public class CasaInteligente implements Serializable {
     private Map<String, List<Integer>> locations; // String: Divisão | Lista: codigo dos devices
     private int nif;
     private String nomeF;
-    //private List<String> rooms; // lista com todas as divisões da casa
+
     /**
      * Constructor vazio
      */
     public CasaInteligente() {
-        // initialise instance variables
         this.proprietario = "";
         this.devices = new HashMap();
         this.locations = new HashMap();
@@ -28,9 +27,7 @@ public class CasaInteligente implements Serializable {
     /*
      * Construtor Parametrizavel
      * */
-
     public CasaInteligente(String proprietario, HashMap<String,SmartDevice> mydevices, HashMap<String,List<Integer>> mylocations, int nif, String nome) {
-        // initialise instance variables
         this.proprietario = proprietario;
         this.devices = new HashMap();
         for(SmartDevice sd : mydevices.values()){
@@ -109,15 +106,6 @@ public class CasaInteligente implements Serializable {
 
 
     /*
-     * Método para ligar um certo dispositivo
-     * s- Identificador do SmartDevice
-     * */
-    public void setDeviceOn(int s) {
-        this.devices.get(s).turnOn();
-    }
-
-
-    /*
      * Método para adicionar um novo SmartDevice
      * */
     public void addDevice(SmartDevice s) {
@@ -180,7 +168,6 @@ public class CasaInteligente implements Serializable {
     }
 
 
-
     /*
      *Método que liga todos os SmartDevices
      */
@@ -189,6 +176,10 @@ public class CasaInteligente implements Serializable {
             sd.turnOn();
         }
     }
+
+    /*
+     *Método que desliga todos os SmartDevices
+     */
 
     public void setAllOff() {
         for(SmartDevice sd : this.devices.values()){
@@ -207,7 +198,7 @@ public class CasaInteligente implements Serializable {
     }
 
     /*
-     * Método para acrescentar uma divisao nova a CasaInteligente
+     * Método para acrescentar uma nova divisao a CasaInteligente
      */
     public void addRoom(String room) {
         List<Integer> list = new ArrayList<>();
@@ -231,7 +222,6 @@ public class CasaInteligente implements Serializable {
             addRoom(room);
         }
         this.locations.get(room).add(SmartDevice);
-        //addDevice(.clone());
     }
 
     /*
@@ -241,15 +231,11 @@ public class CasaInteligente implements Serializable {
         return this.locations.get(room).contains(SmartDevice);
     }
 
-    public Set<SmartDevice> getAllDevices(){
-            return new HashSet<>(this.devices.values());
-    }
-
 
     /*
      * Método para obter o consumo total de uma divisão
      *
-     * ATENÇAO => Perguntar se o encapsulamento é violado neste caso*/
+     **/
     public double getConsumoRoom(String room){
         double res=0;
         for(Integer s: this.locations.get(room)){
@@ -259,10 +245,10 @@ public class CasaInteligente implements Serializable {
         }
         return res;
     }
+
     /*
     * Método para obter o consumo total de uma casa
     * */
-
     public double getConsumo(){
         double res = 0.0;
         for(SmartDevice sd : this.devices.values()) {

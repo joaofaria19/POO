@@ -28,17 +28,19 @@ public class SmartBulb extends SmartDevice {
     private double dimensao;
     private double consumoDiario;
 
-    /**
-     * Constructor for objects of class SmartBulb
+    /*
+     * Construtor vazio;
      */
     public SmartBulb() {
-        // initialise instance variables
         super();
         this.tone = NEUTRAL;
         this.dimensao = 0.0;
         this.consumoDiario = 0.0;
     }
 
+    /*
+     * Construtor parametrizavel;
+     */
     public SmartBulb(int id, double tone, double dimensao, double consumoDiario) {
 
         super(id);
@@ -47,6 +49,9 @@ public class SmartBulb extends SmartDevice {
         this.consumoDiario = consumoDiario;
     }
 
+    /*
+     * Construtor adicional;
+     */
     public SmartBulb(int id) {
 
         super(id);
@@ -56,6 +61,9 @@ public class SmartBulb extends SmartDevice {
 
     }
 
+    /*
+     * Construtor de cópia;
+     */
     public SmartBulb(SmartBulb b) {
 
         super(b);

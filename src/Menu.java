@@ -33,6 +33,7 @@ public class Menu {
         sb.append("# (13) Mostrar a Casa com maior gasto                   #\n");
         sb.append("# (14) Alterar dados de um Fornecedor                   #\n");
         sb.append("# (15) Verificar a Faturação de um Fornecedor           #\n");
+        sb.append("#                                                       #\n");
         sb.append("# (0)  Sair                                             #\n");
         sb.append("#                                                       #\n");
         sb.append("#########################################################\n\n");

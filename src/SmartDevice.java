@@ -10,37 +10,33 @@ public abstract class SmartDevice implements Serializable {
     private Integer id; // código identificador do SmartDevice
     private Modo mode; // identificador se o device se encontra desligado(false) ou ligado(true)
 
-    /* Para quando precisarmos de verificar o consumo energético de um smartDevice
-        public void turnOn(){
-        this.mode=true;
-        this.instanteOn = System.currentTimeMillis();
-    }
-
-    public void turnOff(){
-        long now = System.currentTimeMillis();
-        long period = now-this.instanteOn;
-        totalConsumo += period*this.consumo;
-        periodoConsumo += period*this.consumo;
-    }
-
-    */
     /**
-     * Constructor for objects of class SmartDevice
+     * Constructor vazio
      */
     public SmartDevice() {
         this.id = 0;
         this.mode = Modo.OFF;
     }
+
+    /**
+     * Constructor adicional
+     */
     public SmartDevice(Integer d){
         this.id = d;
         this.mode = Modo.OFF;
     }
 
+    /**
+     * Constructor parametrizavel
+     */
     public SmartDevice(Integer d, Modo estado) {
         this.id = d;
         this.mode = estado;
     }
 
+    /**
+     * Constructor de cópia
+     */
     public SmartDevice(SmartDevice o) {
         this.id = o.getID();
         this.mode = o.getMode();

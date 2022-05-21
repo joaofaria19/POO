@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Parse {
 
     public static void parsing(int next,Sys s) throws IOException, ObjectNullException, ClassNotFoundException {
-        //Map<String,Fornecedor> fornecedores = new HashMap<>();
+
         if(next ==1) {
             try (Scanner scanner = new Scanner(new File("Logs.txt"));) {
                 scanner.useDelimiter("\n:");

@@ -1,5 +1,6 @@
 public class ObjectEmpty extends Exception{
-    public  ObjectEmpty(String message){
+    public ObjectEmpty() {}
+    public ObjectEmpty(String message){
         super(message);
     }
 }

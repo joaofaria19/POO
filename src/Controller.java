@@ -44,7 +44,7 @@ public class Controller {
 
                     break;
                 case 2:
-
+                    // Guardar dados
                     try {
                         s.guardaEstado();
                         Menu.Mensagem(3);
@@ -54,7 +54,7 @@ public class Controller {
                     break;
 
                 case 3:
-
+                    // Verificar Fornecedores existentes
                     try {
                         List<Fornecedor> l = new ArrayList<>();
                         l = s.getListFornecedor();
@@ -66,7 +66,7 @@ public class Controller {
                     break;
 
                 case 4:
-
+                    // Verificar Casas Inteligentes
                     try {
                         List<CasaInteligente> casas5 = new ArrayList<>();
                         casas5 = s.getListCasas();
@@ -77,7 +77,7 @@ public class Controller {
                     }
                     break;
                 case 5:
-
+                    // Verificar as Casas Associadas a um Fornecedor
                     try {
                         String fornecedor = Menu.MenuShowFornecedorCasas();
                         List<CasaInteligente> casas1 = s.getCasasAssociadas(fornecedor);
@@ -90,14 +90,14 @@ public class Controller {
                     break;
 
                 case 6:
-
+                    // Criar um novo Fornecedor
                     String[] novoFornecedor = Menu.MenuNovoFornecedor();
                     s.novoFornecedor(novoFornecedor);
                     Menu.Mensagem(5);
                     break;
 
                 case 7:
-
+                    // Criar uma nova Casa
                     String[] novaCasa = Menu.MenuNovaCasa();
                     s.novaCasa(novaCasa);
                     System.out.println(novaCasa[0]);
@@ -105,6 +105,7 @@ public class Controller {
                     break;
 
                 case 8:
+                    // Adicionar um SmartDevice a uma casa
                     try {
                         CasaInteligente casa = new CasaInteligente();
                         String cr1 = Menu.MenuAddDeviceC();
@@ -135,7 +136,7 @@ public class Controller {
                     break;
 
                 case 9:
-
+                    // Ligar/Desligar SmartDevices
                     int next1 = Menu.MenuEstadoDevices();
                     int estado = Menu.MenuEstado();
                     switch (next1) {
@@ -168,18 +169,21 @@ public class Controller {
                     else Menu.Mensagem(7);
                     break;
                 case 10:
+                    // Iniciar Simulação
                     Menu.MenuSimulacao();
                     long days = Menu.Simulacao();
                     s.makeAllFaturas(days);
                     Menu.Mensagem(8);
                     break;
                 case 11:
+                    // Fatura da Casa
                     try{
                         String fatura = Menu.MenuFatura();
                         Menu.showFatura(s.showFaturaCasa(fatura));
                         Menu.voltarPress();
                     }catch(ObjectNullException one4){Menu.errors(6);}
                 case 12:
+                    // Mudar o Fornecedor de uma casa
                     try{
                         String[] args = Menu.MenuFornecedorCasa();
                         s.mudaFornecedor(args);
@@ -189,12 +193,14 @@ public class Controller {
                     catch(ObjectEmpty oe6){Menu.errors(2); }
                     break;
                 case 13:
+                    // Casa com maior gasto
                     List<Fatura> fl = s.getFaturas();
                     s.ordenaFaturas(fl);
                     Menu.CasaMaisCara(fl.get(0));
                     Menu.voltarPress();
                     break;
                 case 14:
+                    // Alterar dados de um Fornecedor
                     try {
                         String[] args = Menu.MenuAlteraDadosFornecedor();
                         s.alteraDadosFornecedor(args);
@@ -202,6 +208,7 @@ public class Controller {
                     }catch(ObjectNullException one7) {Menu.errors(2);}
                     break;
                 case 15:
+                    // Verificar Faturação de um Fornecedor
                     try{
                         String ff = Menu.FaturasFornecedor();
                         List<Fatura> lf2= s.faturasFornecedor(ff);

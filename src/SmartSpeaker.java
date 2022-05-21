@@ -31,29 +31,30 @@ public class SmartSpeaker extends SmartDevice {
     private Marca marca;
     private double consumoDiario;
 
-    /**
-     * Constructor for objects of class SmartSpeaker
+    /*
+     * Construtor vazio;
      */
     public SmartSpeaker() {
-        // initialise instance variables
         super();
         this.volume = 0;
         this.channel = "";
         this.marca = Marca.NULL;
         this.consumoDiario = 0.0;
     }
-
+    /*
+     * Construtor adicional;
+     */
     public SmartSpeaker(int canal) {
-        // initialise instance variables
         super(canal);
         this.volume = 0;
         this.channel = "";
         this.marca = Marca.NULL;
         this.consumoDiario = 0.0;
     }
-
+    /*
+     * Construtor parametrizavel;
+     */
     public SmartSpeaker(int cod, int volume, String channel, Marca marca,double consumoDiario) {
-        // initialise instance variables
         super(cod);
         // verificar se o volume fornecido é positivo
         this.volume = Math.max(volume, 0);
@@ -61,7 +62,9 @@ public class SmartSpeaker extends SmartDevice {
         this.marca = marca;
         this.consumoDiario = consumoDiario;
     }
-
+    /*
+     * Construtor de cópia
+     */
     public SmartSpeaker(SmartSpeaker ssp){
         super(ssp);
         this.volume = ssp.getVolume();
